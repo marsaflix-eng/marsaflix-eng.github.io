@@ -3,9 +3,10 @@
  */
 (function () {
   "use strict";
+  var VER = "4";
   function loadAnonJs() {
     var s = document.createElement("script");
-    s.src = "js/anon.js";
+    s.src = "js/anon.js?v=" + VER;
     s.defer = true;
     document.body.appendChild(s);
   }
@@ -14,7 +15,7 @@
     loadAnonJs();
     return;
   }
-  fetch("anon-panels.html", { credentials: "same-origin" })
+  fetch("anon-panels.html?v=" + VER, { credentials: "same-origin" })
     .then(function (r) {
       if (!r.ok) throw new Error("panels");
       return r.text();
