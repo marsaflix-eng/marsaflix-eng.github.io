@@ -1,1 +1,540 @@
-!function(){"use strict";var e=window.MARCA_CONFIG;if(e){var t={view:"home",catalogProduct:null,plan:null,username:"",followed:!1,agreedPayment:!1},n=/^[A-Za-z0-9._-]{3,15}$/,a={progressWrap:document.getElementById("progress-wrap"),progressFill:document.getElementById("progress-fill"),progressSteps:document.querySelectorAll("[data-progress-step]"),panels:{home:document.getElementById("panel-home"),plans:document.getElementById("panel-plans"),username:document.getElementById("panel-username"),follow:document.getElementById("panel-follow"),payment:document.getElementById("panel-payment")},productGrid:document.getElementById("product-grid"),plansGrid:document.getElementById("plans-grid"),usernameInput:document.getElementById("snap-username"),usernameError:document.getElementById("username-error"),summaries:document.querySelectorAll("[data-selected-summary]"),followCheck:document.getElementById("check-followed"),paymentCheck:document.getElementById("check-payment"),snapFollowLink:document.getElementById("snap-follow-link"),btnUserNext:document.getElementById("btn-username-next"),btnFollowNext:document.getElementById("btn-follow-next"),btnWhatsApp:document.getElementById("btn-whatsapp"),backButtons:document.querySelectorAll("[data-back]"),homeButtons:document.querySelectorAll("[data-home]")};"loading"===document.readyState?document.addEventListener("DOMContentLoaded",E):E()}else console.error("MARCA_CONFIG missing");function r(e,t){e&&(e.textContent=null==t?"":String(t))}function l(e){var t=function(e){var t=String(null==e?"":e).trim();return"@"===t.charAt(0)&&(t=t.slice(1)),t.trim()}(e);return t?/[<>"'`\\;\x00-\x1f\x7f]/.test(t)?{ok:!1,value:t,error:"اسم المستخدم يحتوي على رموز غير مسموحة."}:n.test(t)?{ok:!0,value:t,error:""}:{ok:!1,value:t,error:"اسم المستخدم غير صالح (3–15 حرفًا: حروف أو أرقام أو . _ -)."}:{ok:!1,value:"",error:"يرجى إدخال اسم مستخدم سناب شات."}}function o(t){return String(t)+" "+e.CURRENCY+" ("+e.CURRENCY_CODE+")"}function s(){var n,a=String(e.WHATSAPP_E164).replace(/\D/g,""),r=(n=t.plan,["السلام عليكم،","أريد طلب اشتراك سناب شات بلس من متجر "+(e.STORE_NAME||"Marça")+":","","• الباقة: "+n.nameAr+" ("+n.nameEn+")","• السعر: "+o(n.price),"• اسم المستخدم على سناب: @"+t.username,"• تأكيد المتابعة: تابعت حسابكم ✓","• تأكيد الدفع: أوافق على الدفع فقط عبر بنكيلي (Bankily) — لا Gimtel ولا طرف ثالث ✓","","شكرًا لكم."].join("\n"));return"https://wa.me/"+a+"?text="+encodeURIComponent(r)}function c(e){t.view=e,Object.keys(a.panels).forEach((function(t){var n=a.panels[t];n&&(t===e?(n.classList.add("active"),n.setAttribute("aria-hidden","false")):(n.classList.remove("active"),n.setAttribute("aria-hidden","true")))})),function(){var e={username:0,follow:1,payment:2};if(t.view in e){a.progressWrap.classList.add("visible");var n=e[t.view],r=(n+1)/3*100;a.progressFill.style.width=r+"%",a.progressSteps.forEach((function(e){var t=parseInt(e.getAttribute("data-progress-step"),10);e.classList.remove("active","done"),t<n?e.classList.add("done"):t===n&&e.classList.add("active")}))}else a.progressWrap.classList.remove("visible")}(),function(){if(!t.plan)return;var e=t.plan.nameAr+" — "+o(t.plan.price);a.summaries.forEach((function(t){var n=t.querySelector("strong");r(n||t,e)}))}(),window.scrollTo({top:0,behavior:"smooth"})}function d(){t.catalogProduct=null,t.plan=null,t.username="",t.followed=!1,t.agreedPayment=!1,a.followCheck&&(a.followCheck.checked=!1),a.paymentCheck&&(a.paymentCheck.checked=!1),a.usernameInput&&(a.usernameInput.value="",a.usernameInput.classList.remove("invalid")),r(a.usernameError,""),a.btnUserNext&&(a.btnUserNext.disabled=!0),h(),b(),c("home")}function i(){var n=a.productGrid;if(n){for(;n.firstChild;)n.removeChild(n.firstChild);(e.PRODUCTS||[]).forEach((function(l){var o=document.createElement("button");if(o.type="button",o.className="product-card"+(l.featured?" featured":""),o.setAttribute("data-product-id",l.id),o.setAttribute("role","listitem"),o.setAttribute("aria-label","اختر "+l.nameAr+" — "+(l.shortAr||l.nameEn)),l.badge){var s=document.createElement("span");s.className="product-badge",r(s,l.badge),o.appendChild(s)}var d=document.createElement("div");d.className="product-icon",d.appendChild(function(e){var t=document.createElementNS("http://www.w3.org/2000/svg","svg");t.setAttribute("viewBox","0 0 48 48"),t.setAttribute("class","product-icon-svg"),t.setAttribute("aria-hidden","true");var n=document.createElementNS("http://www.w3.org/2000/svg","path");return"snap"===e?n.setAttribute("d","M24 6l2.4 7.2H34l-6 4.4 2.3 7.2L24 20.4l-6.3 4.4 2.3-7.2-6-4.4h7.6L24 6zm0 20c6.6 0 12 3.6 12 8v4H12v-4c0-4.4 5.4-8 12-8z"):n.setAttribute("d","M12 14h24v4H12v-4zm0 8h24v16H12V22zm4 4v8h4v-8h-4zm8 0v8h4v-8h-4z"),n.setAttribute("fill","currentColor"),t.appendChild(n),t}(l.icon||"default")),o.appendChild(d);var i=document.createElement("span");i.className="product-category",r(i,l.categoryAr||l.category||""),o.appendChild(i);var p=document.createElement("h3");p.className="product-title",r(p,l.nameAr),o.appendChild(p);var m=document.createElement("p");m.className="product-name-en",r(m,l.nameEn),o.appendChild(m);var f=document.createElement("p");if(f.className="product-desc",r(f,l.shortAr||""),o.appendChild(f),l.plans&&l.plans.length){for(var v=l.plans[0].price,g=1;g<l.plans.length;g++)l.plans[g].price<v&&(v=l.plans[g].price);var E=document.createElement("p");E.className="product-from",r(E,"من "+String(v)+" "+e.CURRENCY_CODE),o.appendChild(E)}var C=document.createElement("span");C.className="product-cta",r(C,"عرض الباقات"),o.appendChild(C),o.addEventListener("click",(function(){!function(n){var r=function(t){for(var n=e.PRODUCTS||[],a=0;a<n.length;a++)if(n[a].id===t)return n[a];return null}(n);if(!r)return;t.catalogProduct=r,t.plan=null,t.followed=!1,t.agreedPayment=!1,a.followCheck&&(a.followCheck.checked=!1);a.paymentCheck&&(a.paymentCheck.checked=!1);h(),b(),r.flow,u(r),c("plans")}(l.id)})),n.appendChild(o)}))}}function u(n){var l=a.plansGrid;if(l){for(;l.firstChild;)l.removeChild(l.firstChild);(n&&n.plans||[]).forEach((function(n){var s=document.createElement("button");if(s.type="button",s.className="plan-card"+(n.highlight?" featured":""),s.setAttribute("data-plan-id",n.id),s.setAttribute("aria-label","اختر باقة "+n.nameAr+" بسعر "+o(n.price)),n.badge){var d=document.createElement("span");d.className="plan-badge",r(d,n.badge),s.appendChild(d)}var i=document.createElement("div");i.className="plan-duration",r(i,n.nameAr),s.appendChild(i);var u=document.createElement("div");u.className="plan-price";var p=document.createElement("span");p.className="plan-price-value",r(p,String(n.price));var m=document.createElement("span");m.className="plan-price-currency",r(m,e.CURRENCY+" · "+e.CURRENCY_CODE),u.appendChild(p),u.appendChild(m),s.appendChild(u);var f=document.createElement("span");f.className="plan-cta",r(f,"اختر هذه الباقة"),s.appendChild(f),s.addEventListener("click",(function(){!function(e){if(!t.catalogProduct)return;var n=function(e,t){if(!e||!e.plans)return null;for(var n=0;n<e.plans.length;n++)if(e.plans[n].id===t)return e.plans[n];return null}(t.catalogProduct,e);if(!n)return;t.plan=n,t.followed=!1,t.agreedPayment=!1,a.followCheck&&(a.followCheck.checked=!1);a.paymentCheck&&(a.paymentCheck.checked=!1);h(),b(),c("username"),a.usernameInput&&a.usernameInput.focus()}(n.id)})),l.appendChild(s)}))}}function p(){var e=a.usernameInput.value,t=l(e);a.usernameInput.classList&&(e&&!t.ok?a.usernameInput.classList.add("invalid"):a.usernameInput.classList.remove("invalid")),r(a.usernameError,t.error||""),a.btnUserNext.disabled=!t.ok}function m(){var e=l(a.usernameInput.value);if(!e.ok)return r(a.usernameError,e.error),a.usernameInput.classList.add("invalid"),void a.usernameInput.focus();t.username=e.value,a.usernameInput.value=e.value,a.usernameInput.classList.remove("invalid"),r(a.usernameError,""),c("follow")}function h(){t.followed=!(!a.followCheck||!a.followCheck.checked),a.btnFollowNext&&(a.btnFollowNext.disabled=!t.followed)}function f(){a.followCheck&&a.followCheck.checked?(t.followed=!0,c("payment")):h()}function v(e){a.btnWhatsApp&&(e?(a.btnWhatsApp.classList.remove("is-disabled"),a.btnWhatsApp.setAttribute("aria-disabled","false"),a.btnWhatsApp.setAttribute("href",s()),a.btnWhatsApp.removeAttribute("tabindex")):(a.btnWhatsApp.classList.add("is-disabled"),a.btnWhatsApp.setAttribute("aria-disabled","true"),a.btnWhatsApp.removeAttribute("href"),a.btnWhatsApp.setAttribute("tabindex","-1")))}function b(){t.agreedPayment=!(!a.paymentCheck||!a.paymentCheck.checked),v(!!(t.agreedPayment&&t.plan&&t.username))}function g(e){if(t.agreedPayment&&t.plan&&t.username){var n=s();a.btnWhatsApp.setAttribute("href",n)}else e.preventDefault()}function E(){a.snapFollowLink&&(a.snapFollowLink.setAttribute("href",e.SNAP_FOLLOW_URL),a.snapFollowLink.setAttribute("target","_blank"),a.snapFollowLink.setAttribute("rel","noopener noreferrer")),i(),c("home"),a.usernameInput&&(a.usernameInput.addEventListener("input",p),a.usernameInput.addEventListener("keydown",(function(e){"Enter"===e.key&&(e.preventDefault(),a.btnUserNext.disabled||m())}))),a.btnUserNext&&(a.btnUserNext.addEventListener("click",m),a.btnUserNext.disabled=!0),a.followCheck&&a.followCheck.addEventListener("change",h),a.btnFollowNext&&(a.btnFollowNext.addEventListener("click",f),a.btnFollowNext.disabled=!0),a.paymentCheck&&a.paymentCheck.addEventListener("change",b),a.btnWhatsApp&&(a.btnWhatsApp.addEventListener("click",g),a.btnWhatsApp.setAttribute("target","_blank"),a.btnWhatsApp.setAttribute("rel","noopener noreferrer"),v(!1)),a.backButtons.forEach((function(e){e.addEventListener("click",(function(e){var n;e.preventDefault(),(n={plans:"home",username:"plans",follow:"username",payment:"follow"}[t.view])&&("home"===n?d():c(n))}))})),a.homeButtons.forEach((function(e){e.addEventListener("click",(function(e){e.preventDefault(),d()}))}));var n=document.getElementById("logo-home");n&&n.addEventListener("click",(function(e){e.preventDefault(),d()}))}}();
+/**
+ * Marça — storefront
+ * Home product grid → product flows. Snapchat Plus keeps existing checkout → WhatsApp.
+ * No payment processing on-site.
+ */
+(function () {
+  "use strict";
+
+  var cfg = window.MARCA_CONFIG;
+  if (!cfg) {
+    console.error("MARCA_CONFIG missing");
+    return;
+  }
+
+  /* ---------- State ---------- */
+  /* views: home | plans | username | follow | payment */
+  var state = {
+    view: "home",
+    catalogProduct: null, /* product from PRODUCTS array */
+    plan: null,           /* selected plan (nested) */
+    username: "",
+    followed: false,
+    agreedPayment: false
+  };
+
+  var USERNAME_RE = /^[A-Za-z0-9._-]{3,15}$/;
+
+  var VIEW_ORDER = ["home", "plans", "username", "follow", "payment"];
+
+  /* ---------- DOM ---------- */
+  var el = {
+    progressWrap: document.getElementById("progress-wrap"),
+    progressFill: document.getElementById("progress-fill"),
+    progressSteps: document.querySelectorAll("[data-progress-step]"),
+    panels: {
+      home: document.getElementById("panel-home"),
+      plans: document.getElementById("panel-plans"),
+      username: document.getElementById("panel-username"),
+      follow: document.getElementById("panel-follow"),
+      payment: document.getElementById("panel-payment")
+    },
+    productGrid: document.getElementById("product-grid"),
+    plansGrid: document.getElementById("plans-grid"),
+    usernameInput: document.getElementById("snap-username"),
+    usernameError: document.getElementById("username-error"),
+    summaries: document.querySelectorAll("[data-selected-summary]"),
+    followCheck: document.getElementById("check-followed"),
+    paymentCheck: document.getElementById("check-payment"),
+    snapFollowLink: document.getElementById("snap-follow-link"),
+    btnUserNext: document.getElementById("btn-username-next"),
+    btnFollowNext: document.getElementById("btn-follow-next"),
+    btnWhatsApp: document.getElementById("btn-whatsapp"),
+    backButtons: document.querySelectorAll("[data-back]"),
+    homeButtons: document.querySelectorAll("[data-home]")
+  };
+
+  /* ---------- Helpers (security) ---------- */
+  function setText(node, text) {
+    if (node) node.textContent = text == null ? "" : String(text);
+  }
+
+  function stripAt(raw) {
+    var s = String(raw == null ? "" : raw).trim();
+    if (s.charAt(0) === "@") s = s.slice(1);
+    return s.trim();
+  }
+
+  function validateUsername(raw) {
+    var cleaned = stripAt(raw);
+    if (!cleaned) {
+      return { ok: false, value: "", error: "يرجى إدخال يوزر سنابشات (Snapchat username)." };
+    }
+    if (/[<>"'`\\;\x00-\x1f\x7f]/.test(cleaned)) {
+      return { ok: false, value: cleaned, error: "اسم المستخدم يحتوي على رموز غير مسموحة." };
+    }
+    if (!USERNAME_RE.test(cleaned)) {
+      return {
+        ok: false,
+        value: cleaned,
+        error: "يوزر سنابشات غير صالح (3–15 حرفًا: حروف أو أرقام أو . _ -)."
+      };
+    }
+    return { ok: true, value: cleaned, error: "" };
+  }
+
+  function formatPrice(n) {
+    /* Latin digits only in UI */
+    return String(n) + " " + cfg.CURRENCY + " (" + cfg.CURRENCY_CODE + ")";
+  }
+
+  function buildWhatsAppMessage() {
+    var p = state.plan;
+    var store = cfg.STORE_NAME || "Marça";
+    var lines = [
+      "السلام عليكم،",
+      "أريد طلب اشتراك سناب شات بلس من متجر " + store + ":",
+      "",
+      "• الباقة: " + p.nameAr + " (" + p.nameEn + ")",
+      "• السعر: " + formatPrice(p.price),
+      "• اسم المستخدم على سناب: @" + state.username,
+      "• تأكيد المتابعة: تابعت حسابكم ✓",
+      "• تأكيد الدفع: أوافق على الدفع فقط عبر بنكيلي (Bankily) — لا Gimtel ولا طرف ثالث ✓",
+      "",
+      "شكرًا لكم."
+    ];
+    return lines.join("\n");
+  }
+
+  function buildWhatsAppUrl() {
+    var phone = String(cfg.WHATSAPP_E164).replace(/\D/g, "");
+    var text = buildWhatsAppMessage();
+    return "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+  }
+
+  function findProduct(id) {
+    var list = cfg.PRODUCTS || [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function findPlan(product, planId) {
+    if (!product || !product.plans) return null;
+    for (var i = 0; i < product.plans.length; i++) {
+      if (product.plans[i].id === planId) return product.plans[i];
+    }
+    return null;
+  }
+
+  /* ---------- Navigation ---------- */
+  function updateProgress() {
+    var checkoutViews = { username: 0, follow: 1, payment: 2 };
+    if (!(state.view in checkoutViews)) {
+      el.progressWrap.classList.remove("visible");
+      return;
+    }
+    el.progressWrap.classList.add("visible");
+    var idx = checkoutViews[state.view];
+    var pct = ((idx + 1) / 3) * 100;
+    el.progressFill.style.width = pct + "%";
+
+    el.progressSteps.forEach(function (node) {
+      var i = parseInt(node.getAttribute("data-progress-step"), 10);
+      node.classList.remove("active", "done");
+      if (i < idx) node.classList.add("done");
+      else if (i === idx) node.classList.add("active");
+    });
+  }
+
+  function showView(view) {
+    state.view = view;
+    Object.keys(el.panels).forEach(function (k) {
+      var panel = el.panels[k];
+      if (!panel) return;
+      if (k === view) {
+        panel.classList.add("active");
+        panel.setAttribute("aria-hidden", "false");
+      } else {
+        panel.classList.remove("active");
+        panel.setAttribute("aria-hidden", "true");
+      }
+    });
+    updateProgress();
+    updateSummaries();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function updateSummaries() {
+    if (!state.plan) return;
+    var label = state.plan.nameAr + " — " + formatPrice(state.plan.price);
+    el.summaries.forEach(function (node) {
+      var strong = node.querySelector("strong");
+      if (strong) setText(strong, label);
+      else setText(node, label);
+    });
+  }
+
+  function goHome() {
+    state.catalogProduct = null;
+    state.plan = null;
+    state.username = "";
+    state.followed = false;
+    state.agreedPayment = false;
+    if (el.followCheck) el.followCheck.checked = false;
+    if (el.paymentCheck) el.paymentCheck.checked = false;
+    if (el.usernameInput) {
+      el.usernameInput.value = "";
+      el.usernameInput.classList.remove("invalid");
+    }
+    setText(el.usernameError, "");
+    if (el.btnUserNext) el.btnUserNext.disabled = true;
+    syncFollowNext();
+    syncWhatsAppBtn();
+    var anon = document.getElementById("panel-anon");
+    if (anon) {
+      anon.classList.remove("active");
+      anon.setAttribute("aria-hidden", "true");
+    }
+    if (location.hash.indexOf("#anon") === 0) {
+      history.replaceState(null, "", location.pathname + location.search);
+    }
+    showView("home");
+  }
+
+  /* ---------- Product grid (home) ---------- */
+  function productIconSvg(kind) {
+    var wrap = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    wrap.setAttribute("viewBox", "0 0 48 48");
+    wrap.setAttribute("class", "product-icon-svg");
+    wrap.setAttribute("aria-hidden", "true");
+    var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    if (kind === "snap") {
+      /* Abstract gift / spark — not Snapchat logo */
+      path.setAttribute("d","M24 6l2.4 7.2H34l-6 4.4 2.3 7.2L24 20.4l-6.3 4.4 2.3-7.2-6-4.4h7.6L24 6zm0 20c6.6 0 12 3.6 12 8v4H12v-4c0-4.4 5.4-8 12-8z");
+    } else {
+      path.setAttribute("d","M12 14h24v4H12v-4zm0 8h24v16H12V22zm4 4v8h4v-8h-4zm8 0v8h4v-8h-4z");
+    }
+    path.setAttribute("fill", "currentColor");
+    wrap.appendChild(path);
+    return wrap;
+  }
+
+  function renderProducts() {
+    var grid = el.productGrid;
+    if (!grid) return;
+    while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+    (cfg.PRODUCTS || []).forEach(function (product) {
+      var card = document.createElement("button");
+      card.type = "button";
+      card.className = "product-card" + (product.featured ? " featured" : "");
+      card.setAttribute("data-product-id", product.id);
+      card.setAttribute("role", "listitem");
+      card.setAttribute("aria-label", "اختر " + product.nameAr + (product.nameEn ? " — " + product.nameEn : ""));
+
+      if (product.badge) {
+        var badge = document.createElement("span");
+        badge.className = "product-badge";
+        setText(badge, product.badge);
+        card.appendChild(badge);
+      }
+
+      var iconWrap = document.createElement("div");
+      iconWrap.className = "product-icon" + (product.image ? " product-icon-img" : "");
+      if (product.image) {
+        var img = document.createElement("img");
+        img.src = product.image;
+        img.alt = product.nameEn || product.nameAr || "";
+        img.width = 112;
+        img.height = 112;
+        img.loading = "lazy";
+        img.decoding = "async";
+        iconWrap.appendChild(img);
+      } else {
+        iconWrap.appendChild(productIconSvg(product.icon || "default"));
+      }
+      card.appendChild(iconWrap);
+
+      var title = document.createElement("h3");
+      title.className = "product-title";
+      setText(title, product.nameAr);
+      card.appendChild(title);
+
+      var en = document.createElement("p");
+      en.className = "product-name-en";
+      setText(en, product.nameEn);
+      card.appendChild(en);
+
+      if (product.plans && product.plans.length) {
+        var from = product.plans[0].price;
+        for (var i = 1; i < product.plans.length; i++) {
+          if (product.plans[i].price < from) from = product.plans[i].price;
+        }
+        var priceHint = document.createElement("p");
+        priceHint.className = "product-from";
+        setText(priceHint, "من " + String(from) + " " + cfg.CURRENCY_CODE);
+        card.appendChild(priceHint);
+      }
+
+      var cta = document.createElement("span");
+      cta.className = "product-cta";
+      setText(cta, "عرض الباقات");
+      card.appendChild(cta);
+
+      card.addEventListener("click", function () {
+        openProduct(product.id);
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function openProduct(id) {
+    var product = findProduct(id);
+    if (!product) return;
+    state.catalogProduct = product;
+    state.plan = null;
+    state.followed = false;
+    state.agreedPayment = false;
+    if (el.followCheck) el.followCheck.checked = false;
+    if (el.paymentCheck) el.paymentCheck.checked = false;
+    syncFollowNext();
+    syncWhatsAppBtn();
+
+    if (product.flow === "snapchat-plus") {
+      renderPlans(product);
+      showView("plans");
+    } else {
+      renderPlans(product);
+      showView("plans");
+    }
+  }
+
+  /* ---------- Plans (Snapchat Plus) ---------- */
+  function renderPlans(product) {
+    var grid = el.plansGrid;
+    if (!grid) return;
+    while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+    var plans = (product && product.plans) || [];
+    plans.forEach(function (plan) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "plan-card" + (plan.highlight ? " featured" : "");
+      btn.setAttribute("data-plan-id", plan.id);
+      btn.setAttribute("aria-label", "اختر باقة " + plan.nameAr + " بسعر " + formatPrice(plan.price));
+
+      if (plan.badge) {
+        var badge = document.createElement("span");
+        badge.className = "plan-badge";
+        setText(badge, plan.badge);
+        btn.appendChild(badge);
+      }
+
+      var duration = document.createElement("div");
+      duration.className = "plan-duration";
+      setText(duration, plan.nameAr);
+      btn.appendChild(duration);
+
+      var priceWrap = document.createElement("div");
+      priceWrap.className = "plan-price";
+      var priceVal = document.createElement("span");
+      priceVal.className = "plan-price-value";
+      setText(priceVal, String(plan.price));
+      var priceCur = document.createElement("span");
+      priceCur.className = "plan-price-currency";
+      setText(priceCur, cfg.CURRENCY + " · " + cfg.CURRENCY_CODE);
+      priceWrap.appendChild(priceVal);
+      priceWrap.appendChild(priceCur);
+      btn.appendChild(priceWrap);
+
+      var cta = document.createElement("span");
+      cta.className = "plan-cta";
+      setText(cta, "اختر هذه الباقة");
+      btn.appendChild(cta);
+
+      btn.addEventListener("click", function () {
+        selectPlan(plan.id);
+      });
+
+      grid.appendChild(btn);
+    });
+  }
+
+  function selectPlan(planId) {
+    if (!state.catalogProduct) return;
+    var found = findPlan(state.catalogProduct, planId);
+    if (!found) return;
+    state.plan = found;
+    state.followed = false;
+    state.agreedPayment = false;
+    if (el.followCheck) el.followCheck.checked = false;
+    if (el.paymentCheck) el.paymentCheck.checked = false;
+    syncFollowNext();
+    syncWhatsAppBtn();
+    showView("username");
+    if (el.usernameInput) el.usernameInput.focus();
+  }
+
+  /* ---------- Username ---------- */
+  function onUsernameInput() {
+    var raw = el.usernameInput.value;
+    var result = validateUsername(raw);
+    if (el.usernameInput.classList) {
+      if (raw && !result.ok) el.usernameInput.classList.add("invalid");
+      else el.usernameInput.classList.remove("invalid");
+    }
+    setText(el.usernameError, result.error || "");
+    el.btnUserNext.disabled = !result.ok;
+  }
+
+  function goUsernameNext() {
+    var result = validateUsername(el.usernameInput.value);
+    if (!result.ok) {
+      setText(el.usernameError, result.error);
+      el.usernameInput.classList.add("invalid");
+      el.usernameInput.focus();
+      return;
+    }
+    state.username = result.value;
+    el.usernameInput.value = result.value;
+    el.usernameInput.classList.remove("invalid");
+    setText(el.usernameError, "");
+    showView("follow");
+  }
+
+  /* ---------- Follow ---------- */
+  function syncFollowNext() {
+    state.followed = !!(el.followCheck && el.followCheck.checked);
+    if (el.btnFollowNext) el.btnFollowNext.disabled = !state.followed;
+  }
+
+  function goFollowNext() {
+    if (!el.followCheck || !el.followCheck.checked) {
+      syncFollowNext();
+      return;
+    }
+    state.followed = true;
+    showView("payment");
+  }
+
+  /* ---------- Payment / WhatsApp ---------- */
+  function setWhatsAppEnabled(on) {
+    if (!el.btnWhatsApp) return;
+    if (on) {
+      el.btnWhatsApp.classList.remove("is-disabled");
+      el.btnWhatsApp.setAttribute("aria-disabled", "false");
+      el.btnWhatsApp.setAttribute("href", buildWhatsAppUrl());
+      el.btnWhatsApp.removeAttribute("tabindex");
+    } else {
+      el.btnWhatsApp.classList.add("is-disabled");
+      el.btnWhatsApp.setAttribute("aria-disabled", "true");
+      el.btnWhatsApp.removeAttribute("href");
+      el.btnWhatsApp.setAttribute("tabindex", "-1");
+    }
+  }
+
+  function syncWhatsAppBtn() {
+    state.agreedPayment = !!(el.paymentCheck && el.paymentCheck.checked);
+    var ready = !!(state.agreedPayment && state.plan && state.username);
+    setWhatsAppEnabled(ready);
+  }
+
+  function onWhatsAppClick(e) {
+    if (!state.agreedPayment || !state.plan || !state.username) {
+      e.preventDefault();
+      return;
+    }
+    var url = buildWhatsAppUrl();
+    el.btnWhatsApp.setAttribute("href", url);
+  }
+
+  /* ---------- Back ---------- */
+  function goBack() {
+    var map = {
+      plans: "home",
+      username: "plans",
+      follow: "username",
+      payment: "follow"
+    };
+    var prev = map[state.view];
+    if (!prev) return;
+    if (prev === "home") goHome();
+    else showView(prev);
+  }
+
+  /* ---------- Init ---------- */
+  function init() {
+    if (el.snapFollowLink) {
+      el.snapFollowLink.setAttribute("href", cfg.SNAP_FOLLOW_URL);
+      el.snapFollowLink.setAttribute("target", "_blank");
+      el.snapFollowLink.setAttribute("rel", "noopener noreferrer");
+    }
+
+    renderProducts();
+    showView("home");
+
+    if (el.usernameInput) {
+      el.usernameInput.addEventListener("input", onUsernameInput);
+      el.usernameInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (!el.btnUserNext.disabled) goUsernameNext();
+        }
+      });
+    }
+
+    if (el.btnUserNext) {
+      el.btnUserNext.addEventListener("click", goUsernameNext);
+      el.btnUserNext.disabled = true;
+    }
+
+    if (el.followCheck) {
+      el.followCheck.addEventListener("change", syncFollowNext);
+    }
+    if (el.btnFollowNext) {
+      el.btnFollowNext.addEventListener("click", goFollowNext);
+      el.btnFollowNext.disabled = true;
+    }
+
+    if (el.paymentCheck) {
+      el.paymentCheck.addEventListener("change", syncWhatsAppBtn);
+    }
+    if (el.btnWhatsApp) {
+      el.btnWhatsApp.addEventListener("click", onWhatsAppClick);
+      el.btnWhatsApp.setAttribute("target", "_blank");
+      el.btnWhatsApp.setAttribute("rel", "noopener noreferrer");
+      setWhatsAppEnabled(false);
+    }
+
+    el.backButtons.forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        goBack();
+      });
+    });
+
+    el.homeButtons.forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.preventDefault();
+        goHome();
+      });
+    });
+
+    var logo = document.getElementById("logo-home");
+    if (logo) {
+      logo.addEventListener("click", function (e) {
+        e.preventDefault();
+        goHome();
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
