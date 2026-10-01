@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c0b09"/>
+      <stop offset="55%" stop-color="#16130f"/>
+      <stop offset="100%" stop-color="#1c1812"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0e6c8"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#a67c2a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#d4af37" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#d4af37" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect x="48" y="48" width="1104" height="534" rx="28" fill="none" stroke="rgba(212,175,55,0.28)" stroke-width="2"/>
+  <rect x="420" y="150" width="88" height="88" rx="22" fill="url(#gold)"/>
+  <path fill="#0c0b09" d="M440 218V170h12.5l7.8 25.5L468.2 170H480v48h-9.2v-25.2L461.4 218h-9.5l-7.5-25.2V218H440z"/>
+  <circle cx="494" cy="208" r="5.5" fill="#0c0b09"/>
+  <text x="600" y="215" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="600" fill="#f5f2ea" letter-spacing="4">Marça</text>
+  <text x="600" y="290" text-anchor="middle" font-family="Segoe UI, Tahoma, Arial, sans-serif" font-size="28" fill="#c9b896" letter-spacing="6">DIGITAL BOUTIQUE</text>
+  <text x="600" y="360" text-anchor="middle" font-family="Segoe UI, Tahoma, Arial, sans-serif" font-size="32" fill="#f5f2ea">بوتيك رقمي أنيق · هدايا واشتراكات رقمية</text>
+  <text x="600" y="450" text-anchor="middle" font-family="Segoe UI, Tahoma, Arial, sans-serif" font-size="22" fill="#8a7f6a">marça.online</text>
+</svg>
