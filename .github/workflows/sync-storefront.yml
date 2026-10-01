@@ -1,28 +1,32 @@
 name: Sync storefront from marca-online-store
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [sync-storefront]
+    inputs:
+      confirm:
+        description: "Type SYNC to overwrite storefront files. CNAME is always preserved."
+        required: true
+        type: string
 permissions:
   contents: write
 jobs:
   sync:
+    if: github.event.inputs.confirm == 'SYNC'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Pull public site files and commit
+      - name: Pull listed files without deleting the live site
         run: |
           set -euo pipefail
+          cname="$(cat CNAME 2>/dev/null || printf '%s\n' 'xn--mara-2oa.online')"
           base="https://raw.githubusercontent.com/marsaflix-eng/marca-online-store/main"
-          for f in index.html 404.html robots.txt css/styles.css js/app.js js/config.js js/config.json; do
+          for f in index.html 404.html css/styles.css js/app.js js/config.js js/config.json; do
             mkdir -p "$(dirname "$f")"
             curl -fsSL "$base/$f" -o "$f"
-            echo "fetched $f $(wc -c < "$f") bytes"
+            echo "fetched $f"
           done
-          # Prefer punycode CNAME for GitHub
-          printf '%s\n' 'xn--mara-2oa.online' > CNAME
+          printf '%s\n' "$cname" > CNAME
           : > .nojekyll
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add index.html 404.html css/styles.css js/app.js js/config.js js/config.json CNAME .nojekyll
           if git diff --cached --quiet; then echo no changes; else git commit -m "Sync Marça storefront from marca-online-store" && git push; fi

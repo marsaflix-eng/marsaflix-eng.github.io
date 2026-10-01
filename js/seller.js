@@ -44,7 +44,7 @@
     var m = $("auth-msg");
     var passEl = $("reg-pass");
     var password = passEl ? passEl.value : "";
-    if (!password || password.length < 6) { msg(m, "كلمة المرور 6 أحرف على الأقل"); return; }
+    if (!password || password.length < 8) { msg(m, "كلمة المرور 8 أحرف على الأقل"); return; }
     api("/v1/auth/register", {
       method: "POST",
       body: { phone: $("reg-phone").value, name: $("reg-name").value, password: password },
@@ -156,7 +156,21 @@
 
   function statusBadge(s) {
     var cls = s === "paid" || s === "paid_to_wallet" ? "badge-ok" : s === "pending" || s === "pending_payout" ? "badge-pending" : "badge-bad";
-    return '<span class="badge ' + cls + '">' + s + "</span>";
+    var span = document.createElement("span");
+    span.className = "badge " + cls;
+    span.textContent = s == null ? "" : String(s);
+    return span;
+  }
+  function fillRows(list, rows, render) {
+    list.textContent = "";
+    if (!rows.length) {
+      var li = document.createElement("li");
+      li.className = "aff-sub";
+      li.textContent = "لا يوجد بعد";
+      list.appendChild(li);
+      return;
+    }
+    rows.forEach(function (row) { list.appendChild(render(row)); });
   }
 
   function loadDash() {
@@ -183,18 +197,32 @@
       if (all[1].data && all[1].data.links) renderLinks(all[1].data.links);
       var cl = $("comm-list");
       var comms = (all[2].data && all[2].data.commissions) || [];
-      cl.innerHTML = comms.length
-        ? comms.map(function (c) {
-            return "<li><div>" + String(c.amount_mru) + " MRU " + statusBadge(c.status) + '</div><div class="meta">' + c.created_at + "</div></li>";
-          }).join("")
-        : '<li class="aff-sub">لا يوجد بعد</li>';
+      fillRows(cl, comms, function (c) {
+        var li = document.createElement("li");
+        var head = document.createElement("div");
+        head.appendChild(document.createTextNode(String(c.amount_mru) + " MRU "));
+        head.appendChild(statusBadge(c.status));
+        var meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = c.created_at == null ? "" : String(c.created_at);
+        li.appendChild(head);
+        li.appendChild(meta);
+        return li;
+      });
       var ol = $("ord-list");
       var ords = (all[3].data && all[3].data.orders) || [];
-      ol.innerHTML = ords.length
-        ? ords.map(function (o) {
-            return "<li><div>" + o.plan + " · " + String(o.price_mru) + " MRU " + statusBadge(o.status) + '</div><div class="meta">' + o.created_at + "</div></li>";
-          }).join("")
-        : '<li class="aff-sub">لا يوجد بعد</li>';
+      fillRows(ol, ords, function (o) {
+        var li = document.createElement("li");
+        var head = document.createElement("div");
+        head.appendChild(document.createTextNode(String(o.plan) + " · " + String(o.price_mru) + " MRU "));
+        head.appendChild(statusBadge(o.status));
+        var meta = document.createElement("div");
+        meta.className = "meta";
+        meta.textContent = o.created_at == null ? "" : String(o.created_at);
+        li.appendChild(head);
+        li.appendChild(meta);
+        return li;
+      });
     }).catch(function () {});
   }
 
