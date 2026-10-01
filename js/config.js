@@ -4,6 +4,7 @@
  * PRODUCTS: each product should use its original brand logo as image.
  */
 window.MARCA_CONFIG = Object.freeze({
+  ANON_API_BASE: "https://marca-anon-inbox.marsaflix.workers.dev",
   WHATSAPP_E164: "22248650585",
   SNAP_FOLLOW_URL: "https://snapchat.com/t/7BEXzDEV",
   DOMAIN: "marça.online",
