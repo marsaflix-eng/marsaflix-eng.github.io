@@ -5,6 +5,8 @@
  */
 window.MARCA_CONFIG = Object.freeze({
   ANON_API_BASE: "https://marca-anon-inbox.marsaflix.workers.dev",
+  /** Set after creating Turnstile widget in CF dashboard (Account → Turnstile). */
+  TURNSTILE_SITE_KEY: "",
   AFFILIATE_API_BASE: "https://marca-affiliate.marsaflix.workers.dev",
   WHATSAPP_E164: "22248650585",
   SNAP_FOLLOW_URL: "https://snapchat.com/t/7BEXzDEV",
