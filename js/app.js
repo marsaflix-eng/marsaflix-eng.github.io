@@ -25,6 +25,8 @@
 
   var USERNAME_RE = /^[A-Za-z0-9._-]{3,15}$/;
 
+  var VIEW_ORDER = ["home", "plans", "username", "follow", "payment"];
+
   /* ---------- DOM ---------- */
   var el = {
     progressWrap: document.getElementById("progress-wrap"),
@@ -82,6 +84,7 @@
   }
 
   function formatPrice(n) {
+    /* Latin digits only in UI */
     return String(n) + " " + cfg.CURRENCY + " (" + cfg.CURRENCY_CODE + ")";
   }
 
@@ -208,9 +211,16 @@
     wrap.setAttribute("aria-hidden", "true");
     var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     if (kind === "snap") {
-      path.setAttribute("d", "M24 6l2.4 7.2H34l-6 4.4 2.3 7.2L24 20.4l-6.3 4.4 2.3-7.2-6-4.4h7.6L24 6zm0 20c6.6 0 12 3.6 12 8v4H12v-4c0-4.4 5.4-8 12-8z");
+      /* Abstract gift / spark — not Snapchat logo */
+      path.setAttribute(
+        "d",
+        "M24 6l2.4 7.2H34l-6 4.4 2.3 7.2L24 20.4l-6.3 4.4 2.3-7.2-6-4.4h7.6L24 6zm0 20c6.6 0 12 3.6 12 8v4H12v-4c0-4.4 5.4-8 12-8z"
+      );
     } else {
-      path.setAttribute("d", "M12 14h24v4H12v-4zm0 8h24v16H12V22zm4 4v8h4v-8h-4zm8 0v8h4v-8h-4z");
+      path.setAttribute(
+        "d",
+        "M12 14h24v4H12v-4zm0 8h24v16H12V22zm4 4v8h4v-8h-4zm8 0v8h4v-8h-4z"
+      );
     }
     path.setAttribute("fill", "currentColor");
     wrap.appendChild(path);
@@ -228,7 +238,10 @@
       card.className = "product-card" + (product.featured ? " featured" : "");
       card.setAttribute("data-product-id", product.id);
       card.setAttribute("role", "listitem");
-      card.setAttribute("aria-label", "اختر " + product.nameAr + (product.nameEn ? " — " + product.nameEn : ""));
+      card.setAttribute(
+        "aria-label",
+        "اختر " + product.nameAr + (product.nameEn ? " — " + product.nameEn : "")
+      );
 
       if (product.badge) {
         var badge = document.createElement("span");
@@ -303,6 +316,7 @@
       renderPlans(product);
       showView("plans");
     } else {
+      /* Future flows: could open WhatsApp-simple etc. */
       renderPlans(product);
       showView("plans");
     }
@@ -320,7 +334,10 @@
       btn.type = "button";
       btn.className = "plan-card" + (plan.highlight ? " featured" : "");
       btn.setAttribute("data-plan-id", plan.id);
-      btn.setAttribute("aria-label", "اختر باقة " + plan.nameAr + " بسعر " + formatPrice(plan.price));
+      btn.setAttribute(
+        "aria-label",
+        "اختر باقة " + plan.nameAr + " بسعر " + formatPrice(plan.price)
+      );
 
       if (plan.badge) {
         var badge = document.createElement("span");
