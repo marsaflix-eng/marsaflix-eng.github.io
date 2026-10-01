@@ -5,13 +5,8 @@
       <stop offset="45%" stop-color="#d4af37"/>
       <stop offset="100%" stop-color="#a67c2a"/>
     </linearGradient>
-    <linearGradient id="gMark" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ead9a0"/>
-      <stop offset="100%" stop-color="#c9a227"/>
-    </linearGradient>
   </defs>
-  <rect x="2" y="8" width="56" height="56" rx="14" fill="url(#gMark)"/>
-  <path fill="#0c0b09" d="M16 48V24h7.2l4.6 15.2L32.4 24H39.6v24h-5.4V33.1L29.8 48h-5.6l-4.4-14.9V48H16z"/>
-  <circle cx="48" cy="42" r="3.2" fill="#0c0b09"/>
+  <rect x="2" y="8" width="56" height="56" rx="14" fill="#14110e" stroke="url(#gGold)" stroke-width="1.5"/>
+  <text x="30" y="48" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="url(#gGold)">M</text>
   <text x="74" y="47" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="600" fill="#f5f2ea" letter-spacing="1.5">Marça</text>
 </svg>
