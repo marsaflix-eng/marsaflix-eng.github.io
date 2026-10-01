@@ -23,7 +23,7 @@ window.MARCA_CONFIG = Object.freeze({
       categoryAr: "اشتراكات",
       nameAr: "سناب شات بلس",
       nameEn: "Snapchat Plus",
-      image: "assets/products/snapchat-plus.png",
+      image: "assets/products/snapchat-plus.png?v=10",
       featured: true,
       flow: "snapchat-plus",
       plans: Object.freeze([
