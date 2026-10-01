@@ -9,9 +9,12 @@
     el.textContent = text || "";
     el.className = "aff-msg" + (text ? (ok ? " ok" : " err") : "");
   }
-  function token() { try { return localStorage.getItem(TOK_KEY); } catch (e) { return null; } }
+  function token() {
+    try { return sessionStorage.getItem(TOK_KEY); } catch (e) { return null; }
+  }
   function setToken(t) {
-    try { if (t) localStorage.setItem(TOK_KEY, t); else localStorage.removeItem(TOK_KEY); } catch (e) {}
+    try { if (t) sessionStorage.setItem(TOK_KEY, t); else sessionStorage.removeItem(TOK_KEY); } catch (e) {}
+    try { localStorage.removeItem(TOK_KEY); } catch (e2) {}
   }
   function api(path, opts) {
     opts = opts || {};
@@ -44,7 +47,7 @@
     var m = $("auth-msg");
     var passEl = $("reg-pass");
     var password = passEl ? passEl.value : "";
-    if (!password || password.length < 8) { msg(m, "كلمة المرور 8 أحرف على الأقل"); return; }
+    if (!password || password.length < 10 || !/[A-Za-z\u0600-\u06FF]/.test(password) || !/[0-9]/.test(password)) { msg(m, "كلمة المرور 10 أحرف على الأقل وتضم حرفاً ورقماً"); return; }
     api("/v1/auth/register", {
       method: "POST",
       body: { phone: $("reg-phone").value, name: $("reg-name").value, password: password },
@@ -114,7 +117,7 @@
 
   function renderLinks(links) {
     var box = $("share-links");
-    box.innerHTML = "";
+    while (box.firstChild) box.removeChild(box.firstChild);
     var items = [
       { label: "الصفحة الرئيسية", url: links.home },
       { label: "باقة 3 أشهر", url: links["3m"] },

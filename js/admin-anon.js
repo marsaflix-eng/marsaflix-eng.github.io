@@ -23,7 +23,7 @@
     var secret = ($("mod-box-secret") && $("mod-box-secret").value.trim()) || creds.secret;
     var msg = $("mod-msg");
     if (!id || !secret) { if (msg) msg.textContent = "أدخل معرّف الصندوق وسره من حساب رسالة من مجهول."; return; }
-    try { localStorage.setItem(CREDS, JSON.stringify({ id: id, secret: secret })); } catch (e) {}
+    try { sessionStorage.setItem(CREDS, JSON.stringify({ id: id, secret: secret })); } catch (e) {}
     fetch(apiBase() + "/v1/boxes/" + encodeURIComponent(id) + "/messages", { headers: { "X-Box-Secret": secret } })
       .then(function (r) { return r.json().then(function (d) { if (!r.ok) throw new Error(d.error || "http"); return d; }); })
       .then(function (data) {

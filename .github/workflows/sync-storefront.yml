@@ -3,30 +3,17 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: "Type SYNC to overwrite storefront files. CNAME is always preserved."
+        description: "Disabled. Live site is no longer overwritten from the old repo."
         required: true
         type: string
 permissions:
-  contents: write
+  contents: read
 jobs:
   sync:
     if: github.event.inputs.confirm == 'SYNC'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Pull listed files without deleting the live site
+      - name: Refuse overwrite
         run: |
-          set -euo pipefail
-          cname="$(cat CNAME 2>/dev/null || printf '%s\n' 'xn--mara-2oa.online')"
-          base="https://raw.githubusercontent.com/marsaflix-eng/marca-online-store/main"
-          for f in index.html 404.html css/styles.css js/app.js js/config.js js/config.json; do
-            mkdir -p "$(dirname "$f")"
-            curl -fsSL "$base/$f" -o "$f"
-            echo "fetched $f"
-          done
-          printf '%s\n' "$cname" > CNAME
-          : > .nojekyll
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html 404.html css/styles.css js/app.js js/config.js js/config.json CNAME .nojekyll
-          if git diff --cached --quiet; then echo no changes; else git commit -m "Sync Marça storefront from marca-online-store" && git push; fi
+          echo "Live storefront sync is disabled so it cannot replace the published site."
+          exit 1
