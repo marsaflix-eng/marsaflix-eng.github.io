@@ -55,6 +55,22 @@ window.MARCA_CONFIG = Object.freeze({
           highlight: false
         })
       ])
+    }),
+    Object.freeze({
+      id: "snapchat-filters",
+      category: "filters",
+      categoryAr: "فلاتر",
+      nameAr: "إنشاء فلاتر سناب شات",
+      nameEn: "Snapchat Filters",
+      image: "assets/products/snapchat-filters.png?v=12",
+      featured: false,
+      flow: "snapchat-filters",
+      price: 50,
+      variants: Object.freeze([
+        Object.freeze({ id: "occasion", nameAr: "فلتر مناسبات", price: 50 }),
+        Object.freeze({ id: "effects", nameAr: "فلتر مؤثرات", price: 50 })
+      ])
+
     })
   ])
 });

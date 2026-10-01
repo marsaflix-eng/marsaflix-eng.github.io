@@ -35,6 +35,7 @@
     panels: {
       home: document.getElementById("panel-home"),
       plans: document.getElementById("panel-plans"),
+      filters: document.getElementById("panel-filters"),
       username: document.getElementById("panel-username"),
       follow: document.getElementById("panel-follow"),
       payment: document.getElementById("panel-payment")
@@ -276,6 +277,12 @@
       setText(en, product.nameEn);
       card.appendChild(en);
 
+      if (product.price && !(product.plans && product.plans.length)) {
+        var fixed = document.createElement("p");
+        fixed.className = "product-from";
+        setText(fixed, String(product.price) + " " + (cfg.CURRENCY || "أوقية"));
+        card.appendChild(fixed);
+      }
       if (product.plans && product.plans.length) {
         var from = product.plans[0].price;
         for (var i = 1; i < product.plans.length; i++) {
@@ -289,7 +296,7 @@
 
       var cta = document.createElement("span");
       cta.className = "product-cta";
-      setText(cta, "عرض الباقات");
+      setText(cta, product.flow === "snapchat-filters" ? "اطلب الفلتر" : "عرض الباقات");
       card.appendChild(cta);
 
       card.addEventListener("click", function () {
@@ -312,11 +319,12 @@
     syncFollowNext();
     syncWhatsAppBtn();
 
-    if (product.flow === "snapchat-plus") {
+    if (product.flow === "snapchat-filters") {
+      openFilters();
+    } else if (product.flow === "snapchat-plus") {
       renderPlans(product);
       showView("plans");
     } else {
-      /* Future flows: could open WhatsApp-simple etc. */
       renderPlans(product);
       showView("plans");
     }
@@ -468,6 +476,7 @@
   function goBack() {
     var map = {
       plans: "home",
+      filters: "home",
       username: "plans",
       follow: "username",
       payment: "follow"
@@ -476,6 +485,86 @@
     if (!prev) return;
     if (prev === "home") goHome();
     else showView(prev);
+  }
+
+
+  function filterValue(id) {
+    var node = document.getElementById(id);
+    return node ? String(node.value || "").trim() : "";
+  }
+  function openFilters() {
+    ["filter-form-occasion", "filter-form-effects"].forEach(function (id) {
+      var node = document.getElementById(id);
+      if (node) node.hidden = true;
+    });
+    var types = document.getElementById("filter-types");
+    if (types) types.hidden = false;
+    showView("filters");
+  }
+  function showFilterForm(kind) {
+    var types = document.getElementById("filter-types");
+    if (types) types.hidden = true;
+    var occasion = document.getElementById("filter-form-occasion");
+    var effects = document.getElementById("filter-form-effects");
+    if (occasion) occasion.hidden = kind !== "occasion";
+    if (effects) effects.hidden = kind !== "effects";
+  }
+  function filterWhatsApp(kind) {
+    var phone = String(cfg.WHATSAPP_E164 || "").replace(/\D/g, "");
+    var lines = ["السلام عليكم،", "أريد طلب فلتر سناب شات من متجر " + (cfg.STORE_NAME || "Marça") + ":", ""];
+    if (kind === "occasion") {
+      var occasion = filterValue("filter-occasion");
+      var names = filterValue("filter-names");
+      var date = filterValue("filter-date");
+      var place = filterValue("filter-place");
+      var err = document.getElementById("filter-error-occasion");
+      if (!occasion || !names || !date || !place) {
+        if (err) err.textContent = "اكتب نوع المناسبة والأسماء والتاريخ والمكان.";
+        return "";
+      }
+      if (err) err.textContent = "";
+      lines.push("• النوع: فلتر مناسبات");
+      lines.push("• السعر: 50 أوقية");
+      lines.push("• نوع المناسبة: " + occasion);
+      lines.push("• أسماء أصحاب المناسبة: " + names);
+      lines.push("• تاريخ المناسبة: " + date);
+      lines.push("• مكان المناسبة: " + place);
+    } else {
+      var desc = filterValue("filter-desc");
+      var err2 = document.getElementById("filter-error-effects");
+      if (desc.length < 12) {
+        if (err2) err2.textContent = "اكتب وصفاً أدق للمؤثر الذي تريده.";
+        return "";
+      }
+      if (err2) err2.textContent = "";
+      lines.push("• النوع: فلتر مؤثرات");
+      lines.push("• السعر: 50 أوقية");
+      lines.push("• الوصف: " + desc);
+    }
+    lines.push("", "لإتمام الدفع.");
+    return "https://wa.me/" + phone + "?text=" + encodeURIComponent(lines.join("\n"));
+  }
+  function bindFilters() {
+    var occasion = document.getElementById("filter-type-occasion");
+    var effects = document.getElementById("filter-type-effects");
+    if (occasion) occasion.addEventListener("click", function () { showFilterForm("occasion"); });
+    if (effects) effects.addEventListener("click", function () { showFilterForm("effects"); });
+    ["filter-back-types", "filter-back-types-2"].forEach(function (id) {
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener("click", openFilters);
+    });
+    var wa1 = document.getElementById("filter-wa-occasion");
+    var wa2 = document.getElementById("filter-wa-effects");
+    if (wa1) wa1.addEventListener("click", function (e) {
+      var url = filterWhatsApp("occasion");
+      if (!url) { e.preventDefault(); return; }
+      wa1.setAttribute("href", url);
+    });
+    if (wa2) wa2.addEventListener("click", function (e) {
+      var url = filterWhatsApp("effects");
+      if (!url) { e.preventDefault(); return; }
+      wa2.setAttribute("href", url);
+    });
   }
 
   /* ---------- Init ---------- */
@@ -487,6 +576,7 @@
     }
 
     renderProducts();
+    bindFilters();
     showView("home");
 
     if (el.usernameInput) {
