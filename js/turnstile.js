@@ -36,7 +36,7 @@
     var u = String(url || "");
     if (/\/v1\/auth\/register$/.test(u)) return visible("seller-ts-register") ? "seller-ts-register" : "anon-ts-reg";
     if (/\/v1\/auth\/login$/.test(u)) return visible("seller-ts-login") ? "seller-ts-login" : "anon-ts-login";
-    if (/\/v1\/boxes$/.test(u)) return "anon-ts-create";
+    if (/\/\/v1\/boxes$/.test(u)) return "anon-ts-create";
     if (/\/messages$/.test(u)) return "anon-ts-ask";
     return null;
   }
@@ -44,16 +44,20 @@
     window.fetch = function (input, init) {
       init = init || {};
       var id = actionId(typeof input === "string" ? input : input && input.url);
+      var injected = false;
       if (id && init.body && !/FormData|URLSearchParams/.test(Object.prototype.toString.call(init.body))) {
         try {
           var body = JSON.parse(init.body);
           if (body && !body.turnstile_token && tokens[id]) {
             body.turnstile_token = tokens[id];
             init = Object.assign({}, init, { body: JSON.stringify(body) });
+            injected = true;
           }
         } catch (_) {}
       }
-      return originalFetch.call(this, input, init);
+      var result = originalFetch.call(this, input, init);
+      if (injected && window.MarcaTurnstile) window.MarcaTurnstile.reset(id);
+      return result;
     };
   }
   window.MarcaTurnstile = {
