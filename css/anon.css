@@ -1,7 +1,3 @@
-@font-face{font-family:"MarcaAmiri";src:url("../assets/fonts/amiri-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;}
-@font-face{font-family:"MarcaAmiri";src:url("../assets/fonts/amiri-700.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap;}
-@font-face{font-family:"MarcaCalligraphy";src:url("../assets/fonts/scheherazade-400.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;}
-
 .header-nav{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap;}
 .nav-anon{display:inline-flex;align-items:center;gap:.4rem;min-height:40px;padding:.45rem .9rem;border-radius:999px;border:1px solid rgba(212,175,55,.35);background:rgba(212,175,55,.1);color:var(--accent-bright);font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .2s,border-color .2s,transform .2s;text-decoration:none;}
 .nav-anon:hover{background:rgba(212,175,55,.18);border-color:var(--accent);text-decoration:none;transform:translateY(-1px);}
@@ -10,30 +6,30 @@ a.nav-anon:hover{text-decoration:none;}
 .anon-wrap{max-width:440px;margin:0 auto;}
 .ngl-hero{text-align:center;margin-bottom:1.35rem;position:relative;}
 .ngl-hero.compact{margin-bottom:1rem;}
-.ngl-hero h2,.anon-title-calligraphy{font-family:"MarcaCalligraphy","MarcaAmiri",Georgia,serif;font-size:clamp(1.65rem,5vw,2.15rem);font-weight:400;margin-bottom:.45rem;letter-spacing:.02em;background:linear-gradient(135deg,#ead9a0,#d4af37 50%,#a67c2a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.ngl-hero h2,.anon-title-calligraphy{font-family:"Scheherazade New","Amiri",Georgia,serif;font-size:clamp(1.65rem,5vw,2.15rem);font-weight:400;margin-bottom:.45rem;letter-spacing:.02em;background:linear-gradient(135deg,#ead9a0,#d4af37 50%,#a67c2a);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .ngl-hero p{color:var(--text-muted);font-size:.92rem;line-height:1.6;}
 .ngl-orb{width:68px;height:68px;margin:0 auto .95rem;border-radius:50%;background:radial-gradient(circle at 30% 30%,#ead9a0,#d4af37 40%,#3a2a10 70%,#1a1028);box-shadow:0 0 42px rgba(212,175,55,.35);}
 .ngl-steps{margin:1.25rem 0 0;padding:0 1rem;color:var(--text-muted);font-size:.85rem;line-height:1.75;list-style:decimal;}
 .ngl-steps li{margin-bottom:.3rem;}
 
-.ngl-avatar{width:56px;height:56px;border-radius:50%;margin:0 auto .75rem;display:grid;place-items:center;font-family:"MarcaAmiri",serif;font-weight:700;font-size:1.25rem;color:#0c0b09;background:linear-gradient(145deg,#ead9a0,#d4af37);box-shadow:0 8px 24px rgba(212,175,55,.28);}
+.ngl-avatar{width:56px;height:56px;border-radius:50%;margin:0 auto .75rem;display:grid;place-items:center;font-family:"Amiri",serif;font-weight:700;font-size:1.25rem;color:#0c0b09;background:linear-gradient(145deg,#ead9a0,#d4af37);box-shadow:0 8px 24px rgba(212,175,55,.28);}
 .ngl-avatar.lg{width:76px;height:76px;font-size:1.7rem;margin-bottom:1rem;}
 .ngl-avatar.sm{width:42px;height:42px;font-size:1rem;margin-bottom:.5rem;}
 
 .maktoob-banner{margin:0 auto 1rem;max-width:320px;}
 .maktoob-banner.sm{margin-bottom:.65rem;max-width:280px;}
 .maktoob-svg{width:100%;height:auto;display:block;filter:drop-shadow(0 2px 12px rgba(212,175,55,.25));}
-.maktoob-text{font-family:"MarcaCalligraphy","MarcaAmiri",serif;font-size:34px;fill:url(#maktoobGold);letter-spacing:.04em;}
+.maktoob-text{font-family:"Scheherazade New","Amiri",serif;font-size:34px;fill:url(#maktoobGold);letter-spacing:.04em;}
 .maktoob-text.fill2{fill:url(#maktoobGold2);}
 
 .ngl-ask-shell{text-align:center;background:linear-gradient(180deg,rgba(212,175,55,.1),transparent 42%),var(--bg-card);border:1px solid rgba(212,175,55,.28);border-radius:28px;padding:1.6rem 1.25rem 1.4rem;box-shadow:var(--shadow);}
 .ngl-ask-to{font-size:.8rem;color:var(--text-dim);margin:0;}
-.ngl-ask-shell h2{font-family:"MarcaAmiri",Georgia,serif;font-size:1.55rem;margin:.15rem 0 1.1rem;color:var(--text);}
+.ngl-ask-shell h2{font-family:"Amiri",Georgia,serif;font-size:1.55rem;margin:.15rem 0 1.1rem;color:var(--text);}
 .ngl-ask-shell .anon-field{text-align:right;}
 .btn-ngl{border-radius:999px;background:linear-gradient(90deg,#d4af37,#a67c2a);border:none;font-weight:700;color:#0c0b09;}
 .btn-ngl:hover{filter:brightness(1.06);}
 
-.ngl-check{width:64px;height:64px;margin:0 auto .9rem;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.35);}
+.ngl-check{width:64px;height:64px;margin:0 auto .9rem;display:grid;place-items:center;font-size:1.6rem;background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.35);border-radius:50%;}
 
 .anon-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.35rem;display:flex;flex-direction:column;gap:.85rem;box-shadow:var(--shadow);}
 .anon-actions{display:grid;gap:.75rem;}
@@ -43,15 +39,15 @@ a.nav-anon:hover{text-decoration:none;}
 
 .anon-bubble{position:relative;background:linear-gradient(160deg,#16131c,#1f1830);border:1px solid rgba(212,175,55,.22);border-radius:22px 22px 8px 22px;padding:1.15rem 1.2rem;min-height:88px;text-align:right;}
 .anon-bubble.answer{border-radius:22px 22px 22px 8px;background:linear-gradient(160deg,rgba(212,175,55,.1),#16131c);margin-top:.35rem;}
-.anon-bubble .label{font-size:.72rem;color:var(--accent-bright);font-weight:700;margin-bottom:.35rem;font-family:"MarcaAmiri",serif;}
-.anon-bubble .body{font-size:1.05rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;font-family:"MarcaAmiri",var(--font);}
+.anon-bubble .label{font-size:.72rem;color:var(--accent-bright);font-weight:700;margin-bottom:.35rem;font-family:"Amiri",serif;}
+.anon-bubble .body{font-size:1.05rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;font-family:"Amiri",var(--font);}
 
 .anon-share-card{background:linear-gradient(165deg,#0f0d0a,#16120e 55%,#0c0b09);border-radius:24px;padding:1.5rem 1.25rem;border:1px solid rgba(212,175,55,.32);text-align:center;box-shadow:0 0 40px rgba(212,175,55,.08);}
-.anon-share-card .brand{font-family:"MarcaAmiri",serif;color:var(--accent-bright);font-size:.88rem;margin-bottom:.55rem;opacity:.9;}
+.anon-share-card .brand{font-family:"Amiri",serif;color:var(--accent-bright);font-size:.88rem;margin-bottom:.55rem;opacity:.9;}
 .anon-share-card .card-to{font-size:.88rem;color:var(--text-muted);margin-bottom:.85rem;}
 
 .anon-field textarea,.anon-field input{width:100%;min-height:var(--tap);padding:.85rem 1rem;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--bg-elevated);color:var(--text);font:inherit;resize:vertical;}
-.anon-field textarea{min-height:120px;font-family:"MarcaAmiri",var(--font);}
+.anon-field textarea{min-height:120px;font-family:"Amiri",var(--font);}
 .anon-field label{display:block;font-size:.85rem;color:var(--text-muted);margin-bottom:.4rem;}
 .anon-meta{font-size:.78rem;color:var(--text-dim);text-align:center;line-height:1.45;}
 .anon-link-box{display:flex;gap:.5rem;align-items:stretch;}
@@ -60,8 +56,8 @@ a.nav-anon:hover{text-decoration:none;}
 
 .anon-inbox-list{display:flex;flex-direction:column;gap:.75rem;min-height:2rem;}
 .anon-msg{background:linear-gradient(160deg,var(--bg-elevated),rgba(212,175,55,.04));border:1px solid rgba(212,175,55,.18);border-radius:18px;padding:1.05rem;text-align:right;}
-.anon-msg .meta{font-size:.72rem;color:var(--text-dim);margin-bottom:.4rem;font-family:"MarcaAmiri",serif;}
-.anon-msg .text{font-size:1rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;margin-bottom:.75rem;font-family:"MarcaAmiri",var(--font);}
+.anon-msg .meta{font-size:.72rem;color:var(--text-dim);margin-bottom:.4rem;font-family:"Amiri",serif;}
+.anon-msg .text{font-size:1rem;line-height:1.55;white-space:pre-wrap;word-break:break-word;margin-bottom:.75rem;font-family:"Amiri",var(--font);}
 .anon-msg .row{display:flex;gap:.5rem;flex-wrap:wrap;}
 .anon-empty{text-align:center;color:var(--text-muted);font-size:.9rem;padding:1rem 0;}
 .anon-unlock{display:flex;flex-direction:column;gap:1rem;}
