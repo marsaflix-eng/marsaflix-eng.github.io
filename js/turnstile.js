@@ -36,7 +36,7 @@
     var u = String(url || "");
     if (/\/v1\/auth\/register$/.test(u)) return visible("seller-ts-register") ? "seller-ts-register" : "anon-ts-reg";
     if (/\/v1\/auth\/login$/.test(u)) return visible("seller-ts-login") ? "seller-ts-login" : "anon-ts-login";
-    if (/\/\/v1\/boxes$/.test(u)) return "anon-ts-create";
+    if (/\/v1\/boxes$/.test(u)) return "anon-ts-create";
     if (/\/messages$/.test(u)) return "anon-ts-ask";
     return null;
   }
