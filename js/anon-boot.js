@@ -4,7 +4,7 @@
  */
 (function () {
   "use strict";
-  var VER = "7";
+  var VER = "8";
   var pendingOpen = false;
 
   function openAnon(e) {
@@ -49,6 +49,9 @@
     s.src = "js/anon.js?v=" + VER;
     s.setAttribute("data-anon-js", "1");
     s.onload = function () {
+      var visual = document.createElement("script");
+      visual.src = "js/anon-visual.js?v=" + VER;
+      document.body.appendChild(visual);
       if (pendingOpen || (location.hash || "").indexOf("#anon") === 0 || (location.hash || "").indexOf("#q/") === 0) {
         if (window.MarcaAnon) {
           if (pendingOpen && window.MarcaAnon.open) window.MarcaAnon.open();
