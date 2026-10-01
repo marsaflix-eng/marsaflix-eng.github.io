@@ -4,7 +4,7 @@
  */
 (function () {
   "use strict";
-  var VER = "8";
+  var VER = "9";
   var pendingOpen = false;
 
   function openAnon(e) {

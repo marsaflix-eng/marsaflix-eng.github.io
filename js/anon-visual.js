@@ -137,88 +137,44 @@
     var start = y - ((lines.length - 1) * lineH) / 2;
     lines.forEach(function (item, i) { ctx.fillText(item, x, start + i * lineH); });
   }
+  function esc(s) {
+    return String(s || "").replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+  }
   function buildCard() {
     var size = maxSize();
     lastSize = size;
-    var W = size[0], H = size[1], s = W / 1080;
+    var W = size[0], H = size[1];
     var canvas = $("anon-story-canvas") || document.createElement("canvas");
     canvas.id = "anon-story-canvas";
     canvas.hidden = true;
     if (!canvas.parentNode) document.body.appendChild(canvas);
     canvas.width = W;
     canvas.height = H;
-    var ctx = canvas.getContext("2d");
-    var q = ($("anon-card-q") && $("anon-card-q").textContent) || "";
-    var a = ($("anon-card-a") && $("anon-card-a").textContent) || "";
-    var name = ($("anon-card-name") && $("anon-card-name").textContent) || "";
-    var photo = photoFor(boxId()) || store().self;
-    return Promise.all([
-      loadImage("assets/logo-marca.png"),
-      loadImage(photo),
-      document.fonts && document.fonts.load ? document.fonts.load((64 * s) + "px \"Aref Ruqaa\"") : Promise.resolve()
-    ]).then(function (loaded) {
-      var logo = loaded[0], face = loaded[1];
-      var bg = ctx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, "#141208");
-      bg.addColorStop(0.45, "#07070b");
-      bg.addColorStop(1, "#120e08");
-      ctx.fillStyle = bg;
+    var q = (($("anon-card-q") && $("anon-card-q").textContent) || ($("anon-q-in") && $("anon-q-in").value) || "").trim();
+    var a = (($("anon-card-a") && $("anon-card-a").textContent) || ($("anon-a-in") && $("anon-a-in").value) || "").trim();
+    var name = (($("anon-card-name") && $("anon-card-name").textContent) || "").trim();
+    var photo = photoFor(boxId()) || store().self || "";
+    var pad = Math.round(W * 0.06);
+    var html = ''
+      + '<div xmlns="http://www.w3.org/1999/xhtml" dir="rtl" style="box-sizing:border-box;width:' + W + 'px;height:' + H + 'px;padding:' + pad + 'px;background:#07070b;color:#fff8ea;font-family:Cairo,El Messiri,sans-serif;display:flex;flex-direction:column;gap:' + Math.round(H * 0.025) + 'px;">'
+      + (photo ? '<img src="' + esc(photo) + '" style="width:' + Math.round(W * 0.22) + 'px;height:' + Math.round(W * 0.22) + 'px;object-fit:cover;border-radius:50%;border:' + Math.round(W * 0.008) + 'px solid #ffcc00;margin:0 auto;" />' : '')
+      + (name ? '<div style="text-align:center;color:#ffe56a;font-size:' + Math.round(W * 0.045) + 'px;font-weight:700;">' + esc(name) + '</div>' : '')
+      + '<div style="flex:1;border:' + Math.round(W * 0.004) + 'px solid rgba(255,204,0,.55);border-radius:' + Math.round(W * 0.04) + 'px;padding:' + Math.round(W * 0.04) + 'px;background:#141208;display:flex;flex-direction:column;">'
+      + '<div style="text-align:center;color:#ffe56a;font-size:' + Math.round(W * 0.05) + 'px;font-weight:700;margin-bottom:' + Math.round(H * 0.02) + 'px;">رسالة المجهول</div>'
+      + '<div style="white-space:pre-wrap;word-break:break-word;text-align:center;font-size:' + Math.round(W * 0.055) + 'px;line-height:1.45;color:#fff8ea;">' + esc(q || "—") + '</div></div>'
+      + '<div style="flex:1;border:' + Math.round(W * 0.004) + 'px solid rgba(255,204,0,.75);border-radius:' + Math.round(W * 0.04) + 'px;padding:' + Math.round(W * 0.04) + 'px;background:#1a150c;display:flex;flex-direction:column;">'
+      + '<div style="text-align:center;color:#ffcc00;font-size:' + Math.round(W * 0.05) + 'px;font-weight:700;margin-bottom:' + Math.round(H * 0.02) + 'px;">جوابي</div>'
+      + '<div style="white-space:pre-wrap;word-break:break-word;text-align:center;font-size:' + Math.round(W * 0.055) + 'px;line-height:1.45;color:#fff8ea;">' + esc(a || "—") + '</div></div>'
+      + '<div style="text-align:center;color:rgba(255,229,106,.7);font-size:' + Math.round(W * 0.03) + 'px;">marça.online</div>'
+      + '</div>';
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '"><foreignObject width="100%" height="100%">' + html + '</foreignObject></svg>';
+    return loadImage("data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg)).then(function (img) {
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#07070b";
       ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = "rgba(255,204,0,0.08)";
-      ctx.beginPath();
-      ctx.arc(W / 2, H * 0.12, 280 * s, 0, Math.PI * 2);
-      ctx.fill();
-      if (logo) {
-        var lw = 460 * s, lh = lw * (logo.height / logo.width);
-        ctx.drawImage(logo, (W - lw) / 2, 70 * s, lw, lh);
-      }
-      ctx.textAlign = "center";
-      ctx.direction = "rtl";
-      ctx.fillStyle = "#ffe56a";
-      ctx.font = "700 " + (72 * s) + "px \"Aref Ruqaa\", \"El Messiri\", serif";
-      ctx.fillText("رسالة من مجهول", W / 2, 430 * s);
-      ctx.fillStyle = "rgba(255,229,106,0.75)";
-      ctx.font = "600 " + (34 * s) + "px \"El Messiri\", \"Cairo\", serif";
-      ctx.fillText("ظرف مغلق · بلا اسم · Marça", W / 2, 490 * s);
-      if (face) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(W / 2, 620 * s, 78 * s, 0, Math.PI * 2);
-        ctx.clip();
-        ctx.drawImage(face, W / 2 - 78 * s, 542 * s, 156 * s, 156 * s);
-        ctx.restore();
-        ctx.strokeStyle = "#ffcc00";
-        ctx.lineWidth = 6 * s;
-        ctx.beginPath();
-        ctx.arc(W / 2, 620 * s, 78 * s, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-      if (name) {
-        ctx.fillStyle = "#fff8dc";
-        ctx.font = "700 " + (40 * s) + "px \"El Messiri\", serif";
-        ctx.fillText(name, W / 2, 760 * s);
-      }
-      function card(y, h, title, body, answer) {
-        round(ctx, 70 * s, y, W - 140 * s, h, 36 * s);
-        ctx.fillStyle = answer ? "rgba(48,36,12,0.94)" : "rgba(20,18,14,0.94)";
-        ctx.fill();
-        ctx.strokeStyle = "rgba(255,204,0,0.4)";
-        ctx.lineWidth = 3 * s;
-        ctx.stroke();
-        ctx.fillStyle = answer ? "#ffcc00" : "#ffe56a";
-        ctx.font = "700 " + (34 * s) + "px \"Aref Ruqaa\", serif";
-        ctx.fillText(title, W / 2, y + 70 * s);
-        ctx.fillStyle = "#fff8ea";
-        ctx.font = "500 " + (46 * s) + "px \"El Messiri\", \"Cairo\", serif";
-        wrap(ctx, body, W / 2, y + h * 0.58, W - 220 * s, 64 * s, 8);
-      }
-      card(820 * s, 980 * s, "السؤال المجهول", q, false);
-      card(1880 * s, 1180 * s, "الرد", a, true);
-      ctx.fillStyle = "rgba(255,229,106,0.7)";
-      ctx.font = "600 " + (32 * s) + "px \"Cairo\", sans-serif";
-      ctx.fillText("marça.online  ·  " + W + "×" + H, W / 2, H - 90 * s);
+      if (img) ctx.drawImage(img, 0, 0, W, H);
       var note = $("anon-res-note");
-      if (note) note.textContent = "صورة الستوري " + W + "×" + H + " · أعلى دقة متاحة على هذا الجهاز";
+      if (note) note.textContent = "صورة الستوري " + W + "×" + H + " · السؤال والرد ظاهران";
       return new Promise(function (resolve) {
         canvas.toBlob(function (b) { blob = b; resolve(b); }, "image/png");
       });
