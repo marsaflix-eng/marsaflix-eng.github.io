@@ -1,0 +1,62 @@
+name: Fix user Pages SSL custom domain
+on:
+  workflow_dispatch:
+permissions:
+  pages: write
+  contents: read
+jobs:
+  fix-ssl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-save custom domain and enforce HTTPS when ready
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 << 'PY'
+          import json, os, time, urllib.request, urllib.error
+          token = os.environ['GH_TOKEN']
+          repo = os.environ['GITHUB_REPOSITORY']
+          url = f'https://api.github.com/repos/{repo}/pages'
+          headers = {
+            'Authorization': f'Bearer {token}',
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+            'Content-Type': 'application/json',
+          }
+          def api(method, payload=None):
+            data = None if payload is None else json.dumps(payload).encode()
+            h = headers if payload is not None else {k:v for k,v in headers.items() if k!='Content-Type'}
+            req = urllib.request.Request(url, data=data, method=method, headers=h)
+            try:
+              with urllib.request.urlopen(req) as resp:
+                body = resp.read().decode()
+                print(method, resp.status, body)
+                return resp.status, json.loads(body) if body else {}
+            except urllib.error.HTTPError as e:
+              err = e.read().decode()
+              print(method, e.code, err)
+              return e.code, err
+          # Ensure Pages exists (legacy branch publish)
+          code, body = api('GET')
+          if code == 404:
+            api('POST', {'build_type': 'legacy', 'source': {'branch': 'main', 'path': '/'}})
+          # Trigger cert provisioning: remove then re-add domain (GitHub docs)
+          api('PUT', {'cname': None})
+          time.sleep(2)
+          api('PUT', {'cname': 'xn--mara-2oa.online'})
+          # Poll briefly; enforce HTTPS only when cert ready
+          for i in range(12):
+            time.sleep(10)
+            code, pages = api('GET')
+            if not isinstance(pages, dict):
+              continue
+            print('poll', i, 'cname=', pages.get('cname'), 'https_enforced=', pages.get('https_enforced'), 'status=', pages.get('status'), 'https_certificate=', pages.get('https_certificate'))
+            # Try enforce; expected to fail until cert issued
+            ecode, _ = api('PUT', {'cname': 'xn--mara-2oa.online', 'https_enforced': True})
+            if ecode in (200, 204):
+              print('https_enforced enabled')
+              break
+          code, final = api('GET')
+          print('FINAL', json.dumps(final if isinstance(final, dict) else {'raw': final}, indent=2))
+          PY
