@@ -42,3 +42,5 @@
 .anon-msg .row{display:flex;gap:.5rem;flex-wrap:wrap;}
 .anon-empty{text-align:center;color:var(--text-muted);font-size:.9rem;padding:1rem 0;}
 .anon-unlock{display:flex;flex-direction:column;gap:1rem;}
+a.nav-anon{text-decoration:none;}
+a.nav-anon:hover{text-decoration:none;}
