@@ -25,8 +25,6 @@
 
   var USERNAME_RE = /^[A-Za-z0-9._-]{3,15}$/;
 
-  var VIEW_ORDER = ["home", "plans", "username", "follow", "payment"];
-
   /* ---------- DOM ---------- */
   var el = {
     progressWrap: document.getElementById("progress-wrap"),
@@ -84,7 +82,6 @@
   }
 
   function formatPrice(n) {
-    /* Latin digits only in UI */
     return String(n) + " " + cfg.CURRENCY + " (" + cfg.CURRENCY_CODE + ")";
   }
 
@@ -197,7 +194,7 @@
       anon.classList.remove("active");
       anon.setAttribute("aria-hidden", "true");
     }
-    if (location.hash.indexOf("#anon") === 0) {
+    if (location.hash.indexOf("#anon") === 0 || location.hash.indexOf("#q/") === 0) {
       history.replaceState(null, "", location.pathname + location.search);
     }
     showView("home");
@@ -211,10 +208,9 @@
     wrap.setAttribute("aria-hidden", "true");
     var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     if (kind === "snap") {
-      /* Abstract gift / spark — not Snapchat logo */
-      path.setAttribute("d","M24 6l2.4 7.2H34l-6 4.4 2.3 7.2L24 20.4l-6.3 4.4 2.3-7.2-6-4.4h7.6L24 6zm0 20c6.6 0 12 3.6 12 8v4H12v-4c0-4.4 5.4-8 12-8z");
+      path.setAttribute("d", "M24 6l2.4 7.2H34l-6 4.4 2.3 7.2L24 20.4l-6.3 4.4 2.3-7.2-6-4.4h7.6L24 6zm0 20c6.6 0 12 3.6 12 8v4H12v-4c0-4.4 5.4-8 12-8z");
     } else {
-      path.setAttribute("d","M12 14h24v4H12v-4zm0 8h24v16H12V22zm4 4v8h4v-8h-4zm8 0v8h4v-8h-4z");
+      path.setAttribute("d", "M12 14h24v4H12v-4zm0 8h24v16H12V22zm4 4v8h4v-8h-4zm8 0v8h4v-8h-4z");
     }
     path.setAttribute("fill", "currentColor");
     wrap.appendChild(path);

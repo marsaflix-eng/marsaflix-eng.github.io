@@ -48,58 +48,129 @@
     </section>
 
 
-    <!-- رسالة من مجهول -->
+    <!-- رسالة من مجهول — مثل NGL/Sendit: زوار الموقع ينشئون رابطهم لمتابعيهم -->
     <section class="panel" id="panel-anon" aria-hidden="true">
       <div class="anon-wrap">
+        <!-- Hub -->
         <div id="anon-hub" class="panel active" aria-hidden="false">
-          <div class="anon-hero">
+          <div class="ngl-hero">
+            <div class="ngl-orb" aria-hidden="true"></div>
             <h2>رسالة من مجهول</h2>
-            <p>اسأل بدون اسم، أو حوّل سؤالاً وجواباً لبطاقة أنيقة للمشاركة.</p>
+            <p>أنشئ رابطك، ضعه في ستوري سناب أو واتساب، واستقبل أسئلة مجهولة من متابعيك — ثم أجب وشارك.</p>
           </div>
           <div class="anon-card anon-actions">
-            <button type="button" class="btn btn-primary" id="anon-go-ask">أرسل سؤالاً مجهولاً</button>
-            <button type="button" class="btn btn-ghost" id="anon-go-answer">أنشئ بطاقة جواب</button>
+            <button type="button" class="btn btn-primary" id="anon-go-create">أنشئ رابطك</button>
+            <button type="button" class="btn btn-ghost" id="anon-go-my-link">رابطي المحفوظ</button>
+            <button type="button" class="btn btn-ghost" id="anon-go-answer">أجب وشارك بطاقة</button>
             <button type="button" class="btn btn-ghost" data-home>العودة للمتجر</button>
           </div>
+          <ol class="ngl-steps">
+            <li>أنشئ رابطًا باسمك ورقم واتسابك</li>
+            <li>انسخه وضعه في الستوري</li>
+            <li>متابعوك يرسلون أسئلة — ترد ببطاقة أنيقة</li>
+          </ol>
         </div>
-        <div id="anon-ask" class="panel" aria-hidden="true">
-          <div class="anon-hero">
-            <h2>اسأل بسرية</h2>
-            <p>لن يظهر اسمك. يُرسل السؤال عبر واتساب.</p>
+
+        <!-- Create link -->
+        <div id="anon-create" class="panel" aria-hidden="true">
+          <div class="ngl-hero compact">
+            <h2>أنشئ رابطك</h2>
+            <p>الرابط يعمل فورًا بدون تسجيل. الرسالة تصل لواتسابك.</p>
           </div>
           <div class="anon-card">
             <div class="anon-field">
-              <label for="anon-question">سؤالك</label>
-              <textarea id="anon-question" maxlength="280" placeholder="اكتب سؤالك هنا…"></textarea>
+              <label for="anon-display-name">الاسم الظاهر لمتابعيك</label>
+              <input id="anon-display-name" type="text" maxlength="32" autocomplete="nickname" placeholder="مثال: أحمد" />
+            </div>
+            <div class="anon-field">
+              <label for="anon-wa">رقم واتساب لاستقبال الرسائل</label>
+              <input id="anon-wa" type="tel" inputmode="numeric" maxlength="15" dir="ltr" placeholder="2224xxxxxxx" autocomplete="tel" />
+            </div>
+            <p class="anon-meta">أدخل الرقم الدولي بدون + (موريتانيا: 222…). الرقم يُضمَّن في الرابط ليعمل بدون خادم — لا يظهر في صفحة السؤال.</p>
+            <p class="field-error" id="anon-create-error" role="alert"></p>
+            <button type="button" class="btn btn-primary" id="anon-create-btn">إنشاء الرابط</button>
+            <button type="button" class="btn btn-ghost" data-anon-back>رجوع</button>
+          </div>
+        </div>
+
+        <!-- My link (owner) -->
+        <div id="anon-mylink" class="panel" aria-hidden="true">
+          <div class="ngl-hero compact">
+            <div class="ngl-avatar" id="anon-my-avatar" aria-hidden="true">?</div>
+            <h2 id="anon-my-name">رابطك</h2>
+            <p>انسخه وضعه في ستوري سناب أو واتساب أو إنستغرام.</p>
+          </div>
+          <div class="anon-card">
+            <div class="anon-link-box">
+              <input id="anon-my-link-input" type="text" readonly dir="ltr" />
+              <button type="button" class="btn btn-primary" id="anon-copy-mylink">نسخ</button>
+            </div>
+            <p class="anon-meta" id="anon-mylink-status"></p>
+            <button type="button" class="btn btn-ghost" id="anon-share-mylink">مشاركة الرابط</button>
+            <button type="button" class="btn btn-ghost" id="anon-preview-ask">معاينة صفحة السؤال</button>
+            <button type="button" class="btn btn-ghost" id="anon-recreate">تعديل الرابط</button>
+            <button type="button" class="btn btn-ghost" data-anon-back>رجوع</button>
+          </div>
+        </div>
+
+        <!-- Public ask (followers) -->
+        <div id="anon-ask" class="panel" aria-hidden="true">
+          <div class="ngl-ask-shell">
+            <div class="ngl-avatar lg" id="anon-ask-avatar" aria-hidden="true">?</div>
+            <p class="ngl-ask-to">أرسل رسالة مجهولة إلى</p>
+            <h2 id="anon-ask-name">…</h2>
+            <div class="anon-field">
+              <label class="sr-only" for="anon-question">رسالتك</label>
+              <textarea id="anon-question" maxlength="280" placeholder="اكتب سؤالك أو رسالتك هنا…"></textarea>
             </div>
             <p class="field-error" id="anon-ask-error" role="alert"></p>
-            <button type="button" class="btn btn-primary" id="anon-send">إرسال عبر واتساب</button>
-            <button type="button" class="btn btn-ghost" data-anon-back>رجوع</button>
-            <p class="anon-meta">حد أقصى 280 حرفًا · بدون تتبّع هوية على الموقع</p>
+            <button type="button" class="btn btn-primary btn-ngl" id="anon-send">إرسال مجهول</button>
+            <p class="anon-meta">لن يطلب الموقع اسمك · حد 280 حرفًا</p>
+            <button type="button" class="btn btn-ghost" id="anon-ask-make-own">أنشئ رابطك أنت أيضًا</button>
           </div>
         </div>
+
+        <!-- Sent -->
+        <div id="anon-sent" class="panel" aria-hidden="true">
+          <div class="ngl-hero">
+            <div class="ngl-check" aria-hidden="true">✓</div>
+            <h2>تم التحضير</h2>
+            <p>أكمل الإرسال من واتساب. هويتك غير مطلوبة على الموقع.</p>
+          </div>
+          <div class="anon-card anon-actions">
+            <button type="button" class="btn btn-primary" id="anon-sent-again">أرسل رسالة أخرى</button>
+            <button type="button" class="btn btn-ghost" id="anon-sent-create">أنشئ رابطك</button>
+            <button type="button" class="btn btn-ghost" data-home>المتجر</button>
+          </div>
+        </div>
+
+        <!-- Answer / reply card -->
         <div id="anon-answer" class="panel" aria-hidden="true">
-          <div class="anon-hero">
-            <h2>بطاقة جواب</h2>
-            <p>الصق السؤال واكتب جوابك ثم شارك البطاقة.</p>
+          <div class="ngl-hero compact">
+            <h2>أجب وشارك</h2>
+            <p>الصق السؤال، اكتب جوابك، ثم شارك البطاقة في ستوريك.</p>
           </div>
           <div class="anon-card">
             <div class="anon-field">
-              <label for="anon-q-in">السؤال</label>
-              <textarea id="anon-q-in" maxlength="280"></textarea>
+              <label for="anon-q-in">السؤال المجهول</label>
+              <textarea id="anon-q-in" maxlength="280" placeholder="الصق السؤال هنا…"></textarea>
             </div>
             <div class="anon-field">
               <label for="anon-a-in">جوابك</label>
-              <textarea id="anon-a-in" maxlength="400"></textarea>
+              <textarea id="anon-a-in" maxlength="400" placeholder="اكتب جوابك…"></textarea>
             </div>
             <p class="field-error" id="anon-ans-error" role="alert"></p>
-            <button type="button" class="btn btn-primary" id="anon-make-card">إنشاء البطاقة</button>
+            <button type="button" class="btn btn-primary" id="anon-make-card">إنشاء بطاقة المشاركة</button>
             <button type="button" class="btn btn-ghost" data-anon-back>رجوع</button>
           </div>
         </div>
+
+        <!-- Share card preview -->
         <div id="anon-card" class="panel" aria-hidden="true">
           <div class="anon-share-card" id="anon-share-preview">
-            <div class="brand" id="anon-card-name">رسالة من مجهول</div>
+            <div class="brand" id="anon-card-brand">رسالة من مجهول · Marça</div>
+            <div class="ngl-avatar sm" id="anon-card-avatar" aria-hidden="true">?</div>
+            <div class="card-to" id="anon-card-name"></div>
             <div class="anon-bubble">
               <div class="label">سؤال مجهول</div>
               <div class="body" id="anon-card-q"></div>
@@ -168,20 +239,7 @@
           <label for="snap-username">يوزر سنابشات</label>
           <div class="input-wrap">
             <span class="input-prefix" aria-hidden="true">@</span>
-            <input
-              type="text"
-              id="snap-username"
-              name="snap-username"
-              autocomplete="username"
-              autocapitalize="off"
-              autocorrect="off"
-              spellcheck="false"
-              maxlength="16"
-              inputmode="text"
-              placeholder="snapchat_username"
-              aria-describedby="username-hint username-error"
-              aria-required="true"
-            />
+            <input type="text" id="snap-username" name="snap-username" autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" maxlength="16" inputmode="text" placeholder="snapchat_username" aria-describedby="username-hint username-error" aria-required="true" />
           </div>
           <p class="field-hint" id="username-hint">يوزر سنابشات: 3–15 حرفًا إنجليزيًا أو أرقام أو . _ -</p>
           <p class="field-error" id="username-error" role="alert" aria-live="polite"></p>
@@ -229,7 +287,7 @@
           <strong>—</strong>
         </div>
         <div class="policy-box">
-          <h3><span aria-hidden="true">💳</span>طريقة الدفع المقبولة</h3>
+          <h3><span aria-hidden="true">💳</span> طريقة الدفع المقبولة</h3>
           <ul class="policy-list">
             <li><span class="policy-icon yes" aria-hidden="true">✓</span><span><span class="policy-highlight">الدفع فقط عبر بنكيلي (Bankily)</span></span></li>
             <li><span class="policy-icon no" aria-hidden="true">✕</span><span>لا نقبل <strong>Gimtel</strong></span></li>
@@ -237,10 +295,15 @@
             <li><span class="policy-icon yes" aria-hidden="true">✓</span><span>لا نجمع أرقام بطاقات ولا نعالج الدفع على الموقع — الطلب يُكمَل عبر واتساب</span></li>
           </ul>
         </div>
-        <label class="check-row" for="check-payment"><input type="checkbox" id="check-payment" name="payment-agree" /><span>أوافق: الدفع فقط عبر بنكيلي، ولا Gimtel ولا طرف ثالث</span></label>
+        <label class="check-row" for="check-payment">
+          <input type="checkbox" id="check-payment" name="payment-agree" />
+          <span>أوافق: الدفع فقط عبر بنكيلي، ولا Gimtel ولا طرف ثالث</span>
+        </label>
         <div class="btn-row">
           <a class="btn btn-whatsapp" id="btn-whatsapp" role="button" aria-disabled="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.5 14.4c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.8 1-.2.1-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.1-.3 0-.4.1-.5.1-.1.3-.3.4-.4.1-.1.2-.3.3-.4.1-.1.1-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.4-.2.2-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.1 15 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.4-8.4 8.4z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M17.5 14.4c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.8 1-.2.1-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.1-.3 0-.4.1-.5.1-.1.3-.3.4-.4.1-.1.2-.3.3-.4.1-.1.1-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.4-.2.2-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.1 15 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.4-8.4 8.4z"/>
+            </svg>
             إرسال الطلب عبر واتساب
           </a>
           <button type="button" class="btn btn-ghost" data-back>رجوع</button>
