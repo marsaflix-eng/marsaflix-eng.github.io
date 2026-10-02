@@ -22,3 +22,17 @@ input,textarea,select{font-size:16px}
 @media (min-width:901px) and (max-width:1200px){
   main{padding:1.5rem 1.5rem 5rem}
 }
+
+.hero-stage{position:relative;min-height:300px;display:grid;place-items:center;overflow:hidden}
+.hero-logo{transition:transform .7s var(--ease),opacity .7s var(--ease);will-change:transform}
+.hero-logo.is-shifted{transform:translateX(-34%)}
+.hero-card{position:absolute;inset-inline-end:4%;top:50%;transform:translateY(-46%) translateX(28px);width:min(280px,46vw);opacity:0;pointer-events:none;text-align:center;transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.hero-card.is-in{opacity:1;transform:translateY(-50%) translateX(0);pointer-events:auto}
+.hero-card h2{font-family:var(--font-display);font-size:1.35rem;margin-bottom:.35rem}
+.hero-card p{color:var(--text-muted);font-size:.92rem;margin-bottom:.8rem}
+@media (max-width:700px){
+  .hero-stage{min-height:420px}
+  .hero-logo.is-shifted{transform:translateY(-78px) scale(.72)}
+  .hero-card{position:relative;inset:auto;width:min(100%,320px);margin-top:.4rem;transform:none}
+  .hero-card.is-in{transform:none}
+}
