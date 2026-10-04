@@ -1,12 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-label="Marça">
-  <defs>
-    <linearGradient id="gGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f0e6c8"/>
-      <stop offset="45%" stop-color="#d4af37"/>
-      <stop offset="100%" stop-color="#a67c2a"/>
-    </linearGradient>
-  </defs>
-  <rect x="2" y="8" width="56" height="56" rx="14" fill="#14110e" stroke="url(#gGold)" stroke-width="1.5"/>
-  <text x="30" y="48" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="url(#gGold)">M</text>
-  <text x="74" y="47" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="600" fill="#f5f2ea" letter-spacing="1.5">Marça</text>
+  <rect x="2" y="8" width="56" height="56" rx="14" fill="#5041D2"/>
+  <text x="30" y="48" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="700" fill="#F9FAFB">M</text>
+  <text x="74" y="47" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="600" fill="#F9FAFB" letter-spacing="1.5">Marça</text>
 </svg>
