@@ -1,6 +1,7 @@
 /**
- * iTunes / Apple gift-card grid. Snapchat Plus stays in app.js.
- * Prices: Latin digits + أوقية. No dollar prices.
+ * Marça iTunes storefront flow.
+ * One iTunes product card → country picker → denominations → WhatsApp payment handoff.
+ * No payment processing on-site.
  */
 (function () {
   "use strict";
@@ -9,16 +10,19 @@
   var cfg = window.MARCA_CONFIG || {};
   if (!data || !data.markets) return;
 
-  var region = "all";
-  var query = "";
-  var selected = null;
-
-  var grid = document.getElementById("sku-grid");
-  var filters = document.getElementById("region-filters");
+  var state = { market: null, card: null, step: "country" };
+  var productGrid = document.getElementById("product-grid");
   var search = document.getElementById("catalog-search");
-  var countEl = document.getElementById("sku-count");
-  var modal = document.getElementById("card-modal");
-  var NS = "http://www.w3.org/2000/svg";
+  var flow = document.getElementById("itunes-block");
+  var countryStep = document.getElementById("itunes-step-country");
+  var denomStep = document.getElementById("itunes-step-denom");
+  var paymentStep = document.getElementById("itunes-step-payment");
+  var countryGrid = document.getElementById("itunes-country-grid");
+  var denomGrid = document.getElementById("itunes-denom-grid");
+  var selectedCountry = document.getElementById("itunes-selected-country");
+  var selectedOrder = document.getElementById("itunes-selected-order");
+  var paymentCheck = document.getElementById("itunes-payment-check");
+  var waLink = document.getElementById("itunes-wa");
 
   function digits(n) {
     var s = String(Math.round(Number(n)));
@@ -30,203 +34,216 @@
     return out;
   }
 
-  function priceLabel(n) {
-    return digits(n) + " أوقية";
-  }
-
-  function tone(id) {
-    var h = 0;
-    for (var i = 0; i < id.length; i++) h = (h + id.charCodeAt(i) * (i + 1)) % 6;
-    return "tone-" + h;
-  }
-
-  function cardArt(code) {
-    var svg = document.createElementNS(NS, "svg");
-    svg.setAttribute("viewBox", "0 0 240 140");
-    svg.setAttribute("class", "sku-svg");
-    svg.setAttribute("aria-hidden", "true");
-    var body = document.createElementNS(NS, "rect");
-    body.setAttribute("x", "16");
-    body.setAttribute("y", "18");
-    body.setAttribute("width", "208");
-    body.setAttribute("height", "104");
-    body.setAttribute("rx", "16");
-    body.setAttribute("fill", "rgba(255,255,255,0.12)");
-    body.setAttribute("stroke", "rgba(255,255,255,0.55)");
-    svg.appendChild(body);
-    var apple = document.createElementNS(NS, "path");
-    apple.setAttribute("fill", "#fff");
-    apple.setAttribute("d", "M118 46c2-6 8-9 8-9s-1 6-4 9c4 1 8 5 8 11 0 8-6 16-14 16s-14-7-14-15c0-7 5-12 10-13-1-2 1-6 6-9 0 0 2 6 0 10z");
-    svg.appendChild(apple);
-    var t = document.createElementNS(NS, "text");
-    t.setAttribute("x", "120");
-    t.setAttribute("y", "104");
-    t.setAttribute("text-anchor", "middle");
-    t.setAttribute("fill", "#fff");
-    t.setAttribute("font-size", "16");
-    t.setAttribute("font-family", "Red Hat Display, Segoe UI, sans-serif");
-    t.setAttribute("font-weight", "700");
-    t.textContent = code;
-    svg.appendChild(t);
-    return svg;
-  }
+  function priceLabel(n) { return digits(n) + " أوقية (MRU)"; }
 
   function clear(node) {
+    if (!node) return;
     while (node.firstChild) node.removeChild(node.firstChild);
   }
 
-  function matches(market, card) {
-    if (region !== "all" && market.id !== region) return false;
-    if (!query) return true;
-    var blob = (market.region + " " + market.regionAr + " " + market.productName + " " + card.denomLabel + " " + card.id).toLowerCase();
-    return blob.indexOf(query) !== -1;
+  function setStep(step) {
+    state.step = step;
+    var steps = { country: countryStep, denom: denomStep, payment: paymentStep };
+    Object.keys(steps).forEach(function (key) {
+      var node = steps[key];
+      if (!node) return;
+      var active = key === step;
+      node.hidden = !active;
+      node.classList.toggle("is-active", active);
+    });
+    var title = document.getElementById("itunes-flow-title");
+    var sub = document.getElementById("itunes-flow-sub");
+    if (title) title.textContent = step === "country" ? "اختر الدولة أو المنطقة" : step === "denom" ? "اختر الفئة" : "إكمال الطلب";
+    if (sub) sub.textContent = step === "country" ? "اختر منطقة بطاقة آيتونز، ثم اختر الفئة المناسبة." : step === "denom" ? "اختر قيمة البطاقة — السعر بالأوقية الموريتانية فقط." : "راجع التفاصيل ووافق على الدفع عبر بنكيلي، ثم أرسل طلبك عبر واتساب.";
   }
 
-  function renderFilters() {
-    if (!filters) return;
-    clear(filters);
-    var all = document.createElement("button");
-    all.type = "button";
-    all.textContent = "كل المناطق";
-    if (region === "all") all.className = "is-on";
-    all.addEventListener("click", function () { region = "all"; render(); });
-    filters.appendChild(all);
-    data.markets.forEach(function (m) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.textContent = m.regionAr;
-      if (region === m.id) b.className = "is-on";
-      b.addEventListener("click", function () { region = m.id; render(); });
-      filters.appendChild(b);
-    });
+  function showHome() {
+    state.market = null;
+    state.card = null;
+    if (flow) flow.hidden = true;
+    setStep("country");
+    if (paymentCheck) paymentCheck.checked = false;
+    syncWhatsApp();
   }
 
-  function renderGrid() {
-    if (!grid) return;
-    clear(grid);
-    var n = 0;
-    data.markets.forEach(function (m) {
-      m.cards.forEach(function (card) {
-        if (!matches(m, card)) return;
-        n += 1;
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "sku-card " + tone(m.id);
-        btn.setAttribute("aria-label", m.productName + " " + card.denomLabel + " " + priceLabel(card.priceMru));
-        var art = document.createElement("div");
-        art.className = "sku-art";
-        art.appendChild(cardArt(m.id.toUpperCase()));
-        btn.appendChild(art);
-        var name = document.createElement("div");
-        name.className = "sku-name";
-        name.textContent = m.productName;
-        var denom = document.createElement("div");
-        denom.className = "sku-denom";
-        denom.textContent = m.regionAr + " · " + card.denomLabel;
-        var price = document.createElement("div");
-        price.className = "sku-price";
-        price.textContent = priceLabel(card.priceMru);
-        btn.appendChild(name);
-        btn.appendChild(denom);
-        btn.appendChild(price);
-        btn.addEventListener("click", function () { openCard(m, card); });
-        grid.appendChild(btn);
-      });
+  function showFlow() {
+    if (!flow) return;
+    flow.hidden = false;
+    setStep("country");
+    renderCountries();
+    flow.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function makeProductCard() {
+    var card = document.createElement("button");
+    card.type = "button";
+    card.className = "product-card featured itunes-product-card";
+    card.setAttribute("role", "listitem");
+    card.setAttribute("aria-label", "اختر بطاقة آيتونز — iTunes");
+
+    var icon = document.createElement("div");
+    icon.className = "product-icon product-icon-img itunes-product-logo";
+    var image = document.createElement("img");
+    image.src = "assets/products/itunes.svg";
+    image.alt = "شعار بطاقة آيتونز / iTunes";
+    image.width = 112;
+    image.height = 112;
+    image.loading = "lazy";
+    image.decoding = "async";
+    icon.appendChild(image);
+    card.appendChild(icon);
+
+    var category = document.createElement("span");
+    category.className = "product-category";
+    category.textContent = "بطاقات رقمية";
+    card.appendChild(category);
+
+    var title = document.createElement("h3");
+    title.className = "product-title";
+    title.textContent = "بطاقة آيتونز";
+    card.appendChild(title);
+
+    var en = document.createElement("p");
+    en.className = "product-name-en";
+    en.textContent = "iTunes / Apple Gift Card";
+    card.appendChild(en);
+
+    var desc = document.createElement("p");
+    desc.className = "product-desc";
+    desc.textContent = "كل المناطق والفئات — السعر بالأوقية الموريتانية.";
+    card.appendChild(desc);
+
+    var cta = document.createElement("span");
+    cta.className = "product-cta";
+    cta.textContent = "اختيار المنطقة";
+    card.appendChild(cta);
+    card.addEventListener("click", showFlow);
+    return card;
+  }
+
+  function renderProductCard() {
+    if (!productGrid || document.getElementById("itunes-product-card")) return;
+    var card = makeProductCard();
+    card.id = "itunes-product-card";
+    productGrid.appendChild(card);
+  }
+
+  function renderCountries() {
+    if (!countryGrid) return;
+    clear(countryGrid);
+    var query = search ? String(search.value || "").trim().toLowerCase() : "";
+    data.markets.forEach(function (market) {
+      var blob = (market.region + " " + market.regionAr + " " + market.productName).toLowerCase();
+      if (query && blob.indexOf(query) === -1) return;
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "itunes-country-card";
+      button.setAttribute("role", "listitem");
+      button.setAttribute("aria-label", "اختيار " + market.regionAr + " — " + market.region);
+      var ar = document.createElement("strong");
+      ar.textContent = market.regionAr;
+      var en = document.createElement("span");
+      en.textContent = market.region;
+      button.appendChild(ar);
+      button.appendChild(en);
+      button.addEventListener("click", function () { chooseCountry(market); });
+      countryGrid.appendChild(button);
     });
-    if (!n) {
+    if (!countryGrid.firstChild) {
       var empty = document.createElement("p");
-      empty.className = "sku-empty";
-      empty.textContent = "لا توجد بطاقات مطابقة.";
-      grid.appendChild(empty);
+      empty.className = "itunes-empty";
+      empty.textContent = "لا توجد منطقة مطابقة.";
+      countryGrid.appendChild(empty);
     }
-    if (countEl) countEl.textContent = digits(n) + " بطاقة";
   }
 
-  function render() {
-    renderFilters();
-    renderGrid();
+  function chooseCountry(market) {
+    state.market = market;
+    state.card = null;
+    if (selectedCountry) selectedCountry.textContent = market.regionAr + " — " + market.region;
+    renderDenominations();
+    setStep("denom");
+    if (flow) flow.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function waUrl(m, card) {
+  function renderDenominations() {
+    if (!denomGrid || !state.market) return;
+    clear(denomGrid);
+    state.market.cards.forEach(function (card) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "itunes-denom-card";
+      button.setAttribute("role", "listitem");
+      button.setAttribute("aria-label", card.denomLabel + " — " + priceLabel(card.priceMru));
+      var denom = document.createElement("strong");
+      denom.textContent = card.denomLabel;
+      var price = document.createElement("span");
+      price.textContent = priceLabel(card.priceMru);
+      button.appendChild(denom);
+      button.appendChild(price);
+      button.addEventListener("click", function () { chooseDenomination(card); });
+      denomGrid.appendChild(button);
+    });
+  }
+
+  function chooseDenomination(card) {
+    if (!state.market) return;
+    state.card = card;
+    if (selectedOrder) selectedOrder.textContent = state.market.regionAr + " · " + card.denomLabel + " · " + priceLabel(card.priceMru);
+    if (paymentCheck) paymentCheck.checked = false;
+    syncWhatsApp();
+    setStep("payment");
+    if (flow) flow.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function waUrl() {
     var phone = String(cfg.WHATSAPP_E164 || "22248650585").replace(/\D/g, "");
     var lines = [
       "السلام عليكم،",
-      "أريد طلب بطاقة آيتونز / آبل من متجر Marça:",
+      "أريد طلب بطاقة آيتونز / iTunes من متجر Marça:",
       "",
-      "• المنتج: " + m.productName,
-      "• المنطقة: " + m.regionAr,
-      "• الفئة: " + card.denomLabel,
-      "• السعر: " + priceLabel(card.priceMru),
-      "• تأكيد الدفع: أوافق على الدفع فقط عبر بنكيلي (Bankily) — لا Gimtel ولا طرف ثالث ✓"
+      "• المنتج: بطاقة آيتونز / iTunes",
+      "• المنطقة: " + state.market.regionAr + " (" + state.market.region + ")",
+      "• الفئة: " + state.card.denomLabel,
+      "• السعر: " + priceLabel(state.card.priceMru),
+      "• تأكيد الدفع: أوافق على الدفع فقط عبر بنكيلي (Bankily) ✓"
     ];
-    if (window.MarcaAffiliate && window.MarcaAffiliate.getRef()) {
-      lines.push("• REF:" + window.MarcaAffiliate.getRef());
-    }
-    lines.push("");
-    lines.push("شكرًا لكم.");
+    if (window.MarcaAffiliate && window.MarcaAffiliate.getRef()) lines.push("• REF:" + window.MarcaAffiliate.getRef());
+    lines.push("", "شكرًا لكم.");
     return "https://wa.me/" + phone + "?text=" + encodeURIComponent(lines.join("\n"));
   }
 
-  function openCard(m, card) {
-    selected = { m: m, card: card };
-    var title = document.getElementById("card-modal-title");
-    var sub = document.getElementById("card-modal-sub");
-    var price = document.getElementById("card-modal-price");
-    var agree = document.getElementById("card-agree");
-    var link = document.getElementById("card-wa");
-    if (title) title.textContent = m.productName;
-    if (sub) sub.textContent = m.regionAr + " · " + card.denomLabel;
-    if (price) price.textContent = priceLabel(card.priceMru);
-    if (agree) agree.checked = false;
-    if (link) {
-      link.setAttribute("aria-disabled", "true");
-      link.removeAttribute("href");
-    }
-    if (modal) modal.hidden = false;
-  }
-
-  function closeCard() {
-    if (modal) modal.hidden = true;
-    selected = null;
-  }
-
-  function syncLink() {
-    var agree = document.getElementById("card-agree");
-    var link = document.getElementById("card-wa");
-    if (!link || !selected) return;
-    if (agree && agree.checked) {
-      link.href = waUrl(selected.m, selected.card);
-      link.setAttribute("aria-disabled", "false");
+  function syncWhatsApp() {
+    if (!waLink) return;
+    var enabled = !!(paymentCheck && paymentCheck.checked && state.market && state.card);
+    waLink.classList.toggle("is-disabled", !enabled);
+    waLink.setAttribute("aria-disabled", enabled ? "false" : "true");
+    if (enabled) {
+      waLink.href = waUrl();
+      waLink.removeAttribute("tabindex");
     } else {
-      link.removeAttribute("href");
-      link.setAttribute("aria-disabled", "true");
+      waLink.removeAttribute("href");
+      waLink.setAttribute("tabindex", "-1");
     }
   }
 
   function init() {
-    render();
-    if (search) {
-      search.addEventListener("input", function () {
-        query = String(search.value || "").trim().toLowerCase();
-        renderGrid();
-      });
-    }
-    var agree = document.getElementById("card-agree");
-    if (agree) agree.addEventListener("change", syncLink);
-    var closer = document.querySelectorAll("[data-close-card]");
-    for (var i = 0; i < closer.length; i++) {
-      closer[i].addEventListener("click", closeCard);
-    }
-    var link = document.getElementById("card-wa");
-    if (link) {
-      link.addEventListener("click", function (e) {
-        if (link.getAttribute("aria-disabled") === "true" || !link.getAttribute("href")) {
-          e.preventDefault();
-        }
-      });
-    }
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeCard();
+    renderProductCard();
+    if (flow) flow.hidden = true;
+    if (search) search.addEventListener("input", function () {
+      if (state.step === "country" && flow && !flow.hidden) renderCountries();
+    });
+    var backHome = document.getElementById("itunes-back-home");
+    var backCountry = document.getElementById("itunes-back-country");
+    var backDenom = document.getElementById("itunes-back-denom");
+    var backDenom2 = document.getElementById("itunes-back-denom-2");
+    if (backHome) backHome.addEventListener("click", showHome);
+    if (backCountry) backCountry.addEventListener("click", function () { setStep("country"); renderCountries(); });
+    if (backDenom) backDenom.addEventListener("click", function () { setStep("denom"); });
+    if (backDenom2) backDenom2.addEventListener("click", function () { setStep("denom"); });
+    if (paymentCheck) paymentCheck.addEventListener("change", syncWhatsApp);
+    if (waLink) waLink.addEventListener("click", function (event) {
+      if (waLink.getAttribute("aria-disabled") === "true") event.preventDefault();
     });
   }
 

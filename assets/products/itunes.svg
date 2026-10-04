@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">iTunes Apple gift card</title>
+  <desc id="desc">Self-drawn purple digital gift card with an Apple mark and iTunes label.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#302080"/>
+      <stop offset="0.55" stop-color="#6d42c7"/>
+      <stop offset="1" stop-color="#c34e9a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" rx="42" fill="#15112b"/>
+  <rect x="22" y="22" width="596" height="376" rx="32" fill="url(#bg)"/>
+  <path d="M48 320c126-56 258-64 544-12v70H48z" fill="#24165f" opacity=".32"/>
+  <path d="M50 110h540" stroke="url(#shine)" stroke-width="3"/>
+  <g fill="#fff" transform="translate(92 92) scale(1.35)">
+    <path d="M89 30c-8 1-17 8-22 17-5 9-4 22 2 30 6 8 15 17 26 17 8 0 12-5 22-5 10 0 13 5 22 5 11 0 18-9 24-17 7-10 10-20 6-30-4-8-12-14-21-16-8-1-16 4-21 4-6 0-15-5-21-5-5 0-10 0-15 0z"/>
+    <path d="M130 9c5-7 14-12 22-12 1 9-2 17-7 23-5 6-13 10-21 9-1-7 2-14 6-20z"/>
+  </g>
+  <text x="320" y="250" fill="#fff" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" letter-spacing="1">iTunes</text>
+  <text x="320" y="305" fill="#fff" fill-opacity=".86" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" letter-spacing="4">GIFT CARD</text>
+  <circle cx="552" cy="82" r="18" fill="#fff" fill-opacity=".15"/>
+  <circle cx="552" cy="82" r="6" fill="#fff" fill-opacity=".8"/>
+</svg>
