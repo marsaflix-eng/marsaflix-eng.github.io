@@ -20,7 +20,23 @@ function step(s){state.step=s;var x={country:countryStep,denom:denomStep,payment
 function home(){state.product=state.market=state.card=null;if(flow)flow.hidden=true;step("country");if(check)check.checked=false;sync()}
 function open(p){if(!flow)return;state.product=p;state.market=state.card=null;flow.hidden=false;var k=flow.querySelector(".itunes-flow-head .cat-kicker");if(k)k.textContent=p.title+" / "+p.en;step("country");countries();sync();flow.scrollIntoView({behavior:"smooth",block:"start"})}
 function card(p){var b=document.createElement("button");b.type="button";b.id=p.id+"-product-card";b.className="product-card featured gift-product-card "+p.id+"-product-card";b.setAttribute("role","listitem");b.setAttribute("aria-label","اختر "+p.title+" — "+p.en);var i=document.createElement("div");i.className="product-icon product-icon-img gift-product-logo";var img=document.createElement("img");img.src=p.image;img.alt=p.alt;img.width=112;img.height=112;img.loading="lazy";img.decoding="async";i.appendChild(img);b.appendChild(i);var cat=document.createElement("span");cat.className="product-category";cat.textContent="بطاقات رقمية";b.appendChild(cat);var h=document.createElement("h3");h.className="product-title";h.textContent=p.title;b.appendChild(h);var en=document.createElement("p");en.className="product-name-en";en.textContent=p.en;b.appendChild(en);var d=document.createElement("p");d.className="product-desc";d.textContent="كل المناطق والفئات — السعر بالأوقية الموريتانية.";b.appendChild(d);var c=document.createElement("span");c.className="product-cta";c.textContent="اختيار المنطقة";b.appendChild(c);b.addEventListener("click",function(){open(p)});return b}
-function render(){products.forEach(function(p){if(grid&&!document.getElementById(p.id+"-product-card"))grid.appendChild(card(p))})}
+function wireSnapchatLogo(){
+  if(!grid)return;
+  var snap=grid.querySelector('[data-product-id="snapchat-plus"]');
+  if(!snap)return;
+  var img=snap.querySelector("img");
+  if(img){img.src="assets/products/snapchat.svg";img.alt="Snapchat Plus";return}
+  var icon=snap.querySelector(".product-icon");
+  if(!icon)return;
+  icon.textContent="";
+  icon.classList.add("product-icon-img");
+  img=document.createElement("img");
+  img.src="assets/products/snapchat.svg";
+  img.alt="Snapchat Plus";
+  img.width=112;img.height=112;img.loading="lazy";img.decoding="async";
+  icon.appendChild(img);
+}
+function render(){wireSnapchatLogo();products.forEach(function(p){if(grid&&!document.getElementById(p.id+"-product-card"))grid.appendChild(card(p))})}
 function countries(){if(!countryGrid||!state.product)return;clear(countryGrid);var q=search?String(search.value||"").trim().toLowerCase():"";state.product.data.markets.forEach(function(m){if(q&&(m.region+" "+m.regionAr+" "+m.productName).toLowerCase().indexOf(q)<0)return;var b=document.createElement("button");b.type="button";b.className="itunes-country-card";b.setAttribute("role","listitem");b.setAttribute("aria-label","اختيار "+m.regionAr+" — "+m.region);var ar=document.createElement("strong"),en=document.createElement("span");ar.textContent=m.regionAr;en.textContent=m.region;b.appendChild(ar);b.appendChild(en);b.addEventListener("click",function(){country(m)});countryGrid.appendChild(b)});if(!countryGrid.firstChild){var e=document.createElement("p");e.className="itunes-empty";e.textContent="لا توجد منطقة مطابقة.";countryGrid.appendChild(e)}}
 function country(m){state.market=m;state.card=null;if(selectedCountry)selectedCountry.textContent=m.regionAr+" — "+m.region;denoms();step("denom");if(flow)flow.scrollIntoView({behavior:"smooth",block:"start"})}
 function denoms(){if(!denomGrid||!state.market)return;clear(denomGrid);if(!state.market.cards||!state.market.cards.length){var e=document.createElement("p");e.className="itunes-empty";e.textContent="لا توجد فئات منشورة حالياً لهذه المنطقة على Tokenstore.";denomGrid.appendChild(e);return}state.market.cards.forEach(function(c){var b=document.createElement("button");b.type="button";b.className="itunes-denom-card";b.setAttribute("role","listitem");b.setAttribute("aria-label",c.denomLabel+" — "+price(c));var d=document.createElement("strong"),p=document.createElement("span");d.textContent=c.denomLabel;p.textContent=price(c);b.appendChild(d);b.appendChild(p);b.addEventListener("click",function(){denom(c)});denomGrid.appendChild(b)})}
