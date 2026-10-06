@@ -1,28 +1,54 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#ffffff">
-  <title>صيانة — Marça</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700&display=swap">
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body { min-height: 100vh; display: grid; place-items: center; padding: 1.5rem; background: #fff; color: #111; font-family: "Red Hat Display", Arial, sans-serif; }
-    main { width: min(100%, 32rem); text-align: center; }
-    .logo { margin: 0 0 1.4rem; font-weight: 700; letter-spacing: .12em; font-size: 1.4rem; }
-    h1 { margin: 0; font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 700; }
-    p { margin: 1rem 0 0; color: #111; font-size: 1.15rem; }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Marça — بطاقات رقمية وسناب شات بلس. الدفع عبر بنكيلي فقط." />
+  <meta name="robots" content="index,follow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://marca-anon-inbox.marsaflix.workers.dev https://marca-affiliate.marsaflix.workers.dev https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; form-action 'self' https://wa.me; frame-ancestors 'none'; base-uri 'self'; object-src 'none'" />
+  <title>Marça</title>
+  <link rel="icon" href="assets/logo-header.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;800&display=swap" />
+  <link rel="stylesheet" href="css/site.css?v=1" />
+  <link rel="stylesheet" href="css/anon.css?v=15" />
 </head>
 <body>
+  <header>
+    <a class="brand" href="/"><img src="assets/logo-header.png" alt="" /> MARÇA</a>
+    <nav>
+      <a href="seller.html">بائع</a>
+      <button type="button" id="btn-anon-nav" data-action="open-anon">رسالة من مجهول</button>
+    </nav>
+  </header>
   <main>
-    <p class="logo">MARÇA</p>
-    <h1>صيانة</h1>
-    <p>نحدّث الموقع قريباً.</p>
+    <section class="hero">
+      <h1>متجر خفيف للبطاقات الرقمية</h1>
+      <p>سناب شات بلس، فلاتر سناب، وآيتونز وبلايستيشن وإكس بوكس. الدفع عبر بنكيلي فقط، والطلب يكتمل على واتساب.</p>
+    </section>
+    <section class="grid" aria-label="المنتجات">
+      <button class="card" type="button" data-product="plus"><img src="assets/products/snapchat.svg" alt="" /><h2>سناب شات بلس</h2><p>اشتراك سنة واحدة</p><div class="price">490 أوقية</div></button>
+      <button class="card" type="button" data-product="filters"><img src="assets/products/snapchat.svg" alt="" /><h2>فلاتر سناب شات</h2><p>مناسبات أو مؤثرات</p><div class="price">50 أوقية</div></button>
+      <button class="card" type="button" data-product="itunes"><img src="assets/products/itunes.svg" alt="" /><h2>بطاقة آيتونز</h2><p>فئات بالدولار، السعر بالأوقية</p><div class="price">من 100 أوقية</div></button>
+      <button class="card" type="button" data-product="ps"><img src="assets/products/playstation.svg" alt="" /><h2>بطاقة PlayStation</h2><p>رصيد PSN</p><div class="price">من 500 أوقية</div></button>
+      <button class="card" type="button" data-product="xbox"><img src="assets/products/xbox.svg" alt="" /><h2>بطاقة Xbox</h2><p>رصيد Xbox</p><div class="price">من 250 أوقية</div></button>
+    </section>
+    <section class="sheet" id="sheet">
+      <h2 id="sheet-title">الطلب</h2>
+      <p class="note">اختر الفئة، ثم أرسل الطلب. لا يتم الدفع داخل الموقع.</p>
+      <div class="opts" id="opts"></div>
+      <label for="extra">تفاصيل الفلتر، إن وجدت</label>
+      <textarea id="extra" rows="3" maxlength="400" hidden></textarea>
+      <a class="order" id="order" hidden target="_blank" rel="noopener noreferrer">إرسال الطلب عبر واتساب</a>
+    </section>
+    <div id="anon-root"></div>
   </main>
+  <footer>Marça · الدفع عبر بنكيلي فقط</footer>
+  <a class="wa" href="https://wa.me/22248650585?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D9%84%D8%AF%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1" target="_blank" rel="noopener noreferrer">استفسار</a>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script>
+  <script src="js/config.js?v=21"></script>
+  <script src="js/turnstile.js?v=10" defer></script>
+  <script src="js/site.js?v=1" defer></script>
+  <script src="js/anon-boot.js?v=23" defer></script>
 </body>
 </html>
