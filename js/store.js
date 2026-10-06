@@ -7,9 +7,9 @@ var gifts=window.MARCA_GIFT_CARDS||{playstation:{markets:[{id:'us',region:'Unite
 
 if(!itunes||!itunes.markets)return;
 var products=[
-{id:"itunes",title:"بطاقة آيتونز",en:"iTunes / Apple Gift Card",image:"assets/products/itunes.svg",alt:"شعار بطاقة آيتونز / iTunes",data:itunes},
-{id:"playstation",title:"بطاقة PlayStation",en:"PlayStation Gift Card",image:"assets/products/playstation.svg",alt:"شعار بطاقة PlayStation",data:gifts.playstation},
-{id:"xbox",title:"بطاقة Xbox",en:"Xbox Gift Card",image:"assets/products/xbox.svg",alt:"شعار بطاقة Xbox",data:gifts.xbox}
+{id:"itunes",title:"بطاقة آيتونز",en:"iTunes / Apple Gift Card",image:"assets/products/itunes.png?v=20",alt:"شعار بطاقة آيتونز / iTunes",data:itunes},
+{id:"playstation",title:"بطاقة PlayStation",en:"PlayStation Gift Card",image:"assets/products/playstation.png?v=20",alt:"شعار بطاقة PlayStation",data:gifts.playstation},
+{id:"xbox",title:"بطاقة Xbox",en:"Xbox Gift Card",image:"assets/products/xbox.png?v=20",alt:"شعار بطاقة Xbox",data:gifts.xbox}
 ].filter(function(p){return p.data&&p.data.markets});
 var state={product:null,market:null,card:null,step:"country"},grid=document.getElementById("product-grid"),search=document.getElementById("catalog-search"),flow=document.getElementById("itunes-block"),countryStep=document.getElementById("itunes-step-country"),denomStep=document.getElementById("itunes-step-denom"),paymentStep=document.getElementById("itunes-step-payment"),countryGrid=document.getElementById("itunes-country-grid"),denomGrid=document.getElementById("itunes-denom-grid"),selectedCountry=document.getElementById("itunes-selected-country"),selectedOrder=document.getElementById("itunes-selected-order"),check=document.getElementById("itunes-payment-check"),wa=document.getElementById("itunes-wa");
 function digits(n){var s=String(Math.round(Number(n))),o="";for(var i=0;i<s.length;i++){if(i&&(s.length-i)%3===0)o+=",";o+=s.charAt(i)}return o}
@@ -25,13 +25,13 @@ function wireSnapchatLogo(){
   var snap=grid.querySelector('[data-product-id="snapchat-plus"]');
   if(!snap)return;
   var img=snap.querySelector("img");
-  if(img){img.src="assets/products/snapchat.svg";img.alt="Snapchat Plus";return}
+  if(img){img.src="assets/products/snapchat-plus.png?v=20";img.alt="Snapchat Plus";return}
   var icon=snap.querySelector(".product-icon");
   if(!icon)return;
   icon.textContent="";
   icon.classList.add("product-icon-img");
   img=document.createElement("img");
-  img.src="assets/products/snapchat.svg";
+  img.src="assets/products/snapchat-plus.png?v=20";
   img.alt="Snapchat Plus";
   img.width=112;img.height=112;img.loading="lazy";img.decoding="async";
   icon.appendChild(img);

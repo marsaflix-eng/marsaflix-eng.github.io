@@ -36,3 +36,5 @@ input,textarea,select{font-size:16px}
   .hero-card{position:relative;inset:auto;width:min(100%,320px);margin-top:.4rem;transform:none}
   .hero-card.is-in{transform:none}
 }
+
+html,body{background:#fff;color:#111}
