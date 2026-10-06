@@ -41,7 +41,11 @@
     list.appendChild(li);
   }
   var fails = 0;
+  var lastTry = 0;
   $("btn-admin-login").addEventListener("click", function () {
+    var now = Date.now();
+    if (now - lastTry < 4000) { $("login-msg").textContent = "انتظر قليلاً قبل إعادة المحاولة."; return; }
+    lastTry = now;
     var btn = $("btn-admin-login");
     var pass = $("admin-pass");
     if (fails >= 5) { $("login-msg").textContent = "أُوقف الدخول مؤقتاً. أغلق التبويب ثم أعد المحاولة."; return; }

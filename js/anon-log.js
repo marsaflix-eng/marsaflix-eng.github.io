@@ -67,10 +67,17 @@
       if (parts.sender) node.textContent = parts.text;
     });
   }
+  var hits = [];
   var orig = window.fetch;
   window.fetch = function (url, opts) {
     var target = String(url || "");
-    var method = (opts && opts.method) || "GET";
+    var method = ((opts && opts.method) || "GET").toUpperCase();
+    if (method === "POST" && /workers\.dev/.test(target)) {
+      var now = Date.now();
+      hits = hits.filter(function (t) { return now - t < 60000; });
+      if (hits.length >= 8) return Promise.resolve(new Response(JSON.stringify({ error: "rate_limited" }), { status: 429 }));
+      hits.push(now);
+    }
     if (target.indexOf("/messages") > 0 && method === "POST") {
       if (banned(senderId())) return Promise.resolve(new Response(JSON.stringify({ error: "banned" }), { status: 403 }));
       try {
