@@ -1,75 +1,86 @@
-/* Marça elegance layer — ink, ivory, brass. Loaded last. */
+/* Tokenstore-style skin. Loaded last. */
 body.ts-page{
-  --bg:#f6f1e8;--bg-deep:#f6f1e8;--bg-elevated:#fffdf8;--bg-card:#fffdf8;
-  --text:#1c1915;--text-muted:#5c5348;--text-dim:#8a7d6b;
-  --accent:#8c4a32;--accent-bright:#6e3824;--accent-soft:rgba(140,74,50,.1);
-  --border:rgba(28,25,21,.08);
-  --font:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
-  --font-display:Fraunces,"IBM Plex Sans Arabic",Georgia,serif;
-  --shadow:0 10px 30px rgba(28,25,21,.06);
-  background:
-    radial-gradient(900px 420px at 100% -10%, rgba(198,165,106,.18), transparent 60%),
-    #f6f1e8;
-  color:var(--text);
+  --bg:#f5f6f8;--bg-deep:#f5f6f8;--bg-elevated:#fff;--bg-card:#fff;
+  --text:#141416;--text-muted:#5c616b;--text-dim:#8b909a;
+  --accent:#6d4dff;--accent-bright:#5b3df0;--accent-soft:rgba(109,77,255,.1);
+  --border:rgba(20,20,22,.08);
+  --font:"Plus Jakarta Sans","IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --font-display:"Plus Jakarta Sans","IBM Plex Sans Arabic",sans-serif;
+  --shadow:0 8px 24px rgba(20,20,22,.06);
+  background:#f5f6f8;
+  color:#141416;
   font-family:var(--font);
 }
 body.ts-page::before{display:none}
-body.ts-page a{color:var(--accent-bright)}
-.ts-sticky{background:rgba(246,241,232,.9);backdrop-filter:saturate(1.2) blur(14px);border-bottom:1px solid rgba(28,25,21,.08)}
-body.ts-page .site-header{background:transparent}
-body.ts-page .logo-word{font-family:var(--font-display);font-weight:560;letter-spacing:-.03em;color:#1c1915;font-size:1.45rem}
-.ts-search{border:1px solid #e4d7c4;border-radius:14px;background:#fffdf8;box-shadow:none}
-.ts-search:focus-within{border-color:#1c1915;box-shadow:0 0 0 4px rgba(28,25,21,.06)}
-.ts-search button{background:#1c1915;border-radius:10px;color:#f6f1e8}
-body.ts-page .nav-anon{border-color:#e4d7c4;background:#fffdf8;color:#3a332b;border-radius:999px}
-body.ts-page .nav-anon:hover{background:#1c1915;color:#f6f1e8;border-color:#1c1915}
-.ts-cats a{color:#5c5348}
-.ts-cats a:hover,.ts-cats a.is-on{color:#1c1915;border-bottom-color:#c6a56a}
-.ts-icon-bubble{background:#fffdf8;border-color:#eadfce}
-.ts-icon-bubble img{width:26px;height:26px;display:block}
-.ts-icon-cat:hover .ts-icon-bubble{background:#fff;border-color:#c6a56a}
-.ts-hero-banner{background:#1c1915;border-radius:28px;min-height:300px}
-.ts-hero-banner img{object-fit:cover;object-position:center}
-.ts-popular{background:#fffdf8;border-color:#eadfce;border-radius:28px}
-.ts-popular-head h2,.ts-section-head h2{font-family:var(--font-display);font-weight:560;letter-spacing:-.02em}
-.ts-popular-head a,.ts-section-head .all-link{color:#8c4a32;background:#f3ece3;border-color:#eadfce}
-body.ts-page .product-card{background:#fffdf8;border-color:#eadfce;border-radius:22px}
-body.ts-page .product-card:hover{border-color:#c6a56a;transform:translateY(-3px)}
-body.ts-page .product-cta{color:#6e3824;background:#f3ece3;border-color:#eadfce}
-body.ts-page .product-card:hover .product-cta{background:#1c1915;color:#f6f1e8;border-color:#1c1915}
-.brand-tile-art{border-radius:22px;background:#f3ece3}
-.itunes-country-card,.itunes-denom-card{background:#fffdf8;border-color:#eadfce;border-radius:16px}
-.itunes-country-card:hover,.itunes-denom-card:hover{border-color:#c6a56a;background:#fff}
-.itunes-denom-card span,.itunes-selection strong,body.ts-page .plan-price-value{color:#8c4a32}
-.itunes-selection,body.ts-page .selected-summary{background:rgba(198,165,106,.16);border-color:rgba(140,74,50,.2)}
-body.ts-page .btn-primary{background:#1c1915;color:#f6f1e8;box-shadow:none}
-body.ts-page .step-card,body.ts-page .plan-card{background:#fffdf8;border-color:#eadfce}
-body.ts-page .plan-card.featured{border-color:#c6a56a;background:linear-gradient(180deg,rgba(198,165,106,.18),#fffdf8 55%)}
-body.ts-page .plan-card:hover .plan-cta,body.ts-page .plan-card.featured .plan-cta{background:#1c1915;color:#f6f1e8;border-color:#1c1915}
-body.ts-page .site-footer{border-top:1px solid rgba(28,25,21,.08);color:#6b6256}
-.svc-strip{margin:2.5rem 0 1rem;padding:1.25rem 0 0;border-top:1px solid rgba(28,25,21,.08)}
-.svc-strip h2{font-family:var(--font-display);font-weight:560;font-size:1.35rem;margin:0 0 1rem}
-.svc-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
-.svc-grid li, .svc-grid a, .svc-grid button{
-  display:flex;flex-direction:column;align-items:flex-start;gap:.65rem;
-  background:#fffdf8;border:1px solid #eadfce;border-radius:18px;padding:.9rem .85rem 1rem;
-  color:#1c1915;text-align:right;font:inherit;font-weight:650;font-size:.92rem;line-height:1.35;
-  text-decoration:none;cursor:pointer;width:100%;
-}
-.svc-grid a:hover,.svc-grid button:hover{border-color:#c6a56a;text-decoration:none}
-.svc-grid small{display:block;font-weight:500;color:#6b6256;font-size:.78rem}
-@media (max-width:720px){
-  .svc-grid{grid-template-columns:1fr 1fr}
+body.ts-page a{color:var(--accent)}
+.ts-sticky{position:sticky;top:0;z-index:120;background:#fff;border-bottom:1px solid #eee;backdrop-filter:none}
+body.ts-page .site-header{background:#fff;padding:.7rem 1.15rem .45rem}
+.ts-header-card{max-width:1180px;min-height:64px}
+body.ts-page .logo-mark{width:36px;height:36px;border-radius:10px;object-fit:contain;background:transparent}
+body.ts-page .logo-word{font-family:var(--font-display);font-weight:800;letter-spacing:-.04em;color:#16161d;font-size:1.28rem}
+.ts-search{max-width:520px;border:1.5px solid #ddd6fe;border-radius:999px;background:#fff;min-height:46px;box-shadow:none}
+.ts-search:focus-within{border-color:#6d4dff;box-shadow:0 0 0 4px rgba(109,77,255,.12)}
+.ts-search input{font-size:.92rem}
+.ts-search button{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8b6cff,#5b4dff 55%,#3d7bff);color:#fff}
+body.ts-page .header-nav{gap:.4rem}
+body.ts-page .nav-anon{border:1px solid #ececec;background:#fff;color:#3f4450;border-radius:999px;font-weight:650;font-size:.78rem}
+body.ts-page .nav-anon:hover{background:#f6f4ff;border-color:#6d4dff;color:#5b3df0}
+.ts-utils{color:#6b7280;font-weight:700;font-size:.78rem}
+.ts-cats{gap:1.4rem;padding:.2rem 1.15rem .65rem}
+.ts-cats a{color:#3a3f4b;font-weight:750;font-size:.98rem;border-bottom:2px solid transparent}
+.ts-cats a:hover,.ts-cats a.is-on{color:#6d4dff;border-bottom-color:#6d4dff}
+.ts-icon-cats{padding:.15rem 1.15rem 1rem;gap:1.1rem}
+.ts-icon-bubble{width:52px;height:52px;border-radius:50%;background:#f3f4f6;border:1px solid #eceff3}
+.ts-icon-bubble img{width:26px;height:26px}
+.ts-icon-cat{color:#4b5160;font-weight:650;font-size:.72rem}
+.ts-icon-cat:hover{color:#6d4dff}
+.ts-icon-cat:hover .ts-icon-bubble{background:#f4f1ff;border-color:#ddd6fe}
+body.ts-page main{max-width:1180px}
+.ts-hero-row{grid-template-columns:minmax(0,1.65fr) minmax(280px,.82fr);gap:1rem;align-items:stretch}
+.ts-hero-banner{border-radius:22px;min-height:320px;background:#1b2438;box-shadow:0 10px 28px rgba(20,20,22,.08);position:relative}
+.ts-hero-banner img{width:100%;height:100%;object-fit:cover;min-height:320px;display:block}
+.hero-caption{position:absolute;top:50%;inset-inline-start:7%;transform:translateY(-50%);color:#fff;text-shadow:0 10px 28px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:.2rem;pointer-events:none}
+.hero-caption span{font-weight:700;font-size:.95rem;opacity:.95}
+.hero-caption strong{font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.04em;line-height:1}
+.ts-popular{background:transparent;border:none;box-shadow:none;padding:0}
+.ts-popular-head{margin-bottom:.7rem}
+.ts-popular-head h2,.ts-section-head h2{font-family:var(--font-display);font-weight:800;letter-spacing:-.03em;font-size:1.25rem;color:#16161d}
+.ts-popular-head a,.ts-section-head .all-link{color:#6d4dff;background:transparent;border:none;font-weight:700}
+.ts-popular-grid{grid-template-columns:1fr 1fr;gap:.7rem}
+.brand-tile-art{aspect-ratio:1.15;border-radius:16px;background:#111;border:1px solid #ececec;box-shadow:0 4px 14px rgba(17,24,39,.06);overflow:hidden}
+.brand-tile-art img{width:100%;height:100%;object-fit:cover;object-position:center}
+.brand-tile-name{font-size:.82rem;font-weight:700;color:#1a1c22}
+.ts-section{margin:1.4rem 0 .4rem}
+body.ts-page .product-grid,.ts-strip{display:flex;gap:14px;overflow-x:auto;padding-bottom:.4rem;scroll-snap-type:x mandatory}
+body.ts-page .product-card{flex:0 0 168px;scroll-snap-align:start;background:#fff;border:1px solid #eee;border-radius:18px;box-shadow:none;padding:0 0 .8rem}
+body.ts-page .product-card:hover{transform:translateY(-3px);border-color:#ddd6fe}
+body.ts-page .product-icon,body.ts-page .product-icon.product-icon-img,body.ts-page .gift-product-card .gift-product-logo{aspect-ratio:1;border-radius:18px 18px 0 0;background:#111;margin:0 0 .55rem}
+body.ts-page .product-icon img,body.ts-page .gift-product-card .gift-product-logo img{object-fit:cover}
+body.ts-page .product-title{font-size:.92rem;font-weight:750}
+body.ts-page .product-cta{color:#6d4dff;background:#f5f3ff;border:1px solid #ece7ff}
+body.ts-page .product-card:hover .product-cta{background:#6d4dff;color:#fff;border-color:#6d4dff}
+.itunes-country-card,.itunes-denom-card{background:#fff;border:1px solid #ececec;border-radius:16px}
+.itunes-country-card:hover,.itunes-denom-card:hover{border-color:#c4b5fd;background:#fafaff}
+.itunes-denom-card span,body.ts-page .plan-price-value,body.ts-page .selected-summary strong{color:#6d4dff}
+body.ts-page .btn-primary{background:#6d4dff;box-shadow:0 6px 16px rgba(109,77,255,.28)}
+body.ts-page .step-card,body.ts-page .plan-card{background:#fff;border:1px solid #ececec}
+body.ts-page .plan-card.featured{border-color:#c4b5fd;background:linear-gradient(180deg,rgba(109,77,255,.08),#fff 50%)}
+body.ts-page .plan-card:hover .plan-cta,body.ts-page .plan-card.featured .plan-cta{background:#6d4dff;color:#fff;border-color:#6d4dff}
+.svc-strip{border-top:1px solid #eee;margin-top:1.5rem}
+.svc-grid > div,.svc-grid > a,.svc-grid > button{background:#fff;border:1px solid #eee;border-radius:16px}
+.svc-grid > a:hover,.svc-grid > button:hover{border-color:#c4b5fd}
+body.ts-page .site-footer{background:transparent;border-top:1px solid #eee;color:#6b7280}
+@media (max-width:900px){
+  .ts-hero-row{grid-template-columns:1fr}
   .ts-hero-banner,.ts-hero-banner img{min-height:210px}
+  .hero-caption strong{font-size:2rem}
+}
+@media (max-width:720px){
+  .ts-header-card{flex-wrap:wrap}
+  .ts-search{order:3;flex-basis:100%;max-width:none}
+  .svc-grid{grid-template-columns:1fr 1fr}
 }
 @media (prefers-color-scheme:dark){
-  body.ts-page{background:#f6f1e8;color:#1c1915}
-  body.ts-page .logo-word{color:#1c1915}
+  body.ts-page{background:#f5f6f8;color:#141416}
+  body.ts-page .logo-word{color:#16161d}
 }
-
-.svc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
-.svc-grid > div,.svc-grid > a,.svc-grid > button{display:flex;flex-direction:column;align-items:flex-start;gap:.45rem;background:#fffdf8;border:1px solid #eadfce;border-radius:18px;padding:.95rem;color:#1c1915;text-align:right;font:inherit;text-decoration:none;width:100%}
-.svc-grid strong{font-weight:700}
-.svc-grid small{color:#6b6256;font-size:.78rem;font-weight:500;line-height:1.45}
-.svc-grid > a:hover,.svc-grid > button:hover{border-color:#c6a56a}
-@media (max-width:720px){.svc-grid{grid-template-columns:1fr 1fr}}

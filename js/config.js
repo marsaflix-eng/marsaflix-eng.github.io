@@ -23,7 +23,7 @@ window.MARCA_CONFIG = Object.freeze({
       categoryAr: "اشتراكات",
       nameAr: "سناب شات بلس",
       nameEn: "Snapchat Plus",
-      image: "assets/products/snapchat-plus.jpg?v=30",
+      image: "assets/products/snapchat-plus.png?v=31",
       featured: true,
       flow: "snapchat-plus",
       plans: Object.freeze([
@@ -44,7 +44,7 @@ window.MARCA_CONFIG = Object.freeze({
       categoryAr: "فلاتر",
       nameAr: "إنشاء فلاتر سناب شات",
       nameEn: "Snapchat Filters",
-      image: "assets/products/snapchat-filters.jpg?v=30",
+      image: "assets/products/snapchat-filters.png?v=31",
       featured: false,
       flow: "snapchat-filters",
       price: 50,
