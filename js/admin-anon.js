@@ -10,7 +10,7 @@
     var profile = read("marca_anon_v4", {}).profile || {};
     var secret = "";
     try { secret = sessionStorage.getItem("marca_anon_v4_sec") || ""; } catch (e) {}
-    return { id: profile.id || "", secret: secret || profile.secret || "" };
+    return { id: profile.id || "", secret: secret };
   }
   function split(text) {
     var raw = String(text || "");
@@ -46,8 +46,12 @@
       list.appendChild(row);
     });
   }
+  function adminOn() {
+    try { return !!sessionStorage.getItem("marca_admin_token"); } catch (e) { return false; }
+  }
   function load() {
     var msg = $("mod-msg");
+    if (!adminOn()) { if (msg) msg.textContent = "ادخل لوحة الإدارة أولاً."; return; }
     var creds = box();
     if (!creds.id || !creds.secret) {
       if (msg) msg.textContent = "افتح رسالة من مجهول وسجّل الدخول في هذا المتصفح، ثم ارجع وحدّث.";
@@ -96,7 +100,8 @@
       del.className = "btn btn-ghost";
       del.textContent = "حذف";
       del.addEventListener("click", function () {
-        fetch(apiBase() + "/v1/boxes/" + encodeURIComponent(creds.id) + "/messages/" + encodeURIComponent(m.id), { method: "DELETE", headers: { "X-Box-Secret": creds.secret } }).then(load);
+        if (!adminOn()) return;
+        fetch(apiBase() + "/v1/boxes/" + encodeURIComponent(creds.id) + "/messages/" + encodeURIComponent(m.id), { method: "DELETE", headers: { "X-Box-Secret": creds.secret }, cache: "no-store", referrerPolicy: "no-referrer" }).then(load);
       });
       actions.appendChild(ban);
       actions.appendChild(del);

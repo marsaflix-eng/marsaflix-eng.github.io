@@ -22,6 +22,9 @@
       method: opts.method || "GET",
       headers: headers,
       body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined,
+      cache: "no-store",
+      credentials: "omit",
+      referrerPolicy: "no-referrer"
     }).then(function (r) {
       return r.json().then(function (j) { return { status: r.status, data: j }; });
     });
@@ -37,24 +40,34 @@
     li.textContent = label;
     list.appendChild(li);
   }
+  var fails = 0;
   $("btn-admin-login").addEventListener("click", function () {
-    api("/v1/admin/login", { method: "POST", body: { password: $("admin-pass").value } }).then(function (res) {
+    var btn = $("btn-admin-login");
+    var pass = $("admin-pass");
+    if (fails >= 5) { $("login-msg").textContent = "أُوقف الدخول مؤقتاً. أغلق التبويب ثم أعد المحاولة."; return; }
+    btn.disabled = true;
+    api("/v1/admin/login", { method: "POST", body: { password: pass.value } }).then(function (res) {
+      pass.value = "";
       if (res.data && res.data.ok && res.data.token) {
+        fails = 0;
         setToken(res.data.token);
         $("login-msg").textContent = "";
         loadAll();
       } else {
-        $("login-msg").textContent = "كلمة مرور خاطئة";
+        fails += 1;
+        $("login-msg").textContent = "تعذر الدخول";
         $("login-msg").className = "aff-msg err";
       }
     }).catch(function () {
+      pass.value = "";
       $("login-msg").textContent = "خطأ شبكة";
       $("login-msg").className = "aff-msg err";
-    });
+    }).then(function () { btn.disabled = false; });
   });
   $("btn-admin-logout").addEventListener("click", function () {
     api("/v1/auth/logout", { method: "POST" }).finally(function () {
       setToken(null);
+      try { sessionStorage.removeItem("marca_anon_v4_sec"); } catch (e) {}
       showDash(false);
     });
   });
@@ -63,8 +76,14 @@
     if (!token()) { showDash(false); return; }
     showDash(true);
     api("/v1/admin/stats").then(function (res) {
-      $("stats").textContent = JSON.stringify(res.data, null, 2);
-      if (!res.data || !res.data.ok) { setToken(null); showDash(false); }
+      var data = res.data || {};
+      if (!data.ok) { setToken(null); showDash(false); return; }
+      var safe = {};
+      Object.keys(data).forEach(function (k) {
+        if (/token|secret|password|key/i.test(k)) return;
+        safe[k] = data[k];
+      });
+      $("stats").textContent = JSON.stringify(safe, null, 2);
     });
     api("/v1/admin/sellers?status=pending").then(function (res) {
       var list = $("sellers-list");
@@ -109,7 +128,7 @@
               note.textContent = "أعطِ البائع الرمز لتعيين PIN";
               box.appendChild(note);
               loadAll();
-            } else alert((r.data && r.data.error) || "فشل");
+            } else { box.classList.remove("hidden"); box.textContent = "تعذر تنفيذ العملية"; }
           });
         });
         var no = document.createElement("button");
