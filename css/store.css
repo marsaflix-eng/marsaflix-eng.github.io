@@ -15,3 +15,16 @@ body.ts-page,body.ts-page .ts-topbar,body.ts-page .site-header,body.ts-page .ts-
 body.ts-page .logo-word,body.ts-page h1,body.ts-page h2,body.ts-page h3,body.ts-page p,body.ts-page a,body.ts-page button,body.ts-page label{color:#111}
 .logo-mark,.logo-lockup{height:64px;width:auto;max-width:140px;object-fit:contain;background:transparent}
 .product-icon-img img,.product-icon img{object-fit:contain;background:transparent}
+
+body.ts-page{background:#fff!important;color:#111!important;font-family:"Red Hat Display",Cairo,sans-serif}
+body.ts-page .ts-topbar,body.ts-page .site-header,body.ts-page .ts-header-card{background:#fff!important;color:#111!important;border-color:#e5e7eb}
+body.ts-page .cat-kicker{color:#1d4ed8;font-weight:700;letter-spacing:.08em}
+body.ts-page .section-title,body.ts-page #hero-title{color:#111;font-weight:800;letter-spacing:-.03em}
+body.ts-page #hero-title{font-size:clamp(2rem,6vw,3.2rem);margin:.4rem 0}
+body.ts-page .hero-sub{color:#111;font-size:1.05rem}
+body.ts-page .hero-logo{height:92px;width:auto;background:transparent}
+body.ts-page .product-card,body.ts-page .itunes-block,body.ts-page .anon-card{background:#fff;color:#111;border:1px solid #e5e7eb}
+body.ts-page .product-card h3,body.ts-page .gift-product-card .product-name{color:#111}
+body.ts-page .nav-anon,body.ts-page .btn-primary{background:#111;color:#fff;border-radius:999px}
+body.ts-page .wa-assist{background:#111}
+body.ts-page .wa-assist span{color:#fff}
