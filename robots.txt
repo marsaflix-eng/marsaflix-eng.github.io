@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-Disallow: /index.store.html
-Disallow: /index.live.html
+Disallow: /
