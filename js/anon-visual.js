@@ -118,6 +118,11 @@
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
   }
+  function esc(s) { return String(s || "").replace(/&/g, "&").replace(/</g, "<"); }
+  function textImage(text, w, h, px, color, weight) {
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '"><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle" direction="rtl" fill="' + color + '" font-size="' + px + '" font-family="Cairo, Arial" font-weight="' + weight + '">' + esc(text) + '</text></svg>';
+    return loadImage("data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg));
+  }
   function buildCard() {
     var size = maxSize();
     lastSize = size;
@@ -126,55 +131,53 @@
     canvas.id = "anon-story-canvas";
     canvas.hidden = true;
     if (!canvas.parentNode) document.body.appendChild(canvas);
-    canvas.width = W;
-    canvas.height = H;
-    var ctx = canvas.getContext("2d");
+    canvas.width = W; canvas.height = H;
     var q = (($("anon-q-in") && $("anon-q-in").value) || ($("anon-card-q") && $("anon-card-q").textContent) || "").trim() || "—";
     var a = (($("anon-a-in") && $("anon-a-in").value) || ($("anon-card-a") && $("anon-card-a").textContent) || "").trim() || "—";
-    var name = (($("anon-card-name") && $("anon-card-name").textContent) || "").replace(/^رد\s+/, "").trim();
-    ctx.font = Math.round(W * 0.045) + "px Cairo, Arial, sans-serif";
-    var qLines = linesOf(ctx, q, W * 0.72);
-    var aLines = linesOf(ctx, a, W * 0.72);
-    var jobs = [textImage("رسالة المجهول", W, Math.round(H * 0.06), Math.round(W * 0.055), "#ffe56a"), textImage("جوابي", W, Math.round(H * 0.06), Math.round(W * 0.055), "#ffcc00")];
-    qLines.forEach(function (line) { jobs.push(textImage(line, W, Math.round(H * 0.055), Math.round(W * 0.046), "#fff8ea")); });
-    aLines.forEach(function (line) { jobs.push(textImage(line, W, Math.round(H * 0.055), Math.round(W * 0.046), "#fff8ea")); });
-    if (name) jobs.push(textImage(name, W, Math.round(H * 0.05), Math.round(W * 0.04), "#ffe56a"));
+    var ctx = canvas.getContext("2d");
+    ctx.font = Math.round(W * 0.042) + "px Cairo, Arial";
+    function lines(text) {
+      var words = String(text).split(/\s+/), out = [], line = "";
+      words.forEach(function (word) {
+        var next = line ? line + " " + word : word;
+        if (ctx.measureText(next).width > W * 0.62 && line) { out.push(line); line = word; } else line = next;
+      });
+      if (line) out.push(line);
+      return out.slice(0, 5);
+    }
+    var qLines = lines(q), aLines = lines(a);
+    var jobs = [textImage("مجهول", W, H * 0.06, W * 0.055, "#e6c98a", 700), textImage("رسالة جديدة", W, H * 0.04, W * 0.032, "#a9b0be", 500), textImage("الآن", W, H * 0.04, W * 0.03, "#f4f1ea", 600), textImage("الرد", W, H * 0.06, W * 0.055, "#e6c98a", 700), textImage("جوابي", W, H * 0.04, W * 0.032, "#a9b0be", 500)];
+    qLines.forEach(function (line) { jobs.push(textImage(line, W, H * 0.05, W * 0.04, "#f7f4ee", 500)); });
+    aLines.forEach(function (line) { jobs.push(textImage(line, W, H * 0.05, W * 0.04, "#f7f4ee", 500)); });
     return Promise.all(jobs).then(function (imgs) {
-      var titleQ = imgs[0], titleA = imgs[1], cursor = 2;
-      var qImgs = imgs.slice(cursor, cursor + qLines.length); cursor += qLines.length;
-      var aImgs = imgs.slice(cursor, cursor + aLines.length); cursor += aLines.length;
-      var nameImg = name ? imgs[cursor] : null;
-      ctx.fillStyle = "#07070b";
-      ctx.fillRect(0, 0, W, H);
-      var margin = Math.round(W * 0.06);
-      var top = margin;
-      if (nameImg) { ctx.drawImage(nameImg, 0, top, W, Math.round(H * 0.05)); top += Math.round(H * 0.07); }
-      var footer = Math.round(H * 0.05);
-      var gap = Math.round(H * 0.03);
-      var cardH = Math.floor((H - top - footer - gap - margin) / 2);
-      function card(y, titleImg, bodyImgs) {
-        round(ctx, margin, y, W - margin * 2, cardH, Math.round(W * 0.04));
-        ctx.fillStyle = "#141208";
-        ctx.fill();
-        ctx.strokeStyle = "rgba(255,204,0,0.7)";
-        ctx.lineWidth = Math.max(2, Math.round(W * 0.004));
-        ctx.stroke();
-        if (titleImg) ctx.drawImage(titleImg, margin, y + Math.round(cardH * 0.04), W - margin * 2, Math.round(H * 0.06));
-        var by = y + Math.round(cardH * 0.22);
-        bodyImgs.forEach(function (img) {
-          if (!img) return;
-          ctx.drawImage(img, margin, by, W - margin * 2, Math.round(H * 0.055));
-          by += Math.round(H * 0.06);
-        });
+      var title = imgs[0], sub = imgs[1], now = imgs[2], titleA = imgs[3], subA = imgs[4];
+      var qImgs = imgs.slice(5, 5 + qLines.length);
+      var aImgs = imgs.slice(5 + qLines.length);
+      var g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, "#07101f"); g.addColorStop(1, "#0b1426");
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "rgba(230,201,138,.12)";
+      ctx.beginPath(); ctx.arc(W * 0.2, H * 0.12, W * 0.18, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(W * 0.82, H * 0.78, W * 0.16, 0, 7); ctx.fill();
+      function card(y, h, tImg, sImg, body) {
+        var x = W * 0.08, w = W * 0.84, r = W * 0.05;
+        round(ctx, x, y, w, h, r);
+        ctx.fillStyle = "#10182a"; ctx.fill();
+        ctx.strokeStyle = "rgba(230,201,138,.55)"; ctx.lineWidth = Math.max(2, W * 0.003); ctx.stroke();
+        ctx.beginPath(); ctx.arc(x + w - W * 0.1, y + H * 0.055, W * 0.045, 0, 7);
+        ctx.strokeStyle = "#e6c98a"; ctx.stroke();
+        ctx.fillStyle = "#e6c98a"; ctx.beginPath(); ctx.arc(x + w - W * 0.1, y + H * 0.05, W * 0.02, 0, 7); ctx.fill();
+        if (tImg) ctx.drawImage(tImg, x + W * 0.16, y + H * 0.02, W * 0.28, H * 0.05);
+        if (sImg) ctx.drawImage(sImg, x + W * 0.16, y + H * 0.065, W * 0.28, H * 0.035);
+        if (now) ctx.drawImage(now, x + W * 0.04, y + H * 0.035, W * 0.16, H * 0.035);
+        var by = y + H * 0.15;
+        body.forEach(function (img) { if (img) { ctx.drawImage(img, x, by, w, H * 0.045); by += H * 0.05; } });
       }
-      card(top, titleQ, qImgs);
-      card(top + cardH + gap, titleA, aImgs);
-      ctx.fillStyle = "rgba(255,229,106,0.7)";
-      ctx.font = Math.round(W * 0.03) + "px Cairo, Arial, sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("marça.online", W / 2, H - Math.round(margin * 0.45));
+      var gap = H * 0.03, top = H * 0.08, ch = (H - top * 2 - gap) / 2;
+      card(top, ch, title, sub, qImgs);
+      card(top + ch + gap, ch, titleA, subA, aImgs);
       var note = $("anon-res-note");
-      if (note) note.textContent = "السؤال والرد داخل الصورة · " + W + "×" + H;
+      if (note) note.textContent = "صورة الستوري " + W + "×" + H;
       return new Promise(function (resolve) { canvas.toBlob(function (b) { blob = b; resolve(b); }, "image/png"); });
     });
   }
