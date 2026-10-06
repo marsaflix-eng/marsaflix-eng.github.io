@@ -1,26 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#ffffff">
-  <title>صيانة — Marça</title>
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
-    body { min-height: 100vh; display: grid; place-items: center; background: #fff; color: #111; font-family: Arial, sans-serif; }
-    main { text-align: center; }
-    .logo { margin: 0 0 1rem; letter-spacing: .14em; font-weight: 700; }
-    h1 { margin: 0; font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 700; }
-    p { margin: .8rem 0 0; font-size: 1.15rem; }
-  </style>
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; img-src 'self' data:; connect-src 'self' https://marca-affiliate.marsaflix.workers.dev https://marca-anon-inbox.marsaflix.workers.dev https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; font-src 'self'; form-action 'self' https://wa.me https://api.whatsapp.com; frame-ancestors 'none'; base-uri 'self'; object-src 'none'" />
+  <meta name="theme-color" content="#0c0b09" />
+  <title>بائع طرف ثالث — Marça</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&family=El+Messiri:wght@500;600;700&display=swap" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32" />
+  <link rel="stylesheet" href="css/base.css?v=14" />
+  <link rel="stylesheet" href="css/products.css?v=13" />
+  <link rel="stylesheet" href="css/checkout.css?v=13" />
+  <link rel="stylesheet" href="css/anon.css?v=10" />
+  <link rel="stylesheet" href="css/affiliate.css?v=10" />
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script><script src="js/turnstile.js?v=10" defer></script></head>
 <body>
-  <main>
-    <p class="logo">MARÇA</p>
-    <h1>صيانة</h1>
-    <p>نحدّث الموقع قريباً.</p>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Marça">
+        <img class="logo-lockup" src="assets/logo-header.png?v=10" width="86" height="58" alt="Marça" />
+      </a>
+      <nav class="header-nav" aria-label="تنقل">
+        <a class="nav-anon" href="index.html">المتجر</a>
+      </nav>
+    </div>
+  </header>
+  <main class="aff-wrap" style="padding:1.5rem 1.25rem 3rem;">
+    <div class="aff-card" id="auth-card">
+      <h2>بائع طرف ثالث</h2>
+      <p class="aff-sub">سجّل برقم واتساب + كلمة مرور · دخول فوري لصندوق المجهول · عمولة البائع بعد موافقة الإدارة</p>
+      <div class="aff-tabs" role="tablist">
+        <button type="button" class="active" data-tab="login" id="tab-login">دخول</button>
+        <button type="button" data-tab="register" id="tab-register">تسجيل</button>
+        <button type="button" data-tab="pin" id="tab-pin">تعيين PIN</button>
+      </div>
+      <div id="panel-login">
+        <div class="aff-field"><label for="login-phone">رقم الهاتف</label><input id="login-phone" type="tel" inputmode="numeric" placeholder="222XXXXXXXX" dir="ltr" autocomplete="tel" /></div>
+        <div class="aff-field"><label for="login-pin">كلمة المرور / PIN</label><input id="login-pin" type="password" maxlength="64" autocomplete="current-password" dir="ltr" /></div>
+        <div class="cf-turnstile" id="seller-ts-login"></div>
+        <button type="button" class="btn btn-primary" id="btn-login" style="width:100%;">دخول</button>
+      </div>
+      <div id="panel-register" class="hidden">
+        <div class="aff-field"><label for="reg-name">الاسم</label><input id="reg-name" type="text" maxlength="64" autocomplete="name" /></div>
+        <div class="aff-field"><label for="reg-phone">رقم واتساب</label><input id="reg-phone" type="tel" inputmode="numeric" placeholder="222XXXXXXXX أو 8 أرقام" dir="ltr" autocomplete="tel" /></div>
+        <div class="aff-field"><label for="reg-pass">كلمة المرور (8 أحرف فأكثر)</label><input id="reg-pass" type="password" maxlength="64" autocomplete="new-password" dir="ltr" /></div>
+        <div class="cf-turnstile" id="seller-ts-register"></div>
+        <button type="button" class="btn btn-primary" id="btn-register" style="width:100%;">تسجيل ودخول</button>
+        <p class="aff-sub" style="margin-top:.75rem;">الدخول فوري للمجهول. عمولة البيع تحتاج موافقة الإدارة لاحقًا. نفس الحساب يُستخدم في «رسالة من مجهول».</p>
+      </div>
+      <div id="panel-pin" class="hidden">
+        <div class="aff-field"><label for="pin-phone">رقم الهاتف</label><input id="pin-phone" type="tel" inputmode="numeric" dir="ltr" /></div>
+        <div class="aff-field"><label for="pin-token">رمز الإعداد (من الإدارة)</label><input id="pin-token" type="text" dir="ltr" autocomplete="off" /></div>
+        <div class="aff-field"><label for="pin-new">PIN جديد (6–12 رقمًا)</label><input id="pin-new" type="password" inputmode="numeric" maxlength="12" dir="ltr" /></div>
+        <button type="button" class="btn btn-primary" id="btn-set-pin" style="width:100%;">حفظ PIN</button>
+      </div>
+      <p class="aff-msg" id="auth-msg" role="alert"></p>
+    </div>
+
+    <div id="dash" class="hidden">
+      <div class="aff-card">
+        <h2 id="dash-name">مرحبًا</h2>
+        <p class="aff-sub">رمز الإحالة: <strong dir="ltr" id="dash-ref">—</strong></p>
+        <div class="aff-stat"><span>المحفظة المتاحة</span><strong id="dash-wallet">0 MRU</strong></div>
+        <a class="btn btn-primary" id="dash-anon" href="index.html#anon" style="width:100%;text-align:center;display:block;margin-bottom:.5rem;">رسالة من مجهول</a>
+        <button type="button" class="btn btn-ghost" id="btn-logout" style="width:100%;">خروج</button>
+      </div>
+      <div class="aff-card">
+        <h2>روابط المشاركة</h2>
+        <p class="aff-sub">انسخ أو شارك عبر واتساب — العمولة 5% بعد تأكيد الدفع وموافقة الإدارة</p>
+        <div id="share-links"></div>
+      </div>
+      <div class="aff-card">
+        <h2>العمولات</h2>
+        <ul class="aff-list" id="comm-list"><li class="aff-sub">لا يوجد بعد</li></ul>
+      </div>
+      <div class="aff-card">
+        <h2>طلبات منسوبة</h2>
+        <ul class="aff-list" id="ord-list"><li class="aff-sub">لا يوجد بعد</li></ul>
+      </div>
+    </div>
   </main>
+  <footer class="site-footer"><div class="footer-inner"><p>© Marça · بائع طرف ثالث</p></div></footer>
+  <script src="js/config.js?v=10"></script>
+  <script src="js/seller.js?v=13" defer></script>
 </body>
 </html>
