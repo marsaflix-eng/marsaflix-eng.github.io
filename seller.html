@@ -4,29 +4,45 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="theme-color" content="#0c0b09">
+  <meta name="theme-color" content="#f9fafb">
   <title>صيانة — Marça</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700&display=swap">
   <style>
-    :root { color-scheme: dark; --ink:#0c0b09; --gold:#d5ad63; --cream:#f3ead8; --muted:#b7aa95; }
+    :root { color-scheme: light; --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --bg:#f9fafb; --card:#fff; }
     * { box-sizing:border-box; }
-    html,body { min-height:100%; margin:0; }
-    body { display:grid; place-items:center; min-height:100vh; padding:2rem; overflow:hidden; color:var(--cream); background:var(--ink); font-family: Georgia, "Times New Roman", serif; }
-    body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.42; background:radial-gradient(circle at 50% 36%, rgba(213,173,99,.14), transparent 38%), linear-gradient(135deg, transparent 49.8%, rgba(213,173,99,.09) 50%, transparent 50.2%); }
-    .card { position:relative; width:min(100%, 40rem); padding:clamp(2.8rem, 8vw, 5rem) clamp(1.5rem, 7vw, 4rem); text-align:center; border:1px solid rgba(213,173,99,.42); background:linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012)); box-shadow:0 1.5rem 5rem rgba(0,0,0,.34), inset 0 0 0 7px rgba(213,173,99,.035); }
-    .mark { display:inline-grid; place-items:center; width:4rem; height:4rem; margin-bottom:1.8rem; border:1px solid var(--gold); border-radius:50%; color:var(--gold); font-size:1.8rem; line-height:1; }
-    .brand { margin:0 0 1.8rem; color:var(--gold); font-size:.78rem; letter-spacing:.32em; text-transform:uppercase; }
-    h1 { margin:0; color:var(--cream); font-size:clamp(3rem, 12vw, 5.3rem); font-weight:400; line-height:1.1; }
-    .rule { width:4.5rem; height:1px; margin:1.6rem auto; background:var(--gold); opacity:.75; }
-    p { margin:0; color:var(--muted); font-size:clamp(1.05rem, 3vw, 1.25rem); line-height:2; }
+    html,body { margin:0; min-height:100%; }
+    body { min-height:100vh; background:var(--bg); color:var(--ink); font-family:"Red Hat Display", Arial, sans-serif; }
+    header { height:72px; display:flex; align-items:center; justify-content:space-between; padding:0 1.5rem; background:#fff; border-bottom:1px solid var(--line); }
+    .logo { font-weight:700; letter-spacing:.08em; font-size:1.35rem; color:var(--ink); text-decoration:none; }
+    .nav { display:flex; gap:1.2rem; color:#374151; font-size:.95rem; }
+    main { min-height:calc(100vh - 72px); display:grid; place-items:center; padding:2rem 1rem 3rem; }
+    .card { width:min(100%, 42rem); background:var(--card); border:1px solid var(--line); border-radius:16px; padding:clamp(2rem, 6vw, 3.5rem) 1.5rem; text-align:center; box-shadow:0 10px 30px rgba(17,24,39,.04); }
+    .brand { margin:0 0 1rem; color:#6d28d9; font-size:.8rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; }
+    h1 { margin:0; font-size:clamp(2.6rem, 8vw, 4.4rem); font-weight:700; letter-spacing:-.03em; }
+    .rule { width:3rem; height:3px; margin:1.2rem auto; border-radius:99px; background:#7c3aed; }
+    p { margin:0; color:var(--muted); font-size:1.15rem; line-height:1.8; }
+    .trust { display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem; margin-top:1.6rem; }
+    .trust span { border:1px solid var(--line); border-radius:999px; padding:.4rem .8rem; color:#374151; font-size:.85rem; background:#fff; }
+    footer { text-align:center; color:#9ca3af; font-size:.85rem; padding:0 1rem 1.5rem; }
   </style>
 </head>
 <body>
-  <main class="card" aria-labelledby="maintenance-title">
-    <div class="mark" aria-hidden="true">م</div>
-    <div class="brand">Marça online</div>
-    <h1 id="maintenance-title">صيانة</h1>
-    <div class="rule" aria-hidden="true"></div>
-    <p>نحدّث الموقع قريباً.</p>
+  <header>
+    <a class="logo" href="/" aria-label="Marça">MARÇA</a>
+    <div class="nav" aria-hidden="true"><span>المتجر</span><span>الطلبات</span></div>
+  </header>
+  <main>
+    <section class="card" aria-labelledby="maintenance-title">
+      <div class="brand">Marça online</div>
+      <h1 id="maintenance-title">صيانة</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <p>نحدّث الموقع قريباً.</p>
+      <div class="trust"><span>دفع آمن</span><span>تسليم رقمي</span><span>دعم عبر واتساب</span></div>
+    </section>
   </main>
+  <footer>MARÇA</footer>
 </body>
 </html>
