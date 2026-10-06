@@ -1,0 +1,22 @@
+
+body.ts-page{background:#f9fafb;color:#111827;font-family:"Red Hat Display",Arial,sans-serif}
+body.ts-page *{letter-spacing:0}
+.panel{display:none}
+.panel.active{display:block}
+.flow-sheet,.anon-card,.plan-card,.product-card{background:#fff;color:#111827}
+#panel-plans.panel.active{display:block;padding:1.25rem;max-width:720px;margin:0 auto}
+#plans-title{font-size:1.8rem;font-weight:800;margin:.4rem 0 1rem}
+#plans-grid{display:grid;gap:12px}
+.plan-card{display:flex;flex-direction:column;gap:.35rem;border:1px solid #e5e7eb;border-radius:16px;padding:1.1rem;font-size:1.05rem}
+.plan-duration{font-size:1.35rem;font-weight:800}
+.plan-price{font-size:1.6rem;font-weight:800}
+.plan-cta,.plan-card.featured{color:#111827}
+#plus-order{display:block;margin-top:1rem;background:#111827;color:#fff;text-align:center;border-radius:999px;padding:.9rem 1rem;text-decoration:none;font-weight:700}
+#panel-anon.panel.active{position:fixed;inset:0;z-index:100;overflow:auto;background:#f9fafb;padding:1rem}
+#panel-anon .ngl-hero h2,#panel-anon .anon-title-calligraphy{font-size:2rem;font-weight:800;color:#111827;display:block;margin:0 0 .4rem}
+#panel-anon p,#panel-anon label,#panel-anon button,#panel-anon a{color:#111827;font-size:1rem;line-height:1.7}
+#panel-anon .anon-card{border:1px solid #e5e7eb;border-radius:16px;padding:1rem;margin:.8rem 0;background:#fff}
+#panel-anon input{width:100%;border:1px solid #d1d5db;border-radius:10px;padding:.7rem;font-size:1rem;background:#fff;color:#111}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.product-card{border:1px solid #e5e7eb;border-radius:16px;padding:14px;background:#fff}
+.product-icon img{width:88px;height:88px;object-fit:contain}
