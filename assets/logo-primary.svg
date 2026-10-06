@@ -1,10 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-label="Marça">
-  <defs>
-    <linearGradient id="lg" x1="8" y1="8" x2="56" y2="60" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7c3aed"/><stop offset=".5" stop-color="#5041D2"/><stop offset="1" stop-color="#2563eb"/>
-    </linearGradient>
-  </defs>
-  <rect x="2" y="8" width="56" height="56" rx="16" fill="url(#lg)"/>
-  <path fill="#fff" d="M14 48V18.5c0-.6.5-1 1.1-.95.4 0 .75.22.9.55L32 42l15.9-24c.22-.4.6-.6 1-.6.7-.08 1.2.4 1.2 1.05V48c0 .6-.5 1.1-1.1 1.1S48 48.6 48 48V24.2L33.1 47.2c-.22.4-.6.65-1.05.65-.4 0-.75-.22-1-.65L16.2 24.3V48c0 .6-.5 1.1-1.1 1.1S14 48.6 14 48z"/>
-  <text x="74" y="48" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="800" fill="#111827" letter-spacing="0.5">Marça</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#1C1915"/>
+  <path d="M14 46V24.2c0-3.4 2.2-5.4 5.2-3.2L32 30.2l12.8-9.2c3-2.2 5.2-.2 5.2 3.2V46" stroke="#C6A56A" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M22.5 46V30.5M41.5 46V30.5" stroke="#F6F1E8" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M39.5 48.2c2.6 1.8 5.6 1.1 6.6-.8" stroke="#C6A56A" stroke-width="1.7" stroke-linecap="round"/>
+  <text x="80" y="38" fill="#1C1915" font-family="Georgia, 'Times New Roman', serif" font-size="32" font-weight="600">Marça</text>
+  <text x="82" y="54" fill="#8A7350" font-family="Georgia, serif" font-size="12">مرصة</text>
 </svg>

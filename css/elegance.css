@@ -1,0 +1,75 @@
+/* Marça elegance layer — ink, ivory, brass. Loaded last. */
+body.ts-page{
+  --bg:#f6f1e8;--bg-deep:#f6f1e8;--bg-elevated:#fffdf8;--bg-card:#fffdf8;
+  --text:#1c1915;--text-muted:#5c5348;--text-dim:#8a7d6b;
+  --accent:#8c4a32;--accent-bright:#6e3824;--accent-soft:rgba(140,74,50,.1);
+  --border:rgba(28,25,21,.08);
+  --font:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --font-display:Fraunces,"IBM Plex Sans Arabic",Georgia,serif;
+  --shadow:0 10px 30px rgba(28,25,21,.06);
+  background:
+    radial-gradient(900px 420px at 100% -10%, rgba(198,165,106,.18), transparent 60%),
+    #f6f1e8;
+  color:var(--text);
+  font-family:var(--font);
+}
+body.ts-page::before{display:none}
+body.ts-page a{color:var(--accent-bright)}
+.ts-sticky{background:rgba(246,241,232,.9);backdrop-filter:saturate(1.2) blur(14px);border-bottom:1px solid rgba(28,25,21,.08)}
+body.ts-page .site-header{background:transparent}
+body.ts-page .logo-word{font-family:var(--font-display);font-weight:560;letter-spacing:-.03em;color:#1c1915;font-size:1.45rem}
+.ts-search{border:1px solid #e4d7c4;border-radius:14px;background:#fffdf8;box-shadow:none}
+.ts-search:focus-within{border-color:#1c1915;box-shadow:0 0 0 4px rgba(28,25,21,.06)}
+.ts-search button{background:#1c1915;border-radius:10px;color:#f6f1e8}
+body.ts-page .nav-anon{border-color:#e4d7c4;background:#fffdf8;color:#3a332b;border-radius:999px}
+body.ts-page .nav-anon:hover{background:#1c1915;color:#f6f1e8;border-color:#1c1915}
+.ts-cats a{color:#5c5348}
+.ts-cats a:hover,.ts-cats a.is-on{color:#1c1915;border-bottom-color:#c6a56a}
+.ts-icon-bubble{background:#fffdf8;border-color:#eadfce}
+.ts-icon-bubble img{width:26px;height:26px;display:block}
+.ts-icon-cat:hover .ts-icon-bubble{background:#fff;border-color:#c6a56a}
+.ts-hero-banner{background:#1c1915;border-radius:28px;min-height:300px}
+.ts-hero-banner img{object-fit:cover;object-position:center}
+.ts-popular{background:#fffdf8;border-color:#eadfce;border-radius:28px}
+.ts-popular-head h2,.ts-section-head h2{font-family:var(--font-display);font-weight:560;letter-spacing:-.02em}
+.ts-popular-head a,.ts-section-head .all-link{color:#8c4a32;background:#f3ece3;border-color:#eadfce}
+body.ts-page .product-card{background:#fffdf8;border-color:#eadfce;border-radius:22px}
+body.ts-page .product-card:hover{border-color:#c6a56a;transform:translateY(-3px)}
+body.ts-page .product-cta{color:#6e3824;background:#f3ece3;border-color:#eadfce}
+body.ts-page .product-card:hover .product-cta{background:#1c1915;color:#f6f1e8;border-color:#1c1915}
+.brand-tile-art{border-radius:22px;background:#f3ece3}
+.itunes-country-card,.itunes-denom-card{background:#fffdf8;border-color:#eadfce;border-radius:16px}
+.itunes-country-card:hover,.itunes-denom-card:hover{border-color:#c6a56a;background:#fff}
+.itunes-denom-card span,.itunes-selection strong,body.ts-page .plan-price-value{color:#8c4a32}
+.itunes-selection,body.ts-page .selected-summary{background:rgba(198,165,106,.16);border-color:rgba(140,74,50,.2)}
+body.ts-page .btn-primary{background:#1c1915;color:#f6f1e8;box-shadow:none}
+body.ts-page .step-card,body.ts-page .plan-card{background:#fffdf8;border-color:#eadfce}
+body.ts-page .plan-card.featured{border-color:#c6a56a;background:linear-gradient(180deg,rgba(198,165,106,.18),#fffdf8 55%)}
+body.ts-page .plan-card:hover .plan-cta,body.ts-page .plan-card.featured .plan-cta{background:#1c1915;color:#f6f1e8;border-color:#1c1915}
+body.ts-page .site-footer{border-top:1px solid rgba(28,25,21,.08);color:#6b6256}
+.svc-strip{margin:2.5rem 0 1rem;padding:1.25rem 0 0;border-top:1px solid rgba(28,25,21,.08)}
+.svc-strip h2{font-family:var(--font-display);font-weight:560;font-size:1.35rem;margin:0 0 1rem}
+.svc-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
+.svc-grid li, .svc-grid a, .svc-grid button{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.65rem;
+  background:#fffdf8;border:1px solid #eadfce;border-radius:18px;padding:.9rem .85rem 1rem;
+  color:#1c1915;text-align:right;font:inherit;font-weight:650;font-size:.92rem;line-height:1.35;
+  text-decoration:none;cursor:pointer;width:100%;
+}
+.svc-grid a:hover,.svc-grid button:hover{border-color:#c6a56a;text-decoration:none}
+.svc-grid small{display:block;font-weight:500;color:#6b6256;font-size:.78rem}
+@media (max-width:720px){
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .ts-hero-banner,.ts-hero-banner img{min-height:210px}
+}
+@media (prefers-color-scheme:dark){
+  body.ts-page{background:#f6f1e8;color:#1c1915}
+  body.ts-page .logo-word{color:#1c1915}
+}
+
+.svc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
+.svc-grid > div,.svc-grid > a,.svc-grid > button{display:flex;flex-direction:column;align-items:flex-start;gap:.45rem;background:#fffdf8;border:1px solid #eadfce;border-radius:18px;padding:.95rem;color:#1c1915;text-align:right;font:inherit;text-decoration:none;width:100%}
+.svc-grid strong{font-weight:700}
+.svc-grid small{color:#6b6256;font-size:.78rem;font-weight:500;line-height:1.45}
+.svc-grid > a:hover,.svc-grid > button:hover{border-color:#c6a56a}
+@media (max-width:720px){.svc-grid{grid-template-columns:1fr 1fr}}

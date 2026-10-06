@@ -66,7 +66,7 @@
             region: "United States",
             regionAr: "الولايات المتحدة",
             productName: "Xbox Live / Game Pass USD United States",
-            cards: cards(xboxLive.concat(xboxPass))
+            cards: cards(xboxLive)
           }
         ]
       }
@@ -80,7 +80,7 @@
       title: "Xbox",
       en: "Xbox Gift Card",
       short: "Xbox",
-      image: "assets/products/xbox.svg?v=10",
+      image: "assets/products/xbox.jpg?v=30",
       alt: "شعار Xbox",
       data: gifts.xbox
     },
@@ -89,7 +89,7 @@
       title: "PlayStation",
       en: "PlayStation Gift Card",
       short: "PlayStation",
-      image: "assets/products/playstation.svg?v=10",
+      image: "assets/products/playstation.jpg?v=30",
       alt: "شعار PlayStation",
       data: gifts.playstation
     },
@@ -98,7 +98,7 @@
       title: "Apple",
       en: "iTunes / Apple Gift Card",
       short: "Apple",
-      image: "assets/products/itunes.svg?v=10",
+      image: "assets/products/itunes.jpg?v=30",
       alt: "شعار آيتونز / Apple",
       data: itunes
     }
@@ -254,7 +254,7 @@
     snap.classList.add("gift-product-card", "snapchat-plus-product-card");
     var img = snap.querySelector("img");
     if (img) {
-      img.src = "assets/products/snapchat.svg?v=10";
+      img.src = "assets/products/snapchat-plus.jpg?v=30";
       img.alt = "Snapchat Plus";
       return;
     }
@@ -263,7 +263,7 @@
     icon.textContent = "";
     icon.classList.add("product-icon-img", "gift-product-logo");
     img = document.createElement("img");
-    img.src = "assets/products/snapchat.svg?v=10";
+    img.src = "assets/products/snapchat-plus.jpg?v=30";
     img.alt = "Snapchat Plus";
     img.width = 160;
     img.height = 160;
@@ -281,7 +281,7 @@
     var art = document.createElement("div");
     art.className = "brand-tile-art";
     var img = document.createElement("img");
-    img.src = "assets/products/snapchat.svg?v=10";
+    img.src = "assets/products/snapchat-plus.jpg?v=30";
     img.alt = "Snapchat Plus";
     img.width = 160;
     img.height = 160;
