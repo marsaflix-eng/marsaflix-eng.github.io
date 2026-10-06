@@ -120,9 +120,7 @@
     while (box.firstChild) box.removeChild(box.firstChild);
     var items = [
       { label: "الصفحة الرئيسية", url: links.home },
-      { label: "باقة 3 أشهر", url: links["3m"] },
-      { label: "باقة 6 أشهر", url: links["6m"] },
-      { label: "باقة سنة", url: links["1y"] },
+      { label: "سنة — 490 أوقية", url: links["1y"] },
     ];
     items.forEach(function (it) {
       var row = document.createElement("div");

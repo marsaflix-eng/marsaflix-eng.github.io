@@ -28,31 +28,13 @@ window.MARCA_CONFIG = Object.freeze({
       flow: "snapchat-plus",
       plans: Object.freeze([
         Object.freeze({
-          id: "3m",
-          nameAr: "3 أشهر",
-          nameEn: "3 months",
-          durationMonths: 3,
-          price: 170,
-          badge: "الأكثر طلبًا",
-          highlight: false
-        }),
-        Object.freeze({
-          id: "6m",
-          nameAr: "6 أشهر",
-          nameEn: "6 months",
-          durationMonths: 6,
-          price: 330,
-          badge: "قيمة ممتازة",
-          highlight: true
-        }),
-        Object.freeze({
           id: "1y",
-          nameAr: "سنة كاملة",
+          nameAr: "سنة",
           nameEn: "1 year",
           durationMonths: 12,
-          price: 630,
-          badge: "أفضل عرض",
-          highlight: false
+          price: 490,
+          badge: "سنة",
+          highlight: true
         })
       ])
     }),
