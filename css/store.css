@@ -28,3 +28,16 @@ body.ts-page .product-card h3,body.ts-page .gift-product-card .product-name{colo
 body.ts-page .nav-anon,body.ts-page .btn-primary{background:#111;color:#fff;border-radius:999px}
 body.ts-page .wa-assist{background:#111}
 body.ts-page .wa-assist span{color:#fff}
+
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;800&display=swap");
+body.ts-page{background:#f9fafb!important;color:#111827!important;font-family:"Red Hat Display",Arial,sans-serif!important}
+body.ts-page .site-header,body.ts-page .ts-topbar{background:#fff!important;border-bottom:1px solid #e5e7eb}
+body.ts-page .logo-word{font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+body.ts-page .section-title,body.ts-page #hero-title{font-family:"Red Hat Display",Arial,sans-serif;font-weight:800;color:#111827}
+body.ts-page .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+body.ts-page .product-card{display:flex;flex-direction:column;align-items:flex-start;gap:.4rem;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px;text-align:right;color:#111827}
+body.ts-page .product-icon{width:92px;height:92px;display:grid;place-items:center;background:#fff}
+body.ts-page .product-icon img{width:84px;height:84px;object-fit:contain;background:transparent}
+body.ts-page .plan-card{display:block;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:1rem;margin:.6rem 0;color:#111827;text-decoration:none}
+#panel-plans.panel.active{display:block!important;background:#f9fafb;padding:1rem 0 2rem}
+#panel-anon.panel.active{display:block!important;position:fixed;inset:0;z-index:90;overflow:auto;background:#f9fafb;padding:1rem 1rem 5rem}

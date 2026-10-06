@@ -206,11 +206,34 @@
     var product = findProduct(id);
     if (!product) return;
     state.catalogProduct = product; state.plan = null; state.followed = false; state.agreedPayment = false;
+    var title = document.getElementById("plans-title");
+    if (title) title.textContent = product.nameAr || "الباقات";
     if (el.followCheck) el.followCheck.checked = false;
     if (el.paymentCheck) el.paymentCheck.checked = false;
     syncFollowNext(); syncWhatsAppBtn();
     renderPlans(product);
+    if (product.flow === "snapchat-filters") renderFilterPlans(product);
     showView("plans");
+    var sheet = document.getElementById("panel-plans");
+    if (sheet) sheet.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function waLink(text) {
+    var phone = String((cfg.WHATSAPP_E164 || "22248650585")).replace(/\D/g, "");
+    return "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
+  }
+  function renderFilterPlans(product) {
+    var grid = el.plansGrid;
+    if (!grid) return;
+    while (grid.firstChild) grid.removeChild(grid.firstChild);
+    (product.variants || []).forEach(function (v) {
+      var btn = document.createElement("a");
+      btn.className = "plan-card featured";
+      btn.href = waLink("السلام عليكم\nطلب: " + v.nameAr + "\nالسعر: " + v.price + " أوقية\nالدفع عبر بنكيلي.");
+      btn.target = "_blank";
+      btn.rel = "noopener";
+      btn.textContent = v.nameAr + " — " + v.price + " أوقية";
+      grid.appendChild(btn);
+    });
   }
   function renderPlans(product) {
     var grid = el.plansGrid;
@@ -237,6 +260,10 @@
     if (!state.catalogProduct) return;
     var found = findPlan(state.catalogProduct, planId);
     if (!found) return;
+    if (!document.getElementById("panel-username")) {
+      location.href = waLink("السلام عليكم\nطلب: " + state.catalogProduct.nameAr + " — " + found.nameAr + "\nالسعر: " + found.price + " أوقية\nالدفع عبر بنكيلي فقط.");
+      return;
+    }
     state.plan = found; state.followed = false; state.agreedPayment = false;
     if (el.followCheck) el.followCheck.checked = false;
     if (el.paymentCheck) el.paymentCheck.checked = false;
@@ -331,4 +358,15 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
+})();
+
+(function(){
+  document.addEventListener("click", function(e){
+    if (e.target && e.target.id === "plans-back") {
+      var home = document.getElementById("panel-home");
+      var plans = document.getElementById("panel-plans");
+      if (home) { home.classList.add("active"); home.setAttribute("aria-hidden","false"); }
+      if (plans) { plans.classList.remove("active"); plans.setAttribute("aria-hidden","true"); }
+    }
+  });
 })();
