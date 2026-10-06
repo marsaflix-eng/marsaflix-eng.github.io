@@ -1,3 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="Marça">
-  <text x="0" y="34" font-family="Red Hat Display, Arial, sans-serif" font-size="32" font-weight="700" fill="#111827" letter-spacing="1.5">MARÇA</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 72" role="img" aria-label="Marça">
+  <defs>
+    <linearGradient id="lg" x1="8" y1="8" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7c3aed"/><stop offset=".5" stop-color="#5041D2"/><stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="8" width="56" height="56" rx="16" fill="url(#lg)"/>
+  <path fill="#fff" d="M14 48V18.5c0-.6.5-1 1.1-.95.4 0 .75.22.9.55L32 42l15.9-24c.22-.4.6-.6 1-.6.7-.08 1.2.4 1.2 1.05V48c0 .6-.5 1.1-1.1 1.1S48 48.6 48 48V24.2L33.1 47.2c-.22.4-.6.65-1.05.65-.4 0-.75-.22-1-.65L16.2 24.3V48c0 .6-.5 1.1-1.1 1.1S14 48.6 14 48z"/>
+  <text x="74" y="48" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="800" fill="#111827" letter-spacing="0.5">Marça</text>
 </svg>
