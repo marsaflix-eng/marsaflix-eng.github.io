@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="none"/><path fill="#003791" d="M64 18l14 40H50z"/><path fill="#003791" d="M28 78l18-8 8 22-18 8z"/><path fill="#003791" d="M100 78l-18-8-8 22 18 8z"/><circle cx="64" cy="70" r="8" fill="#fff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="PlayStation">
+  <defs>
+    <linearGradient id="psg" x1="10" y1="0" x2="190" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#002a6b"/><stop offset=".45" stop-color="#003791"/><stop offset="1" stop-color="#1e90ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="28" fill="url(#psg)"/>
+  <g fill="#f7d31c" opacity=".9">
+    <rect x="148" y="28" width="10" height="10" rx="1" transform="rotate(45 153 33)"/>
+    <rect x="166" y="42" width="8" height="8" rx="1" transform="rotate(45 170 46)"/>
+    <rect x="152" y="52" width="6" height="6" rx="1" transform="rotate(45 155 55)"/>
+  </g>
+  <g fill="#fff" transform="translate(42 48)">
+    <path d="M18 8v96l28 9V48l20 6c12 4 18 10 18 20 0 11-7 16-18 12l-14-4v24l26 8c28 8 46-8 46-34 0-26-16-42-46-50z"/>
+    <path d="M98 104c-20 5-32 12-32 24 0 11 14 17 36 11l76-22V92z"/>
+    <path d="M98 104l52-15c12-3 19 0 19 6 0 6-7 11-18 14l-53 16z" opacity=".75"/>
+  </g>
+</svg>

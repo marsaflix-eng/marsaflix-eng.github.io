@@ -1,1 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="none"/><path fill="#111" d="M86 38c-4 5-10 9-16 8-1-5 2-11 5-14 4-5 10-8 15-8 1 6-1 11-4 14zm1 6c-8-1-16 5-20 5s-10-4-17-4c-9 0-17 5-22 13-9 16-2 40 7 53 4 6 9 13 16 13 6 0 8-4 16-4s9 4 16 4 11-7 15-13c5-7 7-14 7-14s-13-5-13-19c0-12 10-18 10-18s-6-8-15-16z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Apple Gift Card">
+  <defs>
+    <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3f4f6"/><stop offset="1" stop-color="#e5e7eb"/>
+    </linearGradient>
+    <linearGradient id="af" x1="70" y1="40" x2="140" y2="150" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#61bb46"/><stop offset=".2" stop-color="#fdb827"/>
+      <stop offset=".4" stop-color="#f5821f"/><stop offset=".6" stop-color="#e03a3e"/>
+      <stop offset=".8" stop-color="#963d97"/><stop offset="1" stop-color="#009ddc"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="28" fill="url(#ag)"/>
+  <rect x="1" y="1" width="198" height="198" rx="27" fill="none" stroke="#d1d5db" stroke-width="2"/>
+  <g transform="translate(100 108)">
+    <path fill="url(#af)" d="M0-48c-10 2-22 12-28 24-7 13-5 30 3 41 8 11 19 23 34 23 10 0 15-7 28-7s17 7 28 7c14 0 24-12 32-23 9-13 13-27 8-41-5-11-16-19-28-21-10-2-21 5-28 5s-19-7-28-7c-7 0-14 0-21-1z"/>
+    <path fill="#61bb46" d="M18-72c7-9 18-15 28-15 1 11-3 22-9 29-7 8-17 13-27 12-1-9 2-18 8-26z"/>
+    <path d="M-20-20 L8 10 L-8 42" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+    <path d="M12-28 L28 8 L18 40" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="2"/>
+  </g>
+</svg>
