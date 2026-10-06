@@ -31,7 +31,13 @@
   }
   function showDash(show) {
     $("login-card").classList.toggle("hidden", show);
+    var rec = $("recover-card");
+    if (rec && show) rec.classList.add("hidden");
     $("admin-dash").classList.toggle("hidden", !show);
+    if (show) {
+      var only = document.querySelectorAll(".admin-only");
+      for (var i = 0; i < only.length; i++) only[i].classList.remove("hidden");
+    }
   }
   function empty(list, label) {
     list.textContent = "";
@@ -55,6 +61,7 @@
       if (res.data && res.data.ok && res.data.token) {
         fails = 0;
         setToken(res.data.token);
+        try { localStorage.setItem("marca_admin_device", "1"); } catch (e) {}
         $("login-msg").textContent = "";
         loadAll();
       } else {
@@ -68,10 +75,13 @@
       $("login-msg").className = "aff-msg err";
     }).then(function () { btn.disabled = false; });
   });
+  $("admin-pass").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") $("btn-admin-login").click();
+  });
   $("btn-admin-logout").addEventListener("click", function () {
     api("/v1/auth/logout", { method: "POST" }).finally(function () {
       setToken(null);
-      try { sessionStorage.removeItem("marca_anon_v4_sec"); } catch (e) {}
+      try { sessionStorage.removeItem("marca_mod_unlock"); } catch (e) {}
       showDash(false);
     });
   });

@@ -69,7 +69,7 @@
     },
   };
   function scan() {
-    ["anon-ts-reg", "anon-ts-login", "anon-ts-create", "anon-ts-ask", "seller-ts-login", "seller-ts-register"].forEach(function (id) {
+    ["anon-ts-reg", "anon-ts-login", "anon-ts-create", "anon-ts-ask", "seller-ts-login", "seller-ts-register", "admin-ts-mirror"].forEach(function (id) {
       if (visible(id)) render(id);
     });
   }

@@ -28,3 +28,14 @@
 .token-once{background:var(--bg-deep);border:1px dashed var(--accent);border-radius:var(--radius-sm);padding:1rem;margin-top:.75rem;direction:ltr;word-break:break-all;font-size:.85rem;}
 .hidden{display:none!important;}
 .header-nav a.nav-seller{border-color:rgba(212,175,55,.35);background:var(--accent-soft);color:var(--accent-bright);}
+#mod-card .mod-row{border:1px solid var(--border);border-radius:14px;padding:.8rem .9rem;margin:.55rem 0;background:var(--bg-deep);text-align:right;}
+#mod-card .mod-row.is-banned{border-color:var(--danger);}
+#mod-card .mod-meta{color:var(--text-dim);font-size:.75rem;margin-bottom:.35rem;}
+#mod-card .mod-text{white-space:pre-wrap;word-break:break-word;line-height:1.55;margin-bottom:.55rem;}
+#mod-card .mod-actions{display:flex;gap:.45rem;flex-wrap:wrap;}
+#mod-card .mod-actions .btn{flex:1;min-height:40px;padding:.45rem .7rem;font-size:.85rem;}
+#ban-list .ban-row{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:.45rem 0;border-bottom:1px solid var(--border);}
+#mod-card details{margin-top:.9rem;}
+#mod-card summary{cursor:pointer;font-weight:700;}
+#recover-new-code{font-weight:800;letter-spacing:.08em;direction:ltr;text-align:center;}
+
