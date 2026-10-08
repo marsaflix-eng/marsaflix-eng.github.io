@@ -1,109 +1,57 @@
+/* Marça storefront: one product per brand → country → MRU denomination → Bankily/WhatsApp.
+   Data: js/catalog.js (window.MARCA_CATALOG, generated from tokenstore.io) + js/products.js (MARCA_ITUNES). */
 (function () {
   "use strict";
   var itunes = window.MARCA_ITUNES,
+    cat = window.MARCA_CATALOG,
     cfg = window.MARCA_CONFIG || {};
-  var psCards = [
-    ["Playstation USA PSN 10 USD", 10, 500],
-    ["PSN USA 25 USD", 25, 1250],
-    ["PSN USA 50 USD", 50, 2500],
-    ["PSN USA 75 USD", 75, 3750],
-    ["PSN USA 100 USD", 100, 5000],
-    ["PSN USA 150 USD", 150, 7500],
-    ["PSN USA 200 USD", 200, 10000],
-    ["PSN USA 250 USD", 250, 12500],
-    ["Playstation USD Open Range", 25, 1250, 12500]
-  ];
-  var xboxLive = [
-    ["XBOX USA 5 USD", 5, 250],
-    ["Xbox USA 10 USD", 10, 500],
-    ["Xbox USA 20 USD", 20, 1000],
-    ["Xbox USA 25 USD", 25, 1250],
-    ["Xbox USA 50 USD", 50, 2500],
-    ["Xbox USA 100 USD", 100, 5000],
-    ["Xbox Game Pass Essential 12M", 79.99, 4000],
-    ["Xbox Game Pass Ultimate 1Month US", 22.99, 1150],
-    ["Xbox Game Pass Ultimate 3Months US", 68.99, 3450],
-    ["Xbox Game Pass Essential 1M", 9.99, 500],
-    ["Xbox Game Pass Essential 3M", 24.99, 1250],
-    ["Xbox Game Pass Essential 6M", 39.99, 2000],
-    ["Xbox USA 15 USD", 15, 750],
-    ["Xbox Live $60", 60, 3000],
-    ["Xbox Live $70", 70, 3500],
-    ["Xbox Live $75", 75, 3750],
-    ["Xbox Live $80", 80, 4000]
-  ];
-  var xboxPass = [
-    ["Xbox Game Pass Ultimate 1M", 22.99, 1150],
-    ["Xbox Game Pass Ultimate 3M", 68.99, 3450],
-    ["Xbox Game Pass Essential 1M", 9.99, 500],
-    ["Xbox Game Pass Essential 3M", 24.99, 1250],
-    ["Xbox Game Pass Essential 6M", 39.99, 2000],
-    ["Xbox Game Pass Essential 12M", 79.99, 4000]
-  ];
-  function cards(a) {
-    return a.map(function (x, i) {
-      return { id: "gift-" + i, denomLabel: x[0], priceMru: x[2], priceMruMax: x[3] || 0 };
+  if (!cat || !cat.brands) return;
+
+  var IMG_V = "?v=" + (cat.v || 1);
+  function expandMarkets(ms) {
+    return ms.map(function (m) {
+      return {
+        id: String(m[0]).toLowerCase(),
+        region: m[1],
+        regionAr: m[2],
+        productName: m[3],
+        cards: m[4].map(function (c, i) {
+          return { id: m[0] + "-" + i, denomLabel: c[0], priceMru: c[1], priceMruMax: c[2] || 0, oos: !!c[3] };
+        })
+      };
     });
   }
-  var gifts =
-    window.MARCA_GIFT_CARDS ||
-    {
-      playstation: {
-        markets: [
-          {
-            id: "us",
-            region: "United States",
-            regionAr: "الولايات المتحدة",
-            productName: "PlayStation USD United States",
-            cards: cards(psCards)
-          }
-        ]
-      },
-      xbox: {
-        markets: [
-          {
-            id: "us",
-            region: "United States",
-            regionAr: "الولايات المتحدة",
-            productName: "Xbox Live / Game Pass USD United States",
-            cards: cards(xboxLive)
-          }
-        ]
-      }
+  var products = cat.brands.map(function (b) {
+    return {
+      id: b[0],
+      title: b[1],
+      ar: b[2],
+      en: b[3],
+      short: b[1],
+      cat: b[4],
+      image: "assets/brands/" + b[0] + ".webp" + IMG_V,
+      alt: "شعار " + b[1],
+      data: { markets: expandMarkets(b[5]) }
     };
-
-  if (!itunes || !itunes.markets) return;
-
-  var products = [
-    {
-      id: "xbox",
-      title: "Xbox",
-      en: "Xbox Gift Card",
-      short: "Xbox",
-      image: "assets/products/xbox.png?v=31",
-      alt: "شعار Xbox",
-      data: gifts.xbox
-    },
-    {
-      id: "playstation",
-      title: "PlayStation",
-      en: "PlayStation Gift Card",
-      short: "PlayStation",
-      image: "assets/products/playstation.png?v=31",
-      alt: "شعار PlayStation",
-      data: gifts.playstation
-    },
-    {
-      id: "itunes",
-      title: "Apple",
-      en: "iTunes / Apple Gift Card",
-      short: "Apple",
-      image: "assets/products/itunes.png?v=31",
-      alt: "شعار آيتونز / Apple",
-      data: itunes
-    }
-  ].filter(function (p) {
-    return p.data && p.data.markets;
+  });
+  /* Apple keeps the reviewed iTunes market list (products.js); extra Tokenstore Apple markets are appended. */
+  products.forEach(function (p) {
+    if (p.id !== "apple" || !itunes || !itunes.markets) return;
+    var have = {};
+    itunes.markets.forEach(function (m) {
+      have[String(m.id).toLowerCase()] = 1;
+    });
+    p.data = {
+      markets: itunes.markets.concat(
+        p.data.markets.filter(function (m) {
+          return !have[m.id];
+        })
+      )
+    };
+  });
+  var byId = {};
+  products.forEach(function (p) {
+    byId[p.id] = p;
   });
 
   var state = { product: null, market: null, card: null, step: "country" };
@@ -120,6 +68,7 @@
   var selectedOrder = document.getElementById("itunes-selected-order");
   var check = document.getElementById("itunes-payment-check");
   var wa = document.getElementById("itunes-wa");
+  var catHost = document.getElementById("catalog-sections");
 
   function digits(n) {
     var s = String(Math.round(Number(n))),
@@ -140,6 +89,23 @@
   }
   function title() {
     return state.product ? state.product.title : "البطاقة";
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function logo(p, size) {
+    var img = document.createElement("img");
+    img.src = p.image;
+    img.alt = p.alt;
+    img.width = size || 160;
+    img.height = size || 160;
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.referrerPolicy = "no-referrer";
+    return img;
   }
   function step(s) {
     state.step = s;
@@ -177,70 +143,50 @@
     flow.hidden = false;
     var k = flow.querySelector(".itunes-flow-head .cat-kicker");
     if (k) k.textContent = p.title + " / " + p.en;
+    if (search) search.value = "";
+    filterHomeCards();
     step("country");
     countries();
     sync();
-    flow.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (p.data.markets.length === 1) country(p.data.markets[0]);
+    else flow.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function brandTile(p, opts) {
-    opts = opts || {};
-    var b = document.createElement("button");
+  function brandTile(p) {
+    var b = el("button", "brand-tile");
     b.type = "button";
-    b.className = "brand-tile";
     b.setAttribute("role", "listitem");
-    b.setAttribute("aria-label", "اختر " + (p.short || p.title) + " — " + p.en);
-    var art = document.createElement("div");
-    art.className = "brand-tile-art";
-    var img = document.createElement("img");
-    img.src = p.image;
-    img.alt = p.alt;
-    img.width = 160;
-    img.height = 160;
-    img.loading = "lazy";
-    img.decoding = "async";
-    art.appendChild(img);
+    b.setAttribute("aria-label", "اختر " + p.title + " — " + p.en);
+    var art = el("div", "brand-tile-art");
+    art.appendChild(logo(p));
     b.appendChild(art);
-    var name = document.createElement("span");
-    name.className = "brand-tile-name";
-    name.textContent = opts.label || p.short || p.title;
-    b.appendChild(name);
+    b.appendChild(el("span", "brand-tile-name", p.short || p.title));
     b.addEventListener("click", function () {
       open(p);
     });
     return b;
   }
 
-  function card(p) {
-    var b = document.createElement("button");
+  function card(p, withId) {
+    var b = el("button", "product-card featured gift-product-card " + p.id + "-product-card");
     b.type = "button";
-    b.id = p.id + "-product-card";
-    b.className = "product-card featured gift-product-card " + p.id + "-product-card";
+    if (withId) b.id = p.id + "-product-card";
     b.setAttribute("role", "listitem");
+    b.setAttribute("data-brand", p.id);
     b.setAttribute("aria-label", "اختر " + p.title + " — " + p.en);
-    var i = document.createElement("div");
-    i.className = "product-icon product-icon-img gift-product-logo";
-    var img = document.createElement("img");
-    img.src = p.image;
-    img.alt = p.alt;
-    img.width = 160;
-    img.height = 160;
-    img.loading = "lazy";
-    img.decoding = "async";
-    i.appendChild(img);
+    var i = el("div", "product-icon product-icon-img gift-product-logo");
+    i.appendChild(logo(p));
     b.appendChild(i);
-    var h = document.createElement("h3");
-    h.className = "product-title";
-    h.textContent = p.title;
-    b.appendChild(h);
-    var en = document.createElement("p");
-    en.className = "product-name-en";
-    en.textContent = p.en;
-    b.appendChild(en);
-    var c = document.createElement("span");
-    c.className = "product-cta";
-    c.textContent = "اختيار المنطقة";
-    b.appendChild(c);
+    b.appendChild(el("h3", "product-title", p.title));
+    b.appendChild(el("p", "product-name-en", p.ar && p.ar !== p.title ? p.ar : p.en));
+    var n = p.data.markets.length;
+    b.appendChild(el("span", "product-cta", n > 1 ? n + " دولة · اختيار المنطقة" : "اختيار الفئة"));
+    b.setAttribute(
+      "data-search",
+      (p.title + " " + p.ar + " " + p.en + " " + p.data.markets.map(function (m) {
+        return m.region + " " + m.regionAr;
+      }).join(" ")).toLowerCase()
+    );
     b.addEventListener("click", function () {
       open(p);
     });
@@ -262,37 +208,18 @@
     if (!icon) return;
     icon.textContent = "";
     icon.classList.add("product-icon-img", "gift-product-logo");
-    img = document.createElement("img");
-    img.src = "assets/products/snapchat-plus.png?v=31";
-    img.alt = "Snapchat Plus";
-    img.width = 160;
-    img.height = 160;
-    img.loading = "lazy";
-    img.decoding = "async";
-    icon.appendChild(img);
+    icon.appendChild(logo({ image: "assets/products/snapchat-plus.png?v=31", alt: "Snapchat Plus" }));
   }
 
   function snapPopularTile() {
-    var b = document.createElement("button");
+    var b = el("button", "brand-tile");
     b.type = "button";
-    b.className = "brand-tile";
     b.setAttribute("role", "listitem");
     b.setAttribute("aria-label", "اختر سناب شات بلس");
-    var art = document.createElement("div");
-    art.className = "brand-tile-art";
-    var img = document.createElement("img");
-    img.src = "assets/products/snapchat-plus.png?v=31";
-    img.alt = "Snapchat Plus";
-    img.width = 160;
-    img.height = 160;
-    img.loading = "lazy";
-    img.decoding = "async";
-    art.appendChild(img);
+    var art = el("div", "brand-tile-art");
+    art.appendChild(logo({ image: "assets/products/snapchat-plus.png?v=31", alt: "Snapchat Plus" }));
     b.appendChild(art);
-    var name = document.createElement("span");
-    name.className = "brand-tile-name";
-    name.textContent = "Snapchat";
-    b.appendChild(name);
+    b.appendChild(el("span", "brand-tile-name", "Snapchat"));
     b.addEventListener("click", function () {
       var snap = grid && grid.querySelector('[data-product-id="snapchat-plus"]');
       if (snap) snap.click();
@@ -303,52 +230,78 @@
   function renderPopular() {
     if (!popular) return;
     clear(popular);
-    var order = ["xbox", "playstation", "itunes"];
-    order.forEach(function (id) {
-      var p = products.filter(function (x) {
-        return x.id === id;
-      })[0];
-      if (p) popular.appendChild(brandTile(p));
+    (cat.popular || []).forEach(function (id) {
+      if (byId[id]) popular.appendChild(brandTile(byId[id]));
     });
     popular.appendChild(snapPopularTile());
   }
 
+  var SHOW = 12;
+  function renderSections() {
+    if (!catHost) return;
+    clear(catHost);
+    (cat.cats || []).forEach(function (c) {
+      var list = products.filter(function (p) {
+        return p.cat === c[0];
+      });
+      if (!list.length) return;
+      var sec = el("section", "ts-section ts-cat-section");
+      sec.id = "cat-" + c[0];
+      var head = el("div", "ts-section-head");
+      var h = el("h2", null, c[1]);
+      h.appendChild(el("span", "ts-count", " " + list.length));
+      head.appendChild(h);
+      var more = el("button", "all-link ts-more", "الكل ←");
+      more.type = "button";
+      head.appendChild(more);
+      sec.appendChild(head);
+      var g = el("div", "product-grid ts-cat-grid");
+      g.setAttribute("role", "list");
+      g.setAttribute("aria-label", c[1]);
+      sec.appendChild(g);
+      var shown = 0;
+      function fill(n) {
+        for (; shown < Math.min(n, list.length); shown++) g.appendChild(card(list[shown]));
+        more.hidden = shown >= list.length;
+        if (shown > SHOW) g.classList.add("is-all");
+      }
+      fill(SHOW);
+      more.addEventListener("click", function () {
+        fill(list.length);
+      });
+      sec._fillAll = function () {
+        fill(list.length);
+      };
+      catHost.appendChild(sec);
+    });
+  }
+
   function render() {
     wireSnapchatLogo();
-    products.forEach(function (p) {
-      if (grid && !document.getElementById(p.id + "-product-card")) grid.appendChild(card(p));
+    (cat.featured || []).forEach(function (id) {
+      var p = byId[id];
+      if (p && grid && !grid.querySelector('[data-brand="' + id + '"]')) grid.appendChild(card(p, true));
     });
     renderPopular();
+    renderSections();
   }
 
   function countries() {
     if (!countryGrid || !state.product) return;
     clear(countryGrid);
-    var q = search ? String(search.value || "").trim().toLowerCase() : "";
     state.product.data.markets.forEach(function (m) {
-      if (q && (m.region + " " + m.regionAr + " " + m.productName).toLowerCase().indexOf(q) < 0) return;
-      var b = document.createElement("button");
+      var b = el("button", "itunes-country-card");
       b.type = "button";
-      b.className = "itunes-country-card";
       b.setAttribute("role", "listitem");
       b.setAttribute("aria-label", "اختيار " + m.regionAr + " — " + m.region);
-      var ar = document.createElement("strong"),
-        en = document.createElement("span");
-      ar.textContent = m.regionAr;
-      en.textContent = m.region;
-      b.appendChild(ar);
-      b.appendChild(en);
+      b.appendChild(el("strong", null, m.regionAr));
+      b.appendChild(el("span", null, m.region + " · " + m.cards.length + " فئة"));
       b.addEventListener("click", function () {
         country(m);
       });
       countryGrid.appendChild(b);
     });
-    if (!countryGrid.firstChild) {
-      var e = document.createElement("p");
-      e.className = "itunes-empty";
-      e.textContent = "لا توجد منطقة مطابقة.";
-      countryGrid.appendChild(e);
-    }
+    if (!countryGrid.firstChild) countryGrid.appendChild(el("p", "itunes-empty", "لا توجد منطقة مطابقة."));
   }
   function country(m) {
     state.market = m;
@@ -362,27 +315,21 @@
     if (!denomGrid || !state.market) return;
     clear(denomGrid);
     if (!state.market.cards || !state.market.cards.length) {
-      var e = document.createElement("p");
-      e.className = "itunes-empty";
-      e.textContent = "لا توجد فئات منشورة حالياً لهذه المنطقة.";
-      denomGrid.appendChild(e);
+      denomGrid.appendChild(el("p", "itunes-empty", "لا توجد فئات منشورة حالياً لهذه المنطقة."));
       return;
     }
     state.market.cards.forEach(function (c) {
-      var b = document.createElement("button");
+      var b = el("button", "itunes-denom-card" + (c.oos ? " is-oos" : ""));
       b.type = "button";
-      b.className = "itunes-denom-card";
       b.setAttribute("role", "listitem");
-      b.setAttribute("aria-label", c.denomLabel + " — " + price(c));
-      var d = document.createElement("strong"),
-        p = document.createElement("span");
-      d.textContent = c.denomLabel;
-      p.textContent = price(c);
-      b.appendChild(d);
-      b.appendChild(p);
-      b.addEventListener("click", function () {
-        denom(c);
-      });
+      b.setAttribute("aria-label", c.denomLabel + " — " + price(c) + (c.oos ? " — نفدت مؤقتاً" : ""));
+      b.appendChild(el("strong", null, c.denomLabel));
+      b.appendChild(el("span", null, c.oos ? price(c) + " · نفدت مؤقتاً" : price(c)));
+      if (c.oos) b.disabled = true;
+      else
+        b.addEventListener("click", function () {
+          denom(c);
+        });
       denomGrid.appendChild(b);
     });
   }
@@ -405,9 +352,10 @@
       "• المنتج: " + title() + " (" + state.product.en + ")",
       "• المنطقة: " + state.market.regionAr + " (" + state.market.region + ")",
       "• الفئة: " + state.card.denomLabel,
-      "• السعر: " + price(state.card),
-      "• تأكيد الدفع: أوافق على الدفع فقط عبر بنكيلي (Bankily) ✓"
+      "• السعر: " + price(state.card)
     ];
+    if (state.card.priceMruMax) l.push("• المبلغ المطلوب: (اكتب المبلغ هنا)");
+    l.push("• تأكيد الدفع: أوافق على الدفع فقط عبر بنكيلي (Bankily) ✓");
     if (window.MarcaAffiliate && window.MarcaAffiliate.getRef())
       l.push("• REF:" + window.MarcaAffiliate.getRef());
     l.push("", "شكرًا لكم.");
@@ -428,14 +376,21 @@
   }
   function filterHomeCards() {
     var q = search ? String(search.value || "").trim().toLowerCase() : "";
-    if (!grid) return;
-    Array.prototype.forEach.call(grid.querySelectorAll(".product-card"), function (card) {
-      if (!q) {
-        card.hidden = false;
-        return;
-      }
-      var t = (card.textContent || "").toLowerCase();
-      card.hidden = t.indexOf(q) < 0;
+    if (q && catHost)
+      Array.prototype.forEach.call(catHost.querySelectorAll(".ts-cat-section"), function (s) {
+        if (s._fillAll) s._fillAll();
+      });
+    var scopes = [grid].concat(catHost ? Array.prototype.slice.call(catHost.querySelectorAll(".ts-cat-grid")) : []);
+    scopes.forEach(function (g) {
+      if (!g) return;
+      var any = false;
+      Array.prototype.forEach.call(g.querySelectorAll(".product-card"), function (c) {
+        var t = (c.getAttribute("data-search") || c.textContent || "").toLowerCase();
+        c.hidden = !!q && t.indexOf(q) < 0;
+        if (!c.hidden) any = true;
+      });
+      var sec = g.closest ? g.closest(".ts-cat-section") : null;
+      if (sec) sec.hidden = !!q && !any;
     });
   }
   function init() {
@@ -452,8 +407,8 @@
     }
     if (search) {
       search.addEventListener("input", function () {
-        if (state.step === "country" && flow && !flow.hidden) countries();
-        else filterHomeCards();
+        if (flow && !flow.hidden && state.product) home();
+        filterHomeCards();
       });
     }
     var bh = document.getElementById("itunes-back-home"),
@@ -479,9 +434,9 @@
       wa.addEventListener("click", function (e) {
         if (wa.getAttribute("aria-disabled") === "true") e.preventDefault();
       });
-    var logo = document.getElementById("logo-home");
-    if (logo)
-      logo.addEventListener("click", function (e) {
+    var lg = document.getElementById("logo-home");
+    if (lg)
+      lg.addEventListener("click", function (e) {
         e.preventDefault();
         home();
         if (window.MarcaApp && typeof window.MarcaApp.goHome === "function") window.MarcaApp.goHome();
