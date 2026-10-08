@@ -1,0 +1,60 @@
+/* Marça — «رسالة من مجهول» hero ad (replaces hero.jpg) */
+body.ts-page .ts-hero-banner.anon-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;gap:1.25rem;min-height:320px;padding:2rem 2.25rem;overflow:hidden;position:relative;border-radius:22px;text-decoration:none;color:#1e1b4b;cursor:pointer;isolation:isolate;
+  background:radial-gradient(120% 90% at 0% 100%,rgba(37,99,235,.16),transparent 55%),radial-gradient(90% 80% at 100% 0%,rgba(124,58,237,.18),transparent 60%),linear-gradient(135deg,#ffffff 0%,#f5f3ff 48%,#eef2ff 100%);
+  border:1px solid #e9e5ff;box-shadow:0 10px 30px rgba(80,65,210,.10);transition:transform .25s ease,box-shadow .25s ease}
+body.ts-page .ts-hero-banner.anon-hero:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(80,65,210,.18);text-decoration:none;color:#1e1b4b}
+body.ts-page .ts-hero-banner.anon-hero:focus-visible{outline:3px solid #5041D2;outline-offset:4px}
+.anon-hero .ah-glow{position:absolute;inset:auto auto -90px -60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(80,65,210,.22),transparent 70%);z-index:-1}
+.anon-hero .ah-copy{display:flex;flex-direction:column;align-items:flex-start;gap:.7rem;text-align:right;min-width:0}
+.anon-hero .ah-kicker{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:750;color:#5041D2;background:#fff;border:1px solid #e0dbff;border-radius:999px;padding:.3rem .75rem;box-shadow:0 2px 8px rgba(80,65,210,.08)}
+.anon-hero .ah-title{display:block;font-family:"Amiri","Red Hat Display",serif;font-weight:700;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.15;background:linear-gradient(135deg,#7c3aed,#5041D2 50%,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.1em}
+.anon-hero .ah-sub{display:block;font-size:clamp(.92rem,1.5vw,1.05rem);line-height:1.7;color:#4b5563;max-width:30ch;font-weight:600}
+.anon-hero .ah-cta{display:inline-flex;align-items:center;gap:.45rem;margin-top:.35rem;background:linear-gradient(135deg,#7c3aed,#5041D2 55%,#2563eb);color:#fff;font-weight:800;font-size:.98rem;padding:.7rem 1.5rem;border-radius:999px;box-shadow:0 8px 20px rgba(80,65,210,.35);transition:transform .2s ease}
+.anon-hero:hover .ah-cta{transform:translateX(-3px)}
+.anon-hero .ah-art{position:relative;display:block;min-height:230px}
+.anon-hero .ah-card{position:absolute;top:8%;inset-inline-start:0;width:min(100%,300px);display:block;background:#fff;border:1px solid #ece9ff;border-radius:22px;padding:1rem 1.1rem 1.15rem;box-shadow:0 18px 40px rgba(30,27,75,.14);transform:rotate(-3deg)}
+.anon-hero .ah-card-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.65rem}
+.anon-hero .ah-mask{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#2563eb)}
+.anon-hero .ah-card-name{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.anon-hero .ah-script{font-family:"Amiri",serif;font-weight:700;font-size:1.3rem;color:#3c2fb8}
+.anon-hero .ah-time{font-size:.72rem;color:#9ca3af;font-weight:600}
+.anon-hero .ah-card-msg{display:block;font-size:.98rem;line-height:1.65;color:#111827;font-weight:650}
+.anon-hero .ah-reply{position:absolute;bottom:4%;inset-inline-end:2%;max-width:78%;display:block;background:linear-gradient(135deg,#5041D2,#2563eb);color:#fff;font-size:.88rem;font-weight:700;border-radius:18px 18px 18px 6px;padding:.6rem .9rem;box-shadow:0 12px 26px rgba(37,99,235,.3);transform:rotate(2deg)}
+.anon-hero .ah-reply-label{display:block;font-size:.68rem;opacity:.8;font-weight:600}
+.anon-hero .ah-chip{position:absolute;font-size:.7rem;font-weight:800;padding:.25rem .6rem;border-radius:999px;background:#fff;border:1px solid #e0dbff;color:#5041D2;box-shadow:0 4px 12px rgba(80,65,210,.12)}
+.anon-hero .ah-chip-1{top:0;inset-inline-end:8%;background:#fffc00;border-color:#f0e600;color:#111}
+.anon-hero .ah-chip-2{bottom:36%;inset-inline-end:0;background:#25d366;border-color:#1ebe57;color:#fff}
+@media (prefers-reduced-motion:reduce){body.ts-page .ts-hero-banner.anon-hero,.anon-hero .ah-cta{transition:none}}
+@media (max-width:900px){body.ts-page .ts-hero-banner.anon-hero{min-height:260px}}
+@media (max-width:560px){
+  body.ts-page .ts-hero-banner.anon-hero{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);padding:1.2rem 1.1rem;gap:.6rem;min-height:230px}
+  .anon-hero .ah-kicker{font-size:.66rem;padding:.22rem .55rem}
+  .anon-hero .ah-title{font-size:1.75rem}
+  .anon-hero .ah-sub{font-size:.8rem;line-height:1.55}
+  .anon-hero .ah-cta{font-size:.85rem;padding:.55rem 1.05rem}
+  .anon-hero .ah-art{min-height:180px}
+  .anon-hero .ah-card{padding:.7rem .75rem .8rem;border-radius:16px;top:4%}
+  .anon-hero .ah-mask{width:30px;height:30px}
+  .anon-hero .ah-mask svg{width:17px;height:17px}
+  .anon-hero .ah-script{font-size:1rem}
+  .anon-hero .ah-time{font-size:.6rem}
+  .anon-hero .ah-card-msg{font-size:.76rem;line-height:1.5}
+  .anon-hero .ah-reply{font-size:.72rem;padding:.45rem .65rem;max-width:92%;bottom:0}
+  .anon-hero .ah-chip{display:none}
+  .anon-hero .ah-art{min-height:150px}
+  .anon-hero .ah-card{position:relative;top:0;width:100%;transform:rotate(-2deg)}
+  .anon-hero .ah-card-head{gap:.4rem;margin-bottom:.45rem}
+  .anon-hero .ah-script{white-space:nowrap;font-size:.95rem}
+  .anon-hero .ah-time{white-space:nowrap}
+  .anon-hero .ah-reply{position:relative;display:inline-block;margin-top:.5rem;bottom:auto;inset-inline-end:auto;max-width:100%}
+  .anon-hero .ah-reply-label{display:none}
+  .anon-hero .ah-time{display:none}
+}
+@media (max-width:400px){
+  .anon-hero .ah-card{padding:.6rem .55rem .7rem}
+  .anon-hero .ah-mask{width:26px;height:26px}
+  .anon-hero .ah-mask svg{width:15px;height:15px}
+  .anon-hero .ah-script{font-size:.85rem}
+  .anon-hero .ah-card-msg{font-size:.72rem}
+  .anon-hero .ah-title{font-size:1.55rem}
+}
