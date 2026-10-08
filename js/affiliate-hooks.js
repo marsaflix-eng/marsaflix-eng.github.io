@@ -38,3 +38,13 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", inject);
   else inject();
 })();
+
+/* button-fix loader */
+(function(){
+  if (document.querySelector('script[data-button-fix]')) return;
+  var s=document.createElement('script');
+  s.src='js/button-fix.js?v=2';
+  s.defer=true;
+  s.setAttribute('data-button-fix','1');
+  (document.body||document.documentElement).appendChild(s);
+})();
