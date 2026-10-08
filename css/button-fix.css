@@ -1,0 +1,6 @@
+/* Marça button-audit overrides */
+html{scroll-behavior:auto;}
+body.ts-page{overflow-x:clip;overflow-y:visible;height:auto;min-height:100dvh;}
+.ts-cat-section,#popular-grid,#catalog-sections,#section-gifts,#apple-product-card{scroll-margin-top:140px;}
+body.ts-page .ts-cat-grid.product-grid,body.ts-page #product-grid.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;overflow:visible;scroll-snap-type:none;flex-wrap:unset;}
+.ts-utils{display:none!important;}
