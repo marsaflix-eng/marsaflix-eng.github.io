@@ -58,3 +58,18 @@ body.ts-page .ts-hero-banner.anon-hero:focus-visible{outline:3px solid #5041D2;o
   .anon-hero .ah-card-msg{font-size:.72rem}
   .anon-hero .ah-title{font-size:1.55rem}
 }
+@media (min-width:901px){
+  body.ts-page .ts-hero-banner.anon-hero{padding:2.5rem 2.75rem;gap:2rem}
+  .anon-hero .ah-copy{gap:1rem}
+  .anon-hero .ah-kicker{font-size:.85rem;padding:.4rem .9rem}
+  .anon-hero .ah-title{font-size:clamp(2.6rem,4.6vw,4rem)}
+  .anon-hero .ah-sub{font-size:1.15rem;max-width:28ch}
+  .anon-hero .ah-cta{font-size:1.08rem;padding:.85rem 1.9rem}
+  .anon-hero .ah-art{min-height:300px}
+  .anon-hero .ah-card{width:min(100%,340px);padding:1.25rem 1.3rem 1.4rem;top:12%}
+  .anon-hero .ah-mask{width:46px;height:46px}
+  .anon-hero .ah-script{font-size:1.5rem}
+  .anon-hero .ah-card-msg{font-size:1.08rem}
+  .anon-hero .ah-reply{font-size:.98rem;padding:.75rem 1.05rem}
+  .anon-hero .ah-chip{font-size:.8rem;padding:.32rem .75rem}
+}
