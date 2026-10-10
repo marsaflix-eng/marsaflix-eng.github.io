@@ -1,0 +1,3 @@
+/* maps admin tokens onto the shared storefront theme (css/theme.css) */
+:root{--p:var(--accent);--p2:var(--accent-3);--v:var(--accent-2);--ink:var(--text);--mut:var(--text-dim);--bg:#f5f6f8;--card:var(--bg-card);--ok:var(--success);--bad:var(--danger)}
+body{font-family:var(--font)}

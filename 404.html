@@ -1,203 +1,27 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=./" />
-  <script>location.replace("./");</script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="مرصة — متجر هدايا اشتراك سناب شات بلس. الدفع عبر بنكيلي فقط." />
-  <meta name="theme-color" content="#0a0a0c" />
-  <meta name="robots" content="index,follow" />
-  <meta name="referrer" content="no-referrer" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'self' https://wa.me https://api.whatsapp.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests" />
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <title>مرصة — سناب شات بلس</title>
-  <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23fffc00'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='16' font-family='sans-serif' font-weight='800' fill='%230a0a0c'%3Eم%3C/text%3E%3C/svg%3E" />
+<meta charset="UTF-8" />
+<meta http-equiv="refresh" content="0; url=/" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="referrer" content="no-referrer" />
+<meta name="theme-color" content="#5041D2" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'" />
+<title>الصفحة غير موجودة — Marça</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/css/theme.css?v=1" />
+<style>
+*{box-sizing:border-box;margin:0}html,body{height:100%}
+body{font-family:var(--font);color:var(--text);background:linear-gradient(135deg,#fff,var(--accent-tint));display:grid;place-items:center;padding:1.25rem;text-align:center}
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2rem 1.75rem;width:min(100%,420px)}
+img{width:48px;height:48px;border-radius:12px;margin:0 auto 1rem;display:block}
+h1{font-size:1.4rem;margin-bottom:.5rem}p{color:var(--text-muted);margin-bottom:1.25rem}
+a{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;border-radius:var(--radius-pill);padding:.7rem 1.6rem}
+a:hover{background:var(--accent-bright)}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="#" class="logo" id="logo-home" aria-label="مرصة — الصفحة الرئيسية">
-        <span class="logo-mark" aria-hidden="true">م</span>
-        <span>مرصة</span>
-      </a>
-      <span class="header-tag">Snapchat+</span>
-    </div>
-  </header>
-
-  <main id="main">
-    <!-- Progress (steps 1–3) -->
-    <div class="progress-wrap" id="progress-wrap" aria-label="تقدّم الطلب">
-      <div class="progress-bar" role="list">
-        <div class="progress-step" data-progress-step="0" role="listitem">
-          <span class="progress-dot" aria-hidden="true">1</span>
-          <span class="progress-label">اسم السناب</span>
-        </div>
-        <div class="progress-step" data-progress-step="1" role="listitem">
-          <span class="progress-dot" aria-hidden="true">2</span>
-          <span class="progress-label">متابعة</span>
-        </div>
-        <div class="progress-step" data-progress-step="2" role="listitem">
-          <span class="progress-dot" aria-hidden="true">3</span>
-          <span class="progress-label">الدفع</span>
-        </div>
-      </div>
-      <div class="progress-track" aria-hidden="true">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
-    </div>
-
-    <!-- Step 0: Plans -->
-    <section class="panel active" id="panel-plans" aria-hidden="false" aria-labelledby="hero-title">
-      <div class="hero">
-        <div class="hero-badge">
-          <span aria-hidden="true">✦</span>
-          متجر رقمي موثوق
-        </div>
-        <h1 id="hero-title">اشترك في <span>سناب شات بلس</span><br />بسهولة وأمان</h1>
-        <p class="hero-sub">مرصة — هدايا اشتراك سناب شات بلس بأسعار واضحة بالعملة الموريتانية.</p>
-        <p class="hero-note">الدفع عبر بنكيلي فقط · لا نجمع بيانات بطاقة</p>
-      </div>
-      <div class="plans" id="plans-grid" role="list" aria-label="باقات الاشتراك"></div>
-    </section>
-
-    <!-- Step 1: Username -->
-    <section class="panel" id="panel-username" aria-hidden="true" aria-labelledby="username-title">
-      <div class="step-card">
-        <h2 id="username-title">اسم مستخدم سناب شات</h2>
-        <p class="step-desc">أدخل اسم الحساب الذي تريد تفعيل الاشتراك عليه.</p>
-        <div class="selected-summary" data-selected-summary>
-          <span>الباقة المختارة</span>
-          <strong>—</strong>
-        </div>
-        <div class="field">
-          <label for="snap-username">اسم المستخدم</label>
-          <div class="input-wrap">
-            <span class="input-prefix" aria-hidden="true">@</span>
-            <input
-              type="text"
-              id="snap-username"
-              name="snap-username"
-              autocomplete="username"
-              autocapitalize="off"
-              autocorrect="off"
-              spellcheck="false"
-              maxlength="16"
-              inputmode="text"
-              placeholder="username"
-              aria-describedby="username-hint username-error"
-              aria-required="true"
-            />
-          </div>
-          <p class="field-hint" id="username-hint">3–15 حرفًا: حروف إنجليزية أو أرقام أو . _ -</p>
-          <p class="field-error" id="username-error" role="alert" aria-live="polite"></p>
-        </div>
-        <div class="btn-row">
-          <button type="button" class="btn btn-primary" id="btn-username-next" disabled>التالي</button>
-          <button type="button" class="btn btn-ghost" data-back>رجوع</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Step 2: Follow Snap -->
-    <section class="panel" id="panel-follow" aria-hidden="true" aria-labelledby="follow-title">
-      <div class="step-card">
-        <h2 id="follow-title">تابع حسابنا على سناب</h2>
-        <p class="step-desc">لازم تتابع حساب البائع قبل إكمال الطلب. الرابط يفتح في تبويب جديد.</p>
-        <div class="selected-summary" data-selected-summary>
-          <span>الباقة المختارة</span>
-          <strong>—</strong>
-        </div>
-        <a
-          class="snap-btn"
-          id="snap-follow-link"
-          href="https://snapchat.com/t/7BEXzDEV"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <svg class="snap-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path fill="currentColor" d="M12.2 2c-.7 0-1.3.2-1.8.6-.4.3-.7.8-.8 1.3-.1.3-.2.7-.3 1.1-.2.8-.3 1.2-.7 1.4-.3.2-.8.2-1.6.3-.5 0-.8.1-1 .3-.3.2-.4.5-.4.9 0 .4.2.8.6 1.1.2.1.3.3.3.5 0 .1-.1.3-.3.6-.5.8-.9 1.7-.9 2.5 0 .5.1.9.4 1.3.2.3.5.5.9.7.1 0 .2.1.2.3 0 .4-.5.7-1.1 1-.6.2-1 .6-1.1 1 0 .3.1.6.3.8.3.3.7.4 1.3.5.2 0 .4.1.5.3.2.3.2.7 0 1.3-.1.3 0 .6.2.8.3.3.8.3 1.5 0 .3-.1.5-.1.7 0 .5.3 1.1.5 1.8.5s1.3-.2 1.8-.5c.2-.1.4 0 .7 0 .7.3 1.2.3 1.5 0 .2-.2.3-.5.2-.8-.2-.6-.2-1 0-1.3.1-.2.3-.3.5-.3.6-.1 1-.2 1.3-.5.2-.2.3-.5.3-.8-.1-.4-.5-.8-1.1-1-.6-.3-1.1-.6-1.1-1 0-.2.1-.3.2-.3.4-.2.7-.4.9-.7.3-.4.4-.8.4-1.3 0-.8-.4-1.7-.9-2.5-.2-.3-.3-.5-.3-.6 0-.2.1-.4.3-.5.4-.3.6-.7.6-1.1 0-.4-.1-.7-.4-.9-.2-.2-.5-.3-1-.3-.8-.1-1.3-.1-1.6-.3-.4-.2-.5-.6-.7-1.4-.1-.4-.2-.8-.3-1.1-.1-.5-.4-1-.8-1.3C13.5 2.2 12.9 2 12.2 2z"/>
-          </svg>
-          افتح سناب وتابعنا
-        </a>
-        <label class="check-row" for="check-followed">
-          <input type="checkbox" id="check-followed" name="followed" />
-          <span>تابعت حسابك ✓</span>
-        </label>
-        <div class="btn-row">
-          <button type="button" class="btn btn-primary" id="btn-follow-next" disabled>التالي</button>
-          <button type="button" class="btn btn-ghost" data-back>رجوع</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Step 3: Payment policy + WhatsApp -->
-    <section class="panel" id="panel-payment" aria-hidden="true" aria-labelledby="payment-title">
-      <div class="step-card">
-        <h2 id="payment-title">سياسة الدفع</h2>
-        <p class="step-desc">اقرأ وأوافق قبل إرسال الطلب عبر واتساب.</p>
-        <div class="selected-summary" data-selected-summary>
-          <span>الباقة المختارة</span>
-          <strong>—</strong>
-        </div>
-        <div class="policy-box">
-          <h3>
-            <span aria-hidden="true">💳</span>
-            طريقة الدفع المقبولة
-          </h3>
-          <ul class="policy-list">
-            <li>
-              <span class="policy-icon yes" aria-hidden="true">✓</span>
-              <span><span class="policy-highlight">الدفع فقط عبر بنكيلي (Bankily)</span></span>
-            </li>
-            <li>
-              <span class="policy-icon no" aria-hidden="true">✕</span>
-              <span>لا نقبل <strong>Gimtel</strong></span>
-            </li>
-            <li>
-              <span class="policy-icon no" aria-hidden="true">✕</span>
-              <span>لا نقبل الدفع من طرف ثالث</span>
-            </li>
-            <li>
-              <span class="policy-icon yes" aria-hidden="true">✓</span>
-              <span>لا نجمع أرقام بطاقات ولا نعالج الدفع على الموقع — الطلب يُكمَل عبر واتساب</span>
-            </li>
-          </ul>
-        </div>
-        <label class="check-row" for="check-payment">
-          <input type="checkbox" id="check-payment" name="payment-agree" />
-          <span>أوافق: الدفع فقط عبر بنكيلي، ولا Gimtel ولا طرف ثالث</span>
-        </label>
-        <div class="btn-row">
-          <a
-            class="btn btn-whatsapp"
-            id="btn-whatsapp"
-            role="button"
-            aria-disabled="true"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="currentColor" d="M17.5 14.4c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.2-.7.9-.8 1-.2.1-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.8-.8-1.4-1.7-1.6-2-.1-.3 0-.4.1-.5.1-.1.3-.3.4-.4.1-.1.2-.3.3-.4.1-.1.1-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.4-.2.2-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.7 3 .6.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.1 15 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.4-8.4 8.4z"/>
-            </svg>
-            إرسال الطلب عبر واتساب
-          </a>
-          <button type="button" class="btn btn-ghost" data-back>رجوع</button>
-        </div>
-        <p class="privacy-note">
-          ملاحظة خصوصية: لا نخزّن بيانات الدفع على هذا الموقع. بعد الموافقة يُفتح واتساب برسالة جاهزة لإكمال الطلب مع البائع.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <p>© مرصة — متجر هدايا سناب شات بلس</p>
-      <p>الدفع عبر بنكيلي فقط · لا بطاقات على الموقع</p>
-    </div>
-  </footer>
-
-  <script src="js/config.js"></script>
-  <script src="js/app.js"></script>
-<a class="wa-assist" href="https://wa.me/22248650585?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D9%84%D9%8A%D9%83%D9%85%D8%8C%20%D9%84%D8%AF%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D9%85%D8%AA%D8%AC%D8%B1%20Mar%C3%A7a." target="_blank" rel="noopener noreferrer" aria-label="مساعد واتساب للاستفسار"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 2.1 16.8L1 23l6.4-1.1A11 11 0 0 0 20.5 3.5zM12 20.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3.8.6.6-3.7-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.4 7.4 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.3a.5.5 0 0 0 0-.5c0-.1-.5-1.3-.7-1.7s-.4-.4-.5-.4h-.4a.8.8 0 0 0-.6.3 2.5 2.5 0 0 0-.8 1.9 4.3 4.3 0 0 0 .9 2.3 9.8 9.8 0 0 0 3.8 3.3 4.3 4.3 0 0 0 2.6.7 2.2 2.2 0 0 0 1.5-.7 1.8 1.8 0 0 0 .4-1.3c0-.1 0-.3-.2-.4z"/></svg><span>استفسار</span></a></body>
+<main class="card"><img src="/assets/logo-mark.png" alt="" width="48" height="48" /><h1>الصفحة غير موجودة</h1><p>جارٍ تحويلك إلى الصفحة الرئيسية…</p><a href="/">الرئيسية</a></main>
+</body>
 </html>

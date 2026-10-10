@@ -1,0 +1,38 @@
+/* Marça shared theme — tokens from the storefront (index.store.html). Every page links this. */
+:root{
+  --bg-deep:#ffffff;
+  --bg:#ffffff;
+  --bg-elevated:#ffffff;
+  --bg-card:#ffffff;
+  --bg-card-hover:#f8fafc;
+  --border:rgba(17,24,39,.08);
+  --border-strong:rgba(80,65,210,.35);
+  --text:#111827;
+  --text-muted:#4b5563;
+  --text-dim:#6b7280;
+  --accent:#5041D2;
+  --accent-bright:#3c2fb8;
+  --accent-soft:rgba(80,65,210,.10);
+  --accent-glow:rgba(80,65,210,.22);
+  --accent-2:#7c3aed;
+  --accent-3:#2563eb;
+  --accent-tint:#f5f3ff;
+  --snap-yellow:#fffc00;
+  --success:#059669;
+  --success-soft:rgba(5,150,105,.12);
+  --danger:#dc2626;
+  --danger-soft:rgba(220,38,38,.10);
+  --whatsapp:#25d366;
+  --whatsapp-hover:#1ebe57;
+  --radius:18px;
+  --radius-sm:12px;
+  --radius-pill:999px;
+  --shadow:0 8px 24px rgba(17,24,39,.06);
+  --shadow-glow:0 0 32px var(--accent-glow);
+  --font:"Red Hat Display","Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;
+  --font-display:"Red Hat Display","Segoe UI",Tahoma,sans-serif;
+  --grad:linear-gradient(135deg,#7c3aed,#5041D2 55%,#2563eb);
+  --tap:48px;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+  --step-max:520px;
+  }

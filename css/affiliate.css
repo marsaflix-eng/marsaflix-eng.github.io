@@ -4,7 +4,7 @@
 .aff-sub{color:var(--text-muted);font-size:.9rem;text-align:center;margin-bottom:1.25rem;}
 .aff-tabs{display:flex;gap:.5rem;margin-bottom:1rem;}
 .aff-tabs button{flex:1;min-height:44px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);background:var(--bg-elevated);color:var(--text-muted);font:inherit;font-weight:600;cursor:pointer;}
-.aff-tabs button.active{background:var(--accent-soft);border-color:rgba(212,175,55,.4);color:var(--accent-bright);}
+.aff-tabs button.active{background:var(--accent-soft);border-color:rgba(80,65,210,.4);color:var(--accent-bright);}
 .aff-field{margin-bottom:1rem;}
 .aff-field label{display:block;font-size:.88rem;font-weight:600;margin-bottom:.4rem;}
 .aff-field input{width:100%;min-height:var(--tap);padding:.75rem 1rem;background:var(--bg-deep);border:1px solid var(--border-strong);border-radius:var(--radius-sm);color:var(--text);font:inherit;direction:ltr;text-align:left;}
@@ -12,7 +12,7 @@
 .aff-msg{min-height:1.3em;font-size:.85rem;margin:.5rem 0;text-align:center;}
 .aff-msg.err{color:var(--danger);}
 .aff-msg.ok{color:var(--success);}
-.aff-stat{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1rem;background:var(--accent-soft);border:1px solid rgba(212,175,55,.22);border-radius:var(--radius-sm);margin-bottom:1rem;}
+.aff-stat{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1rem;background:var(--accent-soft);border:1px solid rgba(80,65,210,.22);border-radius:var(--radius-sm);margin-bottom:1rem;}
 .aff-stat strong{color:var(--accent-bright);font-size:1.25rem;direction:ltr;}
 .aff-link-row{display:flex;gap:.5rem;margin-bottom:.65rem;}
 .aff-link-row input{flex:1;min-height:44px;padding:.5rem .75rem;background:var(--bg-deep);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font:inherit;font-size:.8rem;direction:ltr;}
@@ -27,7 +27,7 @@
 .aff-actions .btn{min-height:40px;padding:.5rem 1rem;font-size:.85rem;}
 .token-once{background:var(--bg-deep);border:1px dashed var(--accent);border-radius:var(--radius-sm);padding:1rem;margin-top:.75rem;direction:ltr;word-break:break-all;font-size:.85rem;}
 .hidden{display:none!important;}
-.header-nav a.nav-seller{border-color:rgba(212,175,55,.35);background:var(--accent-soft);color:var(--accent-bright);}
+.header-nav a.nav-seller{border-color:rgba(80,65,210,.35);background:var(--accent-soft);color:var(--accent-bright);}
 #mod-card .mod-row{border:1px solid var(--border);border-radius:14px;padding:.8rem .9rem;margin:.55rem 0;background:var(--bg-deep);text-align:right;}
 #mod-card .mod-row.is-banned{border-color:var(--danger);}
 #mod-card .mod-meta{color:var(--text-dim);font-size:.75rem;margin-bottom:.35rem;}
@@ -38,4 +38,3 @@
 #mod-card details{margin-top:.9rem;}
 #mod-card summary{cursor:pointer;font-weight:700;}
 #recover-new-code{font-weight:800;letter-spacing:.08em;direction:ltr;text-align:center;}
-
