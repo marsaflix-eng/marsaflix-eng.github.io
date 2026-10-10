@@ -27,6 +27,8 @@
     invalid_credentials: "كلمة السر الحالية غير صحيحة.",
     unauthorized: "انتهت الجلسة. سجّل الدخول من جديد.",
     network: "خطأ في الشبكة.",
+    email_required: "أضف بريدك الإلكتروني أولاً.",
+    email_unverified: "أكّد بريدك الإلكتروني أولاً (راجع صندوق الوارد أو أعد إرسال الرابط).",
   };
   function errText(d) { return ERR[d && d.error] || "حدث خطأ. حاول مرة أخرى."; }
   function fragToken() {
@@ -96,9 +98,18 @@
         st.hidden = !s.email;
         st.textContent = s.email_verified ? "مؤكد" : "غير مؤكد";
         st.className = "acc-badge " + (s.email_verified ? "ok" : "no");
+        $("resend-box").hidden = !(s.email && !s.email_verified);
       });
     }
     load();
+    $("resend-btn").addEventListener("click", function () {
+      var b = $("resend-btn"); b.disabled = true;
+      call("/v1/auth/resend-verification", "POST", {}, tok).then(function (r) {
+        b.disabled = false;
+        if (r.data.ok) say("resend-msg", r.data.verified ? "البريد مؤكد." : "أرسلنا رابط التحقق إلى بريدك. الرابط صالح 24 ساعة.", true);
+        else say("resend-msg", errText(r.data));
+      });
+    });
     $("email-btn").addEventListener("click", function () {
       var e = $("email-new").value.trim(), p = $("email-pass").value;
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) return say("email-msg", ERR.invalid_email);
