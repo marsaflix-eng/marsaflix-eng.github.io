@@ -1,0 +1,11 @@
+.vv-detail{margin:1rem 0 1.25rem;display:grid;gap:.9rem}
+.vv-box{background:#fff;border:1px solid rgba(80,65,210,.16);border-radius:18px;padding:1rem 1.15rem;box-shadow:0 10px 28px -20px rgba(80,65,210,.5)}
+.vv-box h3{margin:0 0 .5rem;font-size:1.05rem;font-weight:800;color:#1f1d3a}
+.vv-box p,.vv-box li{font-size:.92rem;line-height:1.75;color:#45435e;margin:0}
+.vv-box ol,.vv-box ul{margin:.2rem 0 0;padding-inline-start:1.3rem;display:grid;gap:.25rem}
+.vv-box a{color:#5041D2;font-weight:700;text-decoration:underline}
+.vv-tiktok{background:linear-gradient(135deg,#f5f3ff,#fff);border-color:rgba(80,65,210,.35)}
+.vv-tiktok h3::before{content:"♪ ";color:#5041D2}
+.vv-warn{background:#fff7f6;border-color:rgba(214,64,52,.35)}
+.vv-warn h3{color:#b3261e}
+.vv-note{font-size:.8rem!important;color:#6b6985!important}
