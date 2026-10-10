@@ -2,7 +2,7 @@
 body.ts-page{
   --bg:#f5f6f8;--bg-deep:#f5f6f8;--bg-elevated:#fff;--bg-card:#fff;
   --text:#141416;--text-muted:#5c616b;--text-dim:#8b909a;
-  --accent:#6d4dff;--accent-bright:#5b3df0;--accent-soft:rgba(109,77,255,.1);
+  --accent:#5041D2;--accent-bright:#3c2fb8;--accent-soft:rgba(80,65,210,.1);
   --border:rgba(20,20,22,.08);
   --font:"Plus Jakarta Sans","IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
   --font-display:"Plus Jakarta Sans","IBM Plex Sans Arabic",sans-serif;
@@ -19,21 +19,21 @@ body.ts-page .site-header{background:#fff;padding:.7rem 1.15rem .45rem}
 body.ts-page .logo-mark{width:36px;height:36px;border-radius:10px;object-fit:contain;background:transparent}
 body.ts-page .logo-word{font-family:var(--font-display);font-weight:800;letter-spacing:-.04em;color:#16161d;font-size:1.28rem}
 .ts-search{max-width:520px;border:1.5px solid #ddd6fe;border-radius:999px;background:#fff;min-height:46px;box-shadow:none}
-.ts-search:focus-within{border-color:#6d4dff;box-shadow:0 0 0 4px rgba(109,77,255,.12)}
+.ts-search:focus-within{border-color:#5041D2;box-shadow:0 0 0 4px rgba(80,65,210,.12)}
 .ts-search input{font-size:.92rem}
-.ts-search button{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8b6cff,#5b4dff 55%,#3d7bff);color:#fff}
+.ts-search button{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#5041D2 55%,#2563eb);color:#fff}
 body.ts-page .header-nav{gap:.4rem}
 body.ts-page .nav-anon{border:1px solid #ececec;background:#fff;color:#3f4450;border-radius:999px;font-weight:650;font-size:.78rem}
-body.ts-page .nav-anon:hover{background:#f6f4ff;border-color:#6d4dff;color:#5b3df0}
+body.ts-page .nav-anon:hover{background:#f6f4ff;border-color:#5041D2;color:#3c2fb8}
 .ts-utils{color:#6b7280;font-weight:700;font-size:.78rem}
 .ts-cats{gap:1.4rem;padding:.2rem 1.15rem .65rem}
 .ts-cats a{color:#3a3f4b;font-weight:750;font-size:.98rem;border-bottom:2px solid transparent}
-.ts-cats a:hover,.ts-cats a.is-on{color:#6d4dff;border-bottom-color:#6d4dff}
+.ts-cats a:hover,.ts-cats a.is-on{color:#5041D2;border-bottom-color:#5041D2}
 .ts-icon-cats{padding:.15rem 1.15rem 1rem;gap:1.1rem}
 .ts-icon-bubble{width:52px;height:52px;border-radius:50%;background:#f3f4f6;border:1px solid #eceff3}
 .ts-icon-bubble img{width:26px;height:26px}
 .ts-icon-cat{color:#4b5160;font-weight:650;font-size:.72rem}
-.ts-icon-cat:hover{color:#6d4dff}
+.ts-icon-cat:hover{color:#5041D2}
 .ts-icon-cat:hover .ts-icon-bubble{background:#f4f1ff;border-color:#ddd6fe}
 body.ts-page main{max-width:1180px}
 .ts-hero-row{grid-template-columns:minmax(0,1.65fr) minmax(280px,.82fr);gap:1rem;align-items:stretch}
@@ -45,7 +45,7 @@ body.ts-page main{max-width:1180px}
 .ts-popular{background:transparent;border:none;box-shadow:none;padding:0}
 .ts-popular-head{margin-bottom:.7rem}
 .ts-popular-head h2,.ts-section-head h2{font-family:var(--font-display);font-weight:800;letter-spacing:-.03em;font-size:1.25rem;color:#16161d}
-.ts-popular-head a,.ts-section-head .all-link{color:#6d4dff;background:transparent;border:none;font-weight:700}
+.ts-popular-head a,.ts-section-head .all-link{color:#5041D2;background:transparent;border:none;font-weight:700}
 .ts-popular-grid{grid-template-columns:1fr 1fr;gap:.7rem}
 .brand-tile-art{aspect-ratio:1.15;border-radius:16px;background:#111;border:1px solid #ececec;box-shadow:0 4px 14px rgba(17,24,39,.06);overflow:hidden}
 .brand-tile-art img{width:100%;height:100%;object-fit:cover;object-position:center}
@@ -57,15 +57,15 @@ body.ts-page .product-card:hover{transform:translateY(-3px);border-color:#ddd6fe
 body.ts-page .product-icon,body.ts-page .product-icon.product-icon-img,body.ts-page .gift-product-card .gift-product-logo{aspect-ratio:1;border-radius:18px 18px 0 0;background:#111;margin:0 0 .55rem}
 body.ts-page .product-icon img,body.ts-page .gift-product-card .gift-product-logo img{object-fit:cover}
 body.ts-page .product-title{font-size:.92rem;font-weight:750}
-body.ts-page .product-cta{color:#6d4dff;background:#f5f3ff;border:1px solid #ece7ff}
-body.ts-page .product-card:hover .product-cta{background:#6d4dff;color:#fff;border-color:#6d4dff}
+body.ts-page .product-cta{color:#5041D2;background:#f5f3ff;border:1px solid #ece7ff}
+body.ts-page .product-card:hover .product-cta{background:#5041D2;color:#fff;border-color:#5041D2}
 .itunes-country-card,.itunes-denom-card{background:#fff;border:1px solid #ececec;border-radius:16px}
 .itunes-country-card:hover,.itunes-denom-card:hover{border-color:#c4b5fd;background:#fafaff}
-.itunes-denom-card span,body.ts-page .plan-price-value,body.ts-page .selected-summary strong{color:#6d4dff}
-body.ts-page .btn-primary{background:#6d4dff;box-shadow:0 6px 16px rgba(109,77,255,.28)}
+.itunes-denom-card span,body.ts-page .plan-price-value,body.ts-page .selected-summary strong{color:#5041D2}
+body.ts-page .btn-primary{background:#5041D2;box-shadow:0 6px 16px rgba(80,65,210,.28)}
 body.ts-page .step-card,body.ts-page .plan-card{background:#fff;border:1px solid #ececec}
-body.ts-page .plan-card.featured{border-color:#c4b5fd;background:linear-gradient(180deg,rgba(109,77,255,.08),#fff 50%)}
-body.ts-page .plan-card:hover .plan-cta,body.ts-page .plan-card.featured .plan-cta{background:#6d4dff;color:#fff;border-color:#6d4dff}
+body.ts-page .plan-card.featured{border-color:#c4b5fd;background:linear-gradient(180deg,rgba(80,65,210,.08),#fff 50%)}
+body.ts-page .plan-card:hover .plan-cta,body.ts-page .plan-card.featured .plan-cta{background:#5041D2;color:#fff;border-color:#5041D2}
 .svc-strip{border-top:1px solid #eee;margin-top:1.5rem}
 .svc-grid > div,.svc-grid > a,.svc-grid > button{background:#fff;border:1px solid #eee;border-radius:16px}
 .svc-grid > a:hover,.svc-grid > button:hover{border-color:#c4b5fd}

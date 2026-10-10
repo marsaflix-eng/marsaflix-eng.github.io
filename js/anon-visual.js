@@ -146,27 +146,27 @@
       return out.slice(0, 5);
     }
     var qLines = lines(q), aLines = lines(a);
-    var jobs = [textImage("مجهول", W, H * 0.06, W * 0.055, "#e6c98a", 700), textImage("رسالة جديدة", W, H * 0.04, W * 0.032, "#a9b0be", 500), textImage("الآن", W, H * 0.04, W * 0.03, "#f4f1ea", 600), textImage("الرد", W, H * 0.06, W * 0.055, "#e6c98a", 700), textImage("جوابي", W, H * 0.04, W * 0.032, "#a9b0be", 500)];
-    qLines.forEach(function (line) { jobs.push(textImage(line, W, H * 0.05, W * 0.04, "#f7f4ee", 500)); });
-    aLines.forEach(function (line) { jobs.push(textImage(line, W, H * 0.05, W * 0.04, "#f7f4ee", 500)); });
+    var jobs = [textImage("مجهول", W, H * 0.06, W * 0.055, "#5041D2", 700), textImage("رسالة جديدة", W, H * 0.04, W * 0.032, "#6b7280", 500), textImage("الآن", W, H * 0.04, W * 0.03, "#111827", 600), textImage("الرد", W, H * 0.06, W * 0.055, "#5041D2", 700), textImage("جوابي", W, H * 0.04, W * 0.032, "#6b7280", 500)];
+    qLines.forEach(function (line) { jobs.push(textImage(line, W, H * 0.05, W * 0.04, "#111827", 500)); });
+    aLines.forEach(function (line) { jobs.push(textImage(line, W, H * 0.05, W * 0.04, "#111827", 500)); });
     return Promise.all(jobs).then(function (imgs) {
       var title = imgs[0], sub = imgs[1], now = imgs[2], titleA = imgs[3], subA = imgs[4];
       var qImgs = imgs.slice(5, 5 + qLines.length);
       var aImgs = imgs.slice(5 + qLines.length);
       var g = ctx.createLinearGradient(0, 0, 0, H);
-      g.addColorStop(0, "#07101f"); g.addColorStop(1, "#0b1426");
+      g.addColorStop(0, "#ffffff"); g.addColorStop(1, "#f5f3ff");
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-      ctx.fillStyle = "rgba(230,201,138,.12)";
+      ctx.fillStyle = "rgba(80,65,210,.12)";
       ctx.beginPath(); ctx.arc(W * 0.2, H * 0.12, W * 0.18, 0, 7); ctx.fill();
       ctx.beginPath(); ctx.arc(W * 0.82, H * 0.78, W * 0.16, 0, 7); ctx.fill();
       function card(y, h, tImg, sImg, body) {
         var x = W * 0.08, w = W * 0.84, r = W * 0.05;
         round(ctx, x, y, w, h, r);
-        ctx.fillStyle = "#10182a"; ctx.fill();
-        ctx.strokeStyle = "rgba(230,201,138,.55)"; ctx.lineWidth = Math.max(2, W * 0.003); ctx.stroke();
+        ctx.fillStyle = "#ffffff"; ctx.fill();
+        ctx.strokeStyle = "rgba(80,65,210,.55)"; ctx.lineWidth = Math.max(2, W * 0.003); ctx.stroke();
         ctx.beginPath(); ctx.arc(x + w - W * 0.1, y + H * 0.055, W * 0.045, 0, 7);
-        ctx.strokeStyle = "#e6c98a"; ctx.stroke();
-        ctx.fillStyle = "#e6c98a"; ctx.beginPath(); ctx.arc(x + w - W * 0.1, y + H * 0.05, W * 0.02, 0, 7); ctx.fill();
+        ctx.strokeStyle = "#5041D2"; ctx.stroke();
+        ctx.fillStyle = "#5041D2"; ctx.beginPath(); ctx.arc(x + w - W * 0.1, y + H * 0.05, W * 0.02, 0, 7); ctx.fill();
         if (tImg) ctx.drawImage(tImg, x + W * 0.16, y + H * 0.02, W * 0.28, H * 0.05);
         if (sImg) ctx.drawImage(sImg, x + W * 0.16, y + H * 0.065, W * 0.28, H * 0.035);
         if (now) ctx.drawImage(now, x + W * 0.04, y + H * 0.035, W * 0.16, H * 0.035);
