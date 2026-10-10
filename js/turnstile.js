@@ -57,6 +57,17 @@
           }
         } catch (_) {}
       }
+      // Optional email on register (seller + anon forms) for password recovery.
+      if (/\/v1\/auth\/register$/.test(String(typeof input === "string" ? input : (input && input.url) || "")) && typeof init.body === "string") {
+        var em = "";
+        ["reg-email", "anon-reg-email"].forEach(function (f) { if (!em && visible(f)) em = String(document.getElementById(f).value || "").trim(); });
+        if (em) {
+          try {
+            var rb = JSON.parse(init.body);
+            if (rb && typeof rb === "object" && !rb.email) { rb.email = em.toLowerCase(); init = Object.assign({}, init, { body: JSON.stringify(rb) }); }
+          } catch (_) {}
+        }
+      }
       var result = originalFetch.call(this, input, init);
       if (injected && window.MarcaTurnstile) window.MarcaTurnstile.reset(id);
       return result;
