@@ -120,7 +120,7 @@
     while (box.firstChild) box.removeChild(box.firstChild);
     var items = [
       { label: "الصفحة الرئيسية", url: links.home },
-      { label: "سنة — 490 أوقية", url: links["1y"] },
+      { label: "سناب شات بلس — مساعدة بـ 90 أوقية", url: links["snap-help"] },
     ];
     items.forEach(function (it) {
       var row = document.createElement("div");
@@ -215,7 +215,7 @@
       fillRows(ol, ords, function (o) {
         var li = document.createElement("li");
         var head = document.createElement("div");
-        head.appendChild(document.createTextNode(String(o.plan) + " · " + String(o.price_mru) + " MRU "));
+        head.appendChild(document.createTextNode((o.plan === "snap-help" ? "مساعدة سناب بلس" : String(o.kind === "gift" ? (o.brand || "بطاقة") : o.plan)) + " · " + String(o.price_mru) + " MRU "));
         head.appendChild(statusBadge(o.status));
         var meta = document.createElement("div");
         meta.className = "meta";

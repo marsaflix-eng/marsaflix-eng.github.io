@@ -9,7 +9,7 @@
   var LIMIT = 25;
   var $ = function (id) { return document.getElementById(id); };
   var TITLES = { overview: "نظرة عامة", sellers: "البائعون", orders: "الطلبات", commissions: "العمولات", wallet: "المحافظ والسجل", anon: "رسائل مجهولة", catalog: "الكتالوج" };
-  var LBL = { pending: "قيد الانتظار", paid: "مدفوع", approved: "معتمد", active: "نشط", rejected: "مرفوض", pending_payout: "بانتظار الاعتماد", paid_to_wallet: "في المحفظة", commission_credit: "عمولة", snap: "سناب بلس", gift: "بطاقة" };
+  var LBL = { pending: "قيد الانتظار", paid: "مدفوع", approved: "معتمد", active: "نشط", rejected: "مرفوض", pending_payout: "بانتظار الاعتماد", paid_to_wallet: "في المحفظة", commission_credit: "عمولة", snap: "سناب بلس", "snap-help": "مساعدة سناب بلس", gift: "بطاقة" };
   var TONE = { paid: "ok", approved: "ok", active: "p", paid_to_wallet: "ok", pending: "warn", pending_payout: "warn", rejected: "bad" };
 
   function h(tag, attrs, kids) {
@@ -210,7 +210,7 @@
       ]);
     }).catch(function (e) { toast(e.message, "bad"); });
   }
-  function prod(o) { return o.kind === "gift" ? [o.brand, o.denom].filter(Boolean).join(" · ") : "Snapchat+ " + (o.plan || ""); }
+  function prod(o) { return o.kind === "gift" ? [o.brand, o.denom].filter(Boolean).join(" · ") : o.kind === "snap-help" ? "مساعدة سناب بلس" : "Snapchat+ " + (o.plan || ""); }
 
   VIEWS.orders = function (v) {
     var s = st.orders;
@@ -218,11 +218,11 @@
       clear(v);
       v.appendChild(filters(s, { ph: "ابحث برقم الطلب أو الإحالة أو يوزر سناب أو العلامة", selects: [
         { key: "status", label: "الحالة", options: [["", "كل الحالات"], ["pending", "قيد الانتظار"], ["paid", "مدفوع"]] },
-        { key: "kind", label: "النوع", options: [["", "كل الأنواع"], ["snap", "سناب بلس"], ["gift", "بطاقات"]] }] }, function () { go("orders"); }));
+        { key: "kind", label: "النوع", options: [["", "كل الأنواع"], ["snap-help", "مساعدة سناب بلس"], ["snap", "سناب بلس (قديم)"], ["gift", "بطاقات"]] }] }, function () { go("orders"); }));
       v.appendChild(h("div", { cls: "grid" }, [stat("عدد النتائج", num(j.total)), stat("إجمالي القيمة", mru(j.sum_mru))]));
       v.appendChild(table(["التاريخ", "النوع", "المنتج / العلامة", "الدولة", "الفئة", "السعر", "الإحالة", "البائع", "يوزر سناب", "الحالة", "العمولة", ""], j.orders, function (o) {
-        return [dt(o.created_at), pill(o.kind || "snap"), h("td", { cls: "wrap", text: o.kind === "gift" ? (o.brand || "—") + (o.catalog_ok ? "" : " ⚠") : "Snapchat+ " + o.plan }),
-          o.country, h("td", { cls: "wrap", text: o.denom || (o.kind === "snap" ? o.plan : "—") }), mru(o.price_mru), h("span", { cls: "ltr", text: o.ref || "—" }),
+        return [dt(o.created_at), pill(o.kind || "snap"), h("td", { cls: "wrap", text: o.kind === "gift" ? (o.brand || "—") + (o.catalog_ok ? "" : " ⚠") : prod(o) }),
+          o.country, h("td", { cls: "wrap", text: o.denom || (o.kind === "snap" ? o.plan : o.kind === "snap-help" ? "90" : "—") }), mru(o.price_mru), h("span", { cls: "ltr", text: o.ref || "—" }),
           o.seller_name, h("span", { cls: "ltr", text: o.snap_user ? "@" + o.snap_user : "—" }), pill(o.status), o.commission_status ? pill(o.commission_status) : "—",
           o.status !== "paid" ? h("button", { cls: "btn ok sm", text: "تأكيد الدفع", onclick: function (e) { if (confirm("تأكيد دفع هذا الطلب؟")) action(e.target, "/v1/admin/orders/" + o.id + "/mark-paid", "تم تأكيد الدفع"); } }) : h("span", { cls: "muted", text: dt(o.paid_at) })];
       }));
