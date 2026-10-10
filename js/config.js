@@ -9,7 +9,6 @@ window.MARCA_CONFIG = Object.freeze({
   TURNSTILE_SITE_KEY: "0x4AAAAAAFLc3TqbYVj4yBsZ",
   AFFILIATE_API_BASE: "https://marca-affiliate.marsaflix.workers.dev", // set after Cloudflare deploy, e.g. https://marca-anon-inbox.xxx.workers.dev
   WHATSAPP_E164: "22248650585",
-  SNAP_FOLLOW_URL: "https://snapchat.com/t/7BEXzDEV",
   DOMAIN: "marça.online",
   DOMAIN_PLACEHOLDER: "marça.online",
   STORE_NAME: "Marça",
@@ -25,18 +24,11 @@ window.MARCA_CONFIG = Object.freeze({
       nameEn: "Snapchat Plus",
       image: "assets/products/snapchat-plus.png?v=31",
       featured: true,
-      flow: "snapchat-plus",
-      plans: Object.freeze([
-        Object.freeze({
-          id: "1y",
-          nameAr: "سنة",
-          nameEn: "1 year",
-          durationMonths: 12,
-          price: 630,
-          badge: "سنة",
-          highlight: true
-        })
-      ])
+      flow: "snap-help",
+      /* Snapchat Plus: paid help creating the customer's own Indian Apple ID (old 3m/6m/1y plans removed). */
+      helpPrice: 90,
+      priceLabel: "مساعدة بـ 90 أوقية",
+      ctaLabel: "التفاصيل"
     }),
     Object.freeze({
       id: "snapchat-filters",

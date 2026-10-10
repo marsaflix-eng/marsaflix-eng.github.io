@@ -42,10 +42,6 @@
       var u = new URL(location.href);
       var ref = u.searchParams.get("ref");
       if (ref) persistRef(ref.trim());
-      var plan = u.searchParams.get("plan");
-      if (plan && /^(3m|6m|1y)$/.test(plan)) {
-        try { sessionStorage.setItem("marca_plan_hint", plan); } catch (e) {}
-      }
     } catch (e) {}
   }
   function getRef() { return getStoredRef(); }
@@ -54,7 +50,7 @@
     if (!base) return Promise.resolve(null);
     var body = payload.kind === "gift"
       ? { kind: "gift", ref: getRef() || undefined, brand: payload.brand, country: payload.country, denom: payload.denom, price_mru: payload.price_mru, note: payload.note || undefined }
-      : { ref: getRef() || undefined, plan: payload.plan, price_mru: payload.price_mru, snap_user: payload.snap_user || undefined, note: payload.note || undefined };
+      : { ref: getRef() || undefined, product: payload.product, price_mru: payload.price_mru, note: payload.note || undefined };
     return fetch(base + "/v1/orders/track", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), keepalive: true })
       .then(function (r) { return r.json().catch(function () { return null; }); })
       .catch(function () { return null; });
