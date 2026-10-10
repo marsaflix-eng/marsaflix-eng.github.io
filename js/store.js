@@ -452,4 +452,15 @@
       });
   }
   init();
+  /* Lets other views (e.g. Snapchat Plus help) open a brand preselected on a market. */
+  window.MarcaStore = {
+    openMarket: function (brandId, marketId) {
+      var p = byId[brandId];
+      if (!p) return false;
+      open(p);
+      var m = p.data.markets.filter(function (x) { return x.id === String(marketId).toLowerCase(); })[0];
+      if (m) country(m);
+      return !!m;
+    }
+  };
 })();
