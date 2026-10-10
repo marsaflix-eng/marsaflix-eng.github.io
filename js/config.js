@@ -32,7 +32,7 @@ window.MARCA_CONFIG = Object.freeze({
           nameAr: "سنة",
           nameEn: "1 year",
           durationMonths: 12,
-          price: 490,
+          price: 630,
           badge: "سنة",
           highlight: true
         })

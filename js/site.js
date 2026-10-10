@@ -3,7 +3,7 @@
   "use strict";
   var phone = "22248650585";
   var products = {
-    plus: { title: "سناب شات بلس", items: [{ label: "سنة", price: "490 أوقية" }] },
+    plus: { title: "سناب شات بلس", items: [{ label: "سنة", price: "630 أوقية" }] },
     filters: { title: "فلاتر سناب شات", items: [{ label: "فلتر مناسبات", price: "50 أوقية" }, { label: "فلتر مؤثرات", price: "50 أوقية" }] },
     itunes: { title: "بطاقة آيتونز", items: [["2 USD","100 أوقية"],["5 USD","250 أوقية"],["10 USD","500 أوقية"],["25 USD","1250 أوقية"],["50 USD","2500 أوقية"],["100 USD","5000 أوقية"]].map(function (x) { return { label: x[0], price: x[1] }; }) },
     ps: { title: "بطاقة PlayStation", items: [["10 USD","500 أوقية"],["25 USD","1250 أوقية"],["50 USD","2500 أوقية"],["100 USD","5000 أوقية"]].map(function (x) { return { label: x[0], price: x[1] }; }) },

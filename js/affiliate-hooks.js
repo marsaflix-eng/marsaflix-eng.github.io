@@ -25,7 +25,7 @@
             var um = t.match(/@([A-Za-z0-9._-]{3,15})/);
             var snap = um ? um[1] : undefined;
             var plan = null, price = null;
-            if (/1 year|سنة/.test(t)) { plan = "1y"; price = 490; }
+            if (/1 year|سنة/.test(t)) { plan = "1y"; price = 630; }
             if (plan && price) {
               window.MarcaAffiliate.trackOrder({ plan: plan, price_mru: price, snap_user: snap });
             }
