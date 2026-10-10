@@ -1,0 +1,27 @@
+/* Account pages: reset / verify / account settings (uses css/theme.css tokens) */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);direction:rtl;min-height:100vh}
+.acc-top{display:flex;align-items:center;gap:.6rem;padding:1rem 1.25rem;border-bottom:1px solid var(--border)}
+.acc-top a{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--accent);font-weight:800;font-size:1.25rem}
+.acc-wrap{max-width:var(--step-max);margin:0 auto;padding:1.5rem 1.25rem 3rem}
+.acc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem;margin-bottom:1rem}
+.acc-card h1,.acc-card h2{margin:0 0 .5rem;font-size:1.3rem}
+.acc-card p{color:var(--text-muted);line-height:1.7;margin:.2rem 0 1rem}
+.acc-field{display:block;margin-bottom:.9rem}
+.acc-field span{display:block;font-weight:600;margin-bottom:.35rem;font-size:.95rem}
+.acc-field input{width:100%;min-height:var(--tap);border:1px solid rgba(17,24,39,.16);border-radius:var(--radius-sm);padding:.6rem .8rem;font:inherit;background:#fff;color:var(--text)}
+.acc-field input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.acc-btn{display:block;width:100%;min-height:var(--tap);border:0;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font:inherit;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;line-height:var(--tap);padding:0 1rem}
+.acc-btn:hover{background:var(--accent-bright)}
+.acc-btn[disabled]{opacity:.6;cursor:wait}
+.acc-btn.ghost{background:var(--accent-tint);color:var(--accent);margin-top:.6rem}
+.acc-msg{min-height:1.4em;font-weight:600;margin:.6rem 0 0}
+.acc-msg.err{color:var(--danger)}
+.acc-msg.ok{color:var(--success)}
+.acc-hint{font-size:.85rem;color:var(--text-dim)}
+.acc-badge{display:inline-block;padding:.15rem .6rem;border-radius:var(--radius-pill);font-size:.85rem;font-weight:700}
+.acc-badge.ok{background:var(--success-soft);color:var(--success)}
+.acc-badge.no{background:var(--danger-soft);color:var(--danger)}
+.ts-widget{margin:.4rem 0 .9rem;min-height:65px}
+.forgot-link{display:block;text-align:center;margin:.7rem 0 0;color:var(--accent);font-weight:600;text-decoration:none;font-size:.95rem}
+[hidden]{display:none!important}

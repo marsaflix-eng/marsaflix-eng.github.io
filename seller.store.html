@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="css/checkout.css?v=20" />
   <link rel="stylesheet" href="css/anon.css?v=20" />
   <link rel="stylesheet" href="css/affiliate.css?v=20" /><link rel="stylesheet" href="css/elegance.css?v=33" />
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script><script src="js/turnstile.js?v=11" defer></script></head>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" defer></script><script src="js/turnstile.js?v=12" defer></script></head>
 <body>
   <header class="site-header">
     <div class="header-inner">
@@ -42,11 +42,13 @@
         <div class="aff-field"><label for="login-pin">كلمة المرور / PIN</label><input id="login-pin" type="password" maxlength="64" autocomplete="current-password" dir="ltr" /></div>
         <div class="cf-turnstile" id="seller-ts-login"></div>
         <button type="button" class="btn btn-primary" id="btn-login" style="width:100%;">دخول</button>
+        <a href="reset.html" style="display:block;text-align:center;margin-top:.7rem;font-weight:600;color:var(--accent);">نسيت كلمة السر؟</a>
       </div>
       <div id="panel-register" class="hidden">
         <div class="aff-field"><label for="reg-name">الاسم</label><input id="reg-name" type="text" maxlength="64" autocomplete="name" /></div>
         <div class="aff-field"><label for="reg-phone">رقم واتساب</label><input id="reg-phone" type="tel" inputmode="numeric" placeholder="222XXXXXXXX أو 8 أرقام" dir="ltr" autocomplete="tel" /></div>
-        <div class="aff-field"><label for="reg-pass">كلمة المرور (8 أحرف فأكثر)</label><input id="reg-pass" type="password" maxlength="64" autocomplete="new-password" dir="ltr" /></div>
+        <div class="aff-field"><label for="reg-pass">كلمة المرور (10 أحرف فأكثر مع حرف ورقم)</label><input id="reg-pass" type="password" maxlength="64" autocomplete="new-password" dir="ltr" /></div>
+        <div class="aff-field"><label for="reg-email">البريد الإلكتروني (اختياري — لاستعادة كلمة السر)</label><input id="reg-email" type="email" maxlength="254" autocomplete="email" dir="ltr" /></div>
         <div class="cf-turnstile" id="seller-ts-register"></div>
         <button type="button" class="btn btn-primary" id="btn-register" style="width:100%;">تسجيل ودخول</button>
         <p class="aff-sub" style="margin-top:.75rem;">الدخول فوري للمجهول. عمولة البيع تحتاج موافقة الإدارة لاحقًا. نفس الحساب يُستخدم في «رسالة من مجهول».</p>
@@ -66,6 +68,7 @@
         <p class="aff-sub">رمز الإحالة: <strong dir="ltr" id="dash-ref">—</strong></p>
         <div class="aff-stat"><span>المحفظة المتاحة</span><strong id="dash-wallet">0 MRU</strong></div>
         <a class="btn btn-primary" id="dash-anon" href="index.html#anon" style="width:100%;text-align:center;display:block;margin-bottom:.5rem;">رسالة من مجهول</a>
+        <a class="btn btn-ghost" href="account.html" style="width:100%;text-align:center;display:block;margin-bottom:.5rem;">إعدادات الحساب (البريد وكلمة السر)</a>
         <button type="button" class="btn btn-ghost" id="btn-logout" style="width:100%;">خروج</button>
       </div>
       <div class="aff-card">
@@ -85,6 +88,7 @@
   </main>
   <footer class="site-footer"><div class="footer-inner"><p>© Marça · بائع طرف ثالث</p></div></footer>
   <script src="js/config.js?v=10"></script>
+  <script src="js/register-email.js?v=1"></script>
   <script src="js/seller.js?v=13" defer></script>
 </body>
 </html>

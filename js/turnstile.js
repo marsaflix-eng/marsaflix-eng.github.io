@@ -38,6 +38,7 @@
     if (/\/v1\/auth\/login$/.test(u)) return visible("seller-ts-login") ? "seller-ts-login" : "anon-ts-login";
     if (/\/v1\/boxes$/.test(u)) return "anon-ts-create";
     if (/\/messages$/.test(u)) return "anon-ts-ask";
+    if (/\/v1\/auth\/forgot-password$/.test(u)) return "forgot-ts";
     if (/\/v1\/orders\/track$/.test(u)) return visible("track-ts-snap") ? "track-ts-snap" : "track-ts-gift";
     return null;
   }
@@ -70,7 +71,7 @@
     },
   };
   function scan() {
-    ["anon-ts-reg", "anon-ts-login", "anon-ts-create", "anon-ts-ask", "seller-ts-login", "seller-ts-register", "admin-ts-mirror", "track-ts-snap", "track-ts-gift"].forEach(function (id) {
+    ["anon-ts-reg", "anon-ts-login", "anon-ts-create", "anon-ts-ask", "seller-ts-login", "seller-ts-register", "admin-ts-mirror", "track-ts-snap", "track-ts-gift", "forgot-ts"].forEach(function (id) {
       if (visible(id)) render(id);
     });
   }
