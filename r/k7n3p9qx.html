@@ -1,61 +1,43 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="robots" content="noindex,nofollow,noarchive" />
-  <meta name="referrer" content="no-referrer" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://marca-affiliate.marsaflix.workers.dev https://marca-anon-inbox.marsaflix.workers.dev; form-action 'self'; base-uri 'self'; object-src 'none'" />
-  <meta name="theme-color" content="#0c0b09" />
-  <title>Marça</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" />
-  <link rel="icon" href="/assets/favicon.png" type="image/png" sizes="32x32" />
-  <link rel="stylesheet" href="/css/base.css?v=14" />
-  <link rel="stylesheet" href="/css/checkout.css?v=13" />
-  <link rel="stylesheet" href="/css/affiliate.css?v=10" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex,nofollow" />
+<meta name="referrer" content="no-referrer" />
+<meta name="theme-color" content="#5041D2" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'" />
+<title>صيانة — Marça</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@600;800&amp;family=Amiri:wght@700&amp;display=swap" />
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:"Red Hat Display",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;color:#1e1b4b;display:grid;place-items:center;padding:1.25rem;
+background:radial-gradient(60% 50% at 0% 100%,rgba(37,99,235,.14),transparent 70%),radial-gradient(55% 45% at 100% 0%,rgba(124,58,237,.16),transparent 70%),linear-gradient(135deg,#fff,#f5f3ff 50%,#eef2ff)}
+.card{width:min(100%,560px);background:rgba(255,255,255,.88);border:1px solid #e9e5ff;border-radius:28px;padding:2.6rem 2rem 2.2rem;text-align:center;box-shadow:0 24px 60px rgba(80,65,210,.14);backdrop-filter:blur(8px)}
+.brand{display:inline-flex;align-items:center;gap:.55rem;font-weight:800;font-size:1.35rem;letter-spacing:.01em;margin-bottom:1.6rem;direction:ltr}
+.brand img{width:40px;height:40px;border-radius:12px}
+.icon{width:84px;height:84px;margin:0 auto 1.3rem;border-radius:26px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#5041D2 55%,#2563eb);box-shadow:0 14px 30px rgba(80,65,210,.35)}
+.badge{display:inline-block;font-size:.8rem;font-weight:800;color:#5041D2;background:#f5f3ff;border:1px solid #e0dbff;border-radius:999px;padding:.3rem .9rem;margin-bottom:.9rem}
+h1{font-family:"Amiri",serif;font-size:clamp(2.3rem,7vw,3.2rem);line-height:1.2;background:linear-gradient(135deg,#7c3aed,#5041D2 50%,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.15em}
+p{color:#4b5563;font-size:1.05rem;line-height:1.85;font-weight:600;margin-top:.5rem}
+.bar{height:6px;border-radius:999px;background:#ede9fe;overflow:hidden;margin:1.7rem auto 0;width:70%}
+.bar span{display:block;height:100%;width:40%;border-radius:inherit;background:linear-gradient(90deg,#7c3aed,#2563eb);animation:m 1.6s ease-in-out infinite alternate}
+@keyframes m{from{transform:translateX(0)}to{transform:translateX(-150%)}}
+@media (prefers-reduced-motion:reduce){.bar span{animation:none;width:60%}}
+small{display:block;margin-top:1.6rem;color:#9ca3af;font-weight:600;font-size:.82rem}
+</style>
 </head>
 <body>
-  <main class="aff-wrap" style="padding:1.5rem 1.25rem 3rem;max-width:720px;">
-    <div class="aff-card" id="login-card">
-      <h2>دخول</h2>
-      <div class="aff-field"><label for="admin-pass">كلمة المرور</label><input id="admin-pass" type="password" autocomplete="current-password" maxlength="64" dir="ltr" /></div>
-      <button type="button" class="btn btn-primary" id="btn-admin-login" style="width:100%;">دخول</button>
-      <p class="aff-msg" id="login-msg" role="alert"></p>
-    </div>
-    <div id="admin-dash" class="hidden">
-      <div class="aff-card">
-        <h2>الرسائل خلال 24 ساعة</h2>
-        <p class="aff-msg" id="mod-msg">تُحمّل الرسائل من صندوق هذا المتصفح.</p>
-        <button type="button" class="btn btn-primary" id="mod-load" style="width:100%;">تحديث الرسائل</button>
-        <div id="mod-list" style="margin-top:1rem;"></div>
-      </div>
-      <div class="aff-card">
-        <h2>المحظورون</h2>
-        <div id="ban-list"></div>
-      </div>
-      <div class="aff-card">
-        <h2>إحصاءات</h2>
-        <pre id="stats" style="direction:ltr;text-align:left;font-size:.8rem;color:var(--text-muted);white-space:pre-wrap;"></pre>
-        <button type="button" class="btn btn-ghost" id="btn-refresh" style="width:100%;margin-top:.5rem;">تحديث</button>
-        <button type="button" class="btn btn-ghost" id="btn-admin-logout" style="width:100%;margin-top:.5rem;">خروج</button>
-      </div>
-      <div class="aff-card">
-        <h2>البائعون (معلّقون)</h2>
-        <ul class="aff-list" id="sellers-list"></ul>
-        <div id="setup-token-box" class="token-once hidden"></div>
-      </div>
-      <div class="aff-card">
-        <h2>طلبات معلّقة</h2>
-        <ul class="aff-list" id="orders-list"></ul>
-      </div>
-      <div class="aff-card">
-        <h2>عمولات بانتظار الموافقة</h2>
-        <ul class="aff-list" id="comms-list"></ul>
-      </div>
-    </div>
-  </main>
-  <script src="/js/config.js?v=12"></script>
-  <script src="/js/admin.js?v=17"></script>
-  <script src="/js/admin-anon.js?v=16"></script>
+<main class="card" role="main">
+<div class="brand"><img src="/assets/logo-mark.png" alt="" width="40" height="40" />Marça</div>
+<div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div>
+<span class="badge">الموقع تحت الصيانة</span>
+<h1>صيانة</h1>
+<p>نحدّث الموقع قريباً لنقدّم لك تجربة أفضل.<br />شكراً لصبرك — سنعود خلال وقت قصير.</p>
+<div class="bar" aria-hidden="true"><span></span></div>
+<small>© Marça</small>
+</main>
 </body>
 </html>

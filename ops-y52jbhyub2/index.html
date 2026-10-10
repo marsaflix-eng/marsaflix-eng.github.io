@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow,noarchive" />
+<meta name="referrer" content="no-referrer" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://marca-affiliate.marsaflix.workers.dev; base-uri 'none'; form-action 'none'" />
+<title>لوحة الإدارة — Marça</title>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;600;700;800&amp;display=swap" />
+<link rel="stylesheet" href="admin.css?v=1" />
+</head>
+<body>
+<section id="login" class="login">
+  <form class="login-card" id="login-form" autocomplete="off">
+    <div class="brand"><img src="/assets/logo-mark.png" alt="" width="40" height="40" /><span>Marça</span></div>
+    <h1>لوحة الإدارة</h1>
+    <p class="muted">أدخل كلمة مرور الإدارة للمتابعة</p>
+    <label for="pw">كلمة المرور</label>
+    <input id="pw" type="password" dir="ltr" autocomplete="current-password" required />
+    <button class="btn primary block" type="submit" id="login-btn">دخول</button>
+    <p class="err" id="login-err" role="alert"></p>
+  </form>
+</section>
+
+<div id="app" class="app" hidden>
+  <aside class="side" id="side">
+    <div class="brand"><img src="/assets/logo-mark.png" alt="" width="34" height="34" /><span>Marça</span><small>Admin</small></div>
+    <nav id="nav">
+      <button data-tab="overview" class="on"><i>◎</i>نظرة عامة</button>
+      <button data-tab="sellers"><i>☺</i>البائعون</button>
+      <button data-tab="orders"><i>▤</i>الطلبات</button>
+      <button data-tab="commissions"><i>%</i>العمولات</button>
+      <button data-tab="wallet"><i>◈</i>المحافظ</button>
+      <button data-tab="anon"><i>✉</i>رسائل مجهولة</button>
+      <button data-tab="catalog"><i>▦</i>الكتالوج</button>
+    </nav>
+    <button class="btn ghost block" id="logout">تسجيل الخروج</button>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <button class="icon-btn" id="menu" aria-label="القائمة">☰</button>
+      <h2 id="title">نظرة عامة</h2>
+      <span class="muted" id="updated"></span>
+      <button class="btn ghost sm" id="refresh">تحديث ↻</button>
+    </header>
+    <div id="view" class="view"></div>
+  </main>
+</div>
+
+<div class="modal" id="modal" hidden><div class="modal-card" role="dialog" aria-modal="true"><div id="modal-body"></div><div class="modal-actions"><button class="btn ghost" id="modal-close">إغلاق</button></div></div></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script src="admin.js?v=1"></script>
+</body>
+</html>

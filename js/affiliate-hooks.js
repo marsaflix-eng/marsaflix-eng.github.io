@@ -48,3 +48,27 @@
   s.setAttribute('data-button-fix','1');
   (document.body||document.documentElement).appendChild(s);
 })();
+
+/* Gift-card order tracking (catalog flow → #itunes-wa). Reads the prepared WhatsApp text; fire-and-forget. */
+(function () {
+  "use strict";
+  var AR = "٠١٢٣٤٥٦٧٨٩";
+  function digits(s) { return String(s || "").replace(/[٠-٩]/g, function (d) { return AR.indexOf(d); }).replace(/[^\d.]/g, ""); }
+  function line(t, label) { var m = t.match(new RegExp("• " + label + ": ([^\\n]+)")); return m ? m[1].trim() : ""; }
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("#itunes-wa") : null;
+    if (!a || a.getAttribute("aria-disabled") === "true" || !window.MarcaAffiliate || !window.MarcaAffiliate.trackOrder) return;
+    if (a._tracked === a.getAttribute("href")) return;
+    try {
+      var t = new URL(a.getAttribute("href")).searchParams.get("text") || "";
+      var prod = line(t, "المنتج"), reg = line(t, "المنطقة"), denom = line(t, "الفئة"), price = line(t, "السعر");
+      var brand = prod.replace(/\s*\(.*\)\s*$/, "");
+      var country = (reg.match(/\(([^)]+)\)\s*$/) || [])[1] || reg;
+      var p = Number(digits(price.split(/[–-]/)[0]));
+      if (brand && country && denom && p > 0) {
+        a._tracked = a.getAttribute("href");
+        window.MarcaAffiliate.trackOrder({ kind: "gift", brand: brand, country: country, denom: denom, price_mru: p });
+      }
+    } catch (err) {}
+  }, true);
+})();
